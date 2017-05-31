@@ -5,6 +5,8 @@
  */
 package InterfazGrafica;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 /**
  *
  * @author molin
@@ -19,6 +21,12 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    @Override
+    public Image getIconImage()
+    {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/infopago.png"));
+        return retValue;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +46,8 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
+        setIconImages(getIconImages());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
