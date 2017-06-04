@@ -87,6 +87,7 @@ public class IPrincipal extends javax.swing.JFrame {
         lblVestimenta = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel1.setText("Gestor de Facturas ");
 

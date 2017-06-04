@@ -70,10 +70,10 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/epnLogo.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 80, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Portada1_opt.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
 
         btnContinuar.setBackground(new java.awt.Color(89, 199, 198));
         btnContinuar.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
@@ -108,13 +108,27 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         btnSalir.setBackground(new java.awt.Color(89, 199, 198));
         btnSalir.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalir.setText("Salir");
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Close Window_32px.png"))); // NOI18N
+        btnSalir.setOpaque(false);
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setBorderPainted(false);
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSalirMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalirMouseExited(evt);
+            }
+        });
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 70, 30));
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 30, 30));
 
         focoE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lampara,bombillo de luz,light (3)_opt.png"))); // NOI18N
         focoE.setVisible(false);
@@ -130,7 +144,7 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         getContentPane().add(lblContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo1.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 641, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -188,6 +202,27 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         Point point = MouseInfo.getPointerInfo().getLocation();
         setLocation(point.x - x, point.y - y);
     }//GEN-LAST:event_JFrameDragged
+
+    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirMouseClicked
+
+    private void btnSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseEntered
+        // TODO add your handling code here:
+        btnSalir.setOpaque(true);
+        btnSalir.setContentAreaFilled(true);
+        btnSalir.setBorderPainted(false);
+        btnSalir.setBackground(new java.awt.Color(254, 132, 132));
+    }//GEN-LAST:event_btnSalirMouseEntered
+
+    private void btnSalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseExited
+        // TODO add your handling code here:
+        btnSalir.setOpaque(false);
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setBorderPainted(false);
+        btnSalir.setBackground(new java.awt.Color(89, 199, 198));
+    }//GEN-LAST:event_btnSalirMouseExited
 
     /**
      * @param args the command line arguments
