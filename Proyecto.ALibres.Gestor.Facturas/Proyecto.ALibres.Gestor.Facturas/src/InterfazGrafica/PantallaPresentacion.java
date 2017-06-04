@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 /**
  *
  * @author molin
@@ -140,7 +142,9 @@ public class PantallaPresentacion extends javax.swing.JFrame {
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         // TODO add your handling code here:
-        PantallaLogin log = new PantallaLogin();
+        //JPanel p = new JPanel();
+       
+        Login log = new Login();
         //IPrincipal p = new IPrincipal();
         this.setVisible(false);
         log.setVisible(true);

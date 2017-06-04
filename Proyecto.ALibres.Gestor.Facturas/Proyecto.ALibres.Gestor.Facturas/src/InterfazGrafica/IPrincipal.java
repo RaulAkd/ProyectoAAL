@@ -8,6 +8,8 @@ package InterfazGrafica;
 import LectorXML.ConvertirXML;
 import LectorXML.LectorXml;
 import Pojos.Producto;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileReader;
 import javax.swing.JFileChooser;
@@ -27,6 +29,10 @@ public class IPrincipal extends javax.swing.JFrame {
      */
     public IPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/infopago.png"));
+        setIconImage(retValue);
+        setVisible(true);
     }
 
     /**

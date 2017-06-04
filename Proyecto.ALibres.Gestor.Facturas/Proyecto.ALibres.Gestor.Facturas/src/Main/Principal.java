@@ -9,6 +9,8 @@ import InterfazGrafica.IPrincipal;
 import InterfazGrafica.PantallaPresentacion;
 import LectorXML.ConvertirXML;
 import LectorXML.LectorXml;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -41,4 +43,5 @@ public class Principal {
         //p.setVisible(true);
     }
     
+   
 }
