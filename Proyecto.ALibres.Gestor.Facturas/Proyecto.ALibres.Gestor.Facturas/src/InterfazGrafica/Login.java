@@ -324,9 +324,11 @@ public class Login extends javax.swing.JFrame {
 
     private void btnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseClicked
         // TODO add your handling code here:
-        IPrincipal pGestor = new IPrincipal();
+        //IPrincipal pGestor = new IPrincipal();
+        PantallaGestor pg = new PantallaGestor();
         this.setVisible(false);
-        pGestor.setVisible(true);
+        //pGestor.setVisible(true);
+        pg.setVisible(true);
     }//GEN-LAST:event_btnEntrarMouseClicked
                                  
 
