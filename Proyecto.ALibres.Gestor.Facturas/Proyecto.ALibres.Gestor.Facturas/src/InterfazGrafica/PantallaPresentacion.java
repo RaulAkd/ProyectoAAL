@@ -6,6 +6,8 @@
 package InterfazGrafica;
 
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Toolkit;
 /**
  *
@@ -16,6 +18,7 @@ public class PantallaPresentacion extends javax.swing.JFrame {
     /**
      * Creates new form PantallaPresentacion
      */
+    private int x, y;
     public PantallaPresentacion() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -49,6 +52,19 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         setIconImage(getIconImage());
         setIconImages(getIconImages());
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                JFrameDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                frameMousePresed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                frameMouseReleased(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/epnLogo.png"))); // NOI18N
@@ -57,13 +73,16 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Portada1_opt.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
-        btnContinuar.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.disabledForeground"));
+        btnContinuar.setBackground(new java.awt.Color(89, 199, 198));
         btnContinuar.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        btnContinuar.setForeground(new java.awt.Color(255, 255, 255));
-        btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/continuar2_opt.png"))); // NOI18N
+        btnContinuar.setForeground(new java.awt.Color(89, 199, 198));
+        btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Forward_32px_1.png"))); // NOI18N
+        btnContinuar.setToolTipText("");
+        btnContinuar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(89, 199, 198), 1, true));
+        btnContinuar.setMargin(new java.awt.Insets(89, 199, 198, 198));
         btnContinuar.setOpaque(false);
         btnContinuar.setContentAreaFilled(false);
-        btnContinuar.setBorderPainted(false);
+        btnContinuar.setBorderPainted(true);
         btnContinuar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 btnContinuarMouseMoved(evt);
@@ -84,7 +103,7 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         });
         getContentPane().add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 380, 70, 60));
 
-        btnSalir.setBackground(new java.awt.Color(0, 0, 102));
+        btnSalir.setBackground(new java.awt.Color(89, 199, 198));
         btnSalir.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("Salir");
@@ -103,7 +122,7 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         getContentPane().add(focoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
 
         lblContinuar.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        lblContinuar.setForeground(new java.awt.Color(102, 255, 255));
+        lblContinuar.setForeground(new java.awt.Color(89, 199, 198));
         lblContinuar.setText("Continuar");
         lblContinuar.setVisible(false);
         getContentPane().add(lblContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, -1, -1));
@@ -121,9 +140,11 @@ public class PantallaPresentacion extends javax.swing.JFrame {
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         // TODO add your handling code here:
-        IPrincipal p = new IPrincipal();
+        PantallaLogin log = new PantallaLogin();
+        //IPrincipal p = new IPrincipal();
         this.setVisible(false);
-        p.setVisible(true);
+        log.setVisible(true);
+        //p.setVisible(true);
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnContinuarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinuarMouseMoved
@@ -145,6 +166,24 @@ public class PantallaPresentacion extends javax.swing.JFrame {
         focoA.setVisible(true);
         lblContinuar.setVisible(false);
     }//GEN-LAST:event_btnContinuarMouseExited
+
+    private void frameMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameMouseReleased
+        // TODO add your handling code here:
+        setOpacity((float)1.0);
+    }//GEN-LAST:event_frameMouseReleased
+
+    private void frameMousePresed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameMousePresed
+        // TODO add your handling code here:
+        setOpacity((float)0.8);
+        x=evt.getX();
+        y=evt.getY();
+    }//GEN-LAST:event_frameMousePresed
+
+    private void JFrameDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JFrameDragged
+        // TODO add your handling code here:
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        setLocation(point.x - x, point.y - y);
+    }//GEN-LAST:event_JFrameDragged
 
     /**
      * @param args the command line arguments
