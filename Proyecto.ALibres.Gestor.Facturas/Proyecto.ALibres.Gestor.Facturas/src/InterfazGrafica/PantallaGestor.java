@@ -45,9 +45,12 @@ public class PantallaGestor extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
+        btnSalir = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(36, 46, 68));
@@ -123,20 +126,95 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         PanelMostrar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 520, 40));
 
-        jButton1.setText("jButton1");
-        PanelMostrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 420, -1, -1));
+        btnSalir.setBackground(new java.awt.Color(36, 46, 68));
+        btnSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(204, 204, 204));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cancel_32px.png"))); // NOI18N
+        btnSalir.setText("  Salir  ");
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSalirMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalirMouseExited(evt);
+            }
+        });
+        PanelMostrar.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 120, -1));
 
-        jButton2.setText("jButton1");
-        PanelMostrar.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, -1, -1));
+        btnGuardar.setBackground(new java.awt.Color(36, 46, 68));
+        btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(204, 204, 204));
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save_32px.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseExited(evt);
+            }
+        });
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        PanelMostrar.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, 120, -1));
 
-        jButton3.setText("jButton1");
-        PanelMostrar.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, -1, -1));
+        btnModificar.setBackground(new java.awt.Color(36, 46, 68));
+        btnModificar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnModificar.setForeground(new java.awt.Color(204, 204, 204));
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Edit_32px.png"))); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnModificarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnModificarMouseExited(evt);
+            }
+        });
+        PanelMostrar.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, -1, -1));
+
+        jLabel1.setBackground(new java.awt.Color(36, 46, 68));
+        jLabel1.setFont(new java.awt.Font("Microsoft Tai Le", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Buscar");
+        PanelMostrar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(36, 46, 68));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Search_32px.png"))); // NOI18N
+        PanelMostrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
+
+        jLabel2.setBackground(new java.awt.Color(36, 46, 68));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(109, 115, 130));
+        jLabel2.setText("Reporte");
+        PanelMostrar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, 20));
 
         getContentPane().add(PanelMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 490));
         PanelMostrar.setBackground(new Color(0,0,0,10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseExited
+        // TODO add your handling code here:
+        lblRegresar.setForeground(new Color(204, 204, 204));
+
+    }//GEN-LAST:event_btnCerrarMouseExited
+
+    private void btnCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseEntered
+        // TODO add your handling code here:
+        lblRegresar.setForeground(Color.white);
+    }//GEN-LAST:event_btnCerrarMouseEntered
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         // TODO add your handling code here:
@@ -145,20 +223,51 @@ public class PantallaGestor extends javax.swing.JFrame {
         log.setVisible(true);
     }//GEN-LAST:event_btnCerrarMouseClicked
 
-    private void btnCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseEntered
+    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
         // TODO add your handling code here:
-        lblRegresar.setForeground(Color.white);
-    }//GEN-LAST:event_btnCerrarMouseEntered
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirMouseClicked
 
-    private void btnCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseExited
+    private void btnSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseEntered
         // TODO add your handling code here:
-        lblRegresar.setForeground(new Color(204, 204, 204));
+        btnSalir.setForeground(Color.white);
+        btnSalir.setBackground(new Color(89, 199, 198));
+    }//GEN-LAST:event_btnSalirMouseEntered
+
+    private void btnSalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseExited
+        // TODO add your handling code here:
+        btnSalir.setForeground(new Color(204,204,204));
+        btnSalir.setBackground(new Color(36, 46, 68));
+    }//GEN-LAST:event_btnSalirMouseExited
+
+    private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
+        // TODO add your handling code here:
+        btnGuardar.setForeground(Color.white);
+        btnGuardar.setBackground(new Color(89, 199, 198));
+    }//GEN-LAST:event_btnGuardarMouseEntered
+
+    private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseExited
+        // TODO add your handling code here:
+        btnGuardar.setForeground(new Color(204,204,204));
+        btnGuardar.setBackground(new Color(36, 46, 68));
+    }//GEN-LAST:event_btnGuardarMouseExited
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
         
-    }//GEN-LAST:event_btnCerrarMouseExited
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+    private void btnModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarActionPerformed
+        btnModificar.setForeground(Color.white);
+        btnModificar.setBackground(new Color(89, 199, 198));
+    }//GEN-LAST:event_btnModificarMouseEntered
+
+    private void btnModificarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseExited
+        // TODO add your handling code here:
+        btnModificar.setForeground(new Color(204,204,204));
+        btnModificar.setBackground(new Color(36, 46, 68));
+    }//GEN-LAST:event_btnModificarMouseExited
 
     /**
      * @param args the command line arguments
@@ -198,9 +307,12 @@ public class PantallaGestor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelMostrar;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
