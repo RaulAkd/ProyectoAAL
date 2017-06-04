@@ -44,13 +44,18 @@ public class PantallaGestor extends javax.swing.JFrame {
         lblRegresar = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel3 = new javax.swing.JPanel();
         btnSalir = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblReporte = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(36, 46, 68));
@@ -103,28 +108,15 @@ public class PantallaGestor extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         PanelMostrar.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 30, 360));
         PanelMostrar.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 520, 210));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-
-        PanelMostrar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 520, 40));
 
         btnSalir.setBackground(new java.awt.Color(36, 46, 68));
         btnSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -179,24 +171,54 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         PanelMostrar.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, -1, -1));
 
-        jLabel1.setBackground(new java.awt.Color(36, 46, 68));
-        jLabel1.setFont(new java.awt.Font("Microsoft Tai Le", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Buscar");
-        PanelMostrar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, -1));
+        lblReporte.setBackground(new java.awt.Color(36, 46, 68));
+        lblReporte.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
+        lblReporte.setForeground(new java.awt.Color(109, 115, 130));
+        lblReporte.setText("Reporte");
+        lblReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblReporteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblReporteMouseExited(evt);
+            }
+        });
+        PanelMostrar.add(lblReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 170, 60));
+
+        lblBuscar.setBackground(new java.awt.Color(36, 46, 68));
+        lblBuscar.setFont(new java.awt.Font("Microsoft Tai Le", 0, 36)); // NOI18N
+        lblBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        lblBuscar.setText("Buscar");
+        PanelMostrar.add(lblBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 130, 70));
 
         jButton1.setBackground(new java.awt.Color(36, 46, 68));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Search_32px.png"))); // NOI18N
-        PanelMostrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        PanelMostrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, -1, -1));
 
-        jLabel2.setBackground(new java.awt.Color(36, 46, 68));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(109, 115, 130));
-        jLabel2.setText("Reporte");
-        PanelMostrar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, 20));
+        jButton2.setText("jButton2");
+        PanelMostrar.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, -1, -1));
+
+        jButton3.setText("jButton3");
+        PanelMostrar.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, -1, -1));
+
+        jButton4.setText("jButton4");
+        PanelMostrar.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
+
+        jButton5.setText("jButton5");
+        PanelMostrar.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
+
+        jButton6.setText("jButton6");
+        PanelMostrar.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 360, -1, -1));
+
+        jButton7.setText("jButton7");
+        PanelMostrar.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, -1, -1));
 
         getContentPane().add(PanelMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 490));
-        PanelMostrar.setBackground(new Color(0,0,0,10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -269,6 +291,28 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnModificar.setBackground(new Color(36, 46, 68));
     }//GEN-LAST:event_btnModificarMouseExited
 
+    private void lblReporteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporteMouseEntered
+        // TODO add your handling code here:
+        lblReporte.setBackground(new Color(36, 46, 68));
+        lblReporte.setForeground(Color.white);
+        lblBuscar.setBackground(new Color(36, 46, 68));
+        lblBuscar.setForeground(new Color(109, 115, 130));
+        
+    }//GEN-LAST:event_lblReporteMouseEntered
+
+    private void lblReporteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporteMouseExited
+        // TODO add your handling code here:
+        lblBuscar.setBackground(new Color(36, 46, 68));
+        lblBuscar.setForeground(Color.white);
+        lblReporte.setBackground(new Color(36, 46, 68));
+        lblReporte.setForeground(new Color(109, 115, 130));
+        
+    }//GEN-LAST:event_lblReporteMouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -311,15 +355,20 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblRegresar;
+    private javax.swing.JLabel lblReporte;
     // End of variables declaration//GEN-END:variables
 }
