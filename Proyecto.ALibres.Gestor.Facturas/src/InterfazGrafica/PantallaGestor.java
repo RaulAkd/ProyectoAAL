@@ -240,11 +240,11 @@ public class PantallaGestor extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nombre:");
         PanelProveedor.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
-        PanelProveedor.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 180, -1));
+        PanelProveedor.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 180, 10));
 
         txtNombreProveedor.setBackground(new java.awt.Color(89, 199, 198));
         txtNombreProveedor.setBorder(null);
-        PanelProveedor.add(txtNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 180, -1));
+        PanelProveedor.add(txtNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 180, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
