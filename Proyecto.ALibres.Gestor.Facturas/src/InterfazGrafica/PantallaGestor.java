@@ -758,8 +758,8 @@ public class PantallaGestor extends javax.swing.JFrame {
                 txtRuc.setText(leerXml.getCliente().getRucCi());
                 txtRucProveedor.setText(leerXml.getProveedor().getRuc());
                 txtFecha.setText(leerXml.getFactura().getFecha());
-                txtTotalSinIva.setText(Double.toString(leerXml.getFactura().getTotalSinIva()));
-                txtTotalFactura.setText(Double.toString(leerXml.getFactura().getTotalConIva()));
+                //txtTotalSinIva.setText(Double.toString(leerXml.getFactura().getTotalSinIva()));
+                //txtTotalFactura.setText(Double.toString(leerXml.getFactura().getTotalConIva()));
                 txtTotalAlimentacion.setText(Double.toString(leerXml.getFactura().getListaGastos().get(1).getTotalSinIva()));
                 txtTotalVestido.setText(Double.toString(leerXml.getFactura().getListaGastos().get(0).getTotalSinIva()));
                 txtTotalSalud.setText(Double.toString(leerXml.getFactura().getListaGastos().get(2).getTotalSinIva()));
