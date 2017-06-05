@@ -37,12 +37,56 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         PanelMostrar = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        lblImagen = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
+        lblImagenPanel = new javax.swing.JLabel();
+        separador1 = new javax.swing.JSeparator();
+        separador2 = new javax.swing.JSeparator();
         btnCerrar = new javax.swing.JButton();
         lblRegresar = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        panelFactura = new javax.swing.JPanel();
+        lblFactura = new javax.swing.JLabel();
+        lblCodigo = new javax.swing.JLabel();
+        separador6 = new javax.swing.JSeparator();
+        txtCodigoFactura = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        txtFecha = new javax.swing.JTextField();
+        lblTotalSinIva = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        txtTotalSinIva = new javax.swing.JTextField();
+        lblIva = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        txtIva = new javax.swing.JTextField();
+        lblTotalFactura = new javax.swing.JLabel();
+        jSeparator9 = new javax.swing.JSeparator();
+        txtTotalFactura = new javax.swing.JTextField();
+        PanelProveedor = new javax.swing.JPanel();
+        lblProveedor = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        separador3 = new javax.swing.JSeparator();
+        txtNombreProveedor = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        txtRucProveedor = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        txtDireccion = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        txtCiudad = new javax.swing.JTextField();
+        panelCliente = new javax.swing.JPanel();
+        lblCliente = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblRuc = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        txtNombreCliente = new javax.swing.JTextField();
+        txtRuc = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
+        btnCliente = new javax.swing.JButton();
+        btnProveedor = new javax.swing.JButton();
+        btnFactura = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         btnSalir = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -50,12 +94,23 @@ public class PantallaGestor extends javax.swing.JFrame {
         lblReporte = new javax.swing.JLabel();
         lblBuscar = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnAlimentacion = new javax.swing.JButton();
+        btnVestido = new javax.swing.JButton();
+        btnSalud = new javax.swing.JButton();
+        btnEducacion = new javax.swing.JButton();
+        btnVivienda = new javax.swing.JButton();
+        btnOtros = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(36, 46, 68));
@@ -68,10 +123,10 @@ public class PantallaGestor extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(89, 199, 198));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Shopping Cart_104px.png"))); // NOI18N
-        jPanel2.add(lblImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 120, 10));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 120, 10));
+        lblImagenPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Shopping Cart_104px.png"))); // NOI18N
+        jPanel2.add(lblImagenPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        jPanel2.add(separador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 120, 10));
+        jPanel2.add(separador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 120, 10));
 
         btnCerrar.setBackground(new java.awt.Color(89, 199, 198));
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Back_64px.png"))); // NOI18N
@@ -100,22 +155,214 @@ public class PantallaGestor extends javax.swing.JFrame {
         lblRegresar.setText("Regresar");
         jPanel2.add(lblRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
-        PanelMostrar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 490));
+        jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelFactura.setBackground(new java.awt.Color(89, 199, 198));
+        panelFactura.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblFactura.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblFactura.setForeground(new java.awt.Color(255, 255, 255));
+        lblFactura.setText("Datos Factura");
+        panelFactura.add(lblFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblCodigo.setForeground(new java.awt.Color(255, 255, 255));
+        lblCodigo.setText("Codigo:");
+        panelFactura.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        panelFactura.add(separador6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 170, -1));
+
+        txtCodigoFactura.setBackground(new java.awt.Color(89, 199, 198));
+        txtCodigoFactura.setBorder(null);
+        panelFactura.add(txtCodigoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 170, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Fecha:");
+        panelFactura.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+        panelFactura.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 170, 10));
+
+        txtFecha.setBackground(new java.awt.Color(89, 199, 198));
+        txtFecha.setBorder(null);
+        panelFactura.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 170, -1));
+
+        lblTotalSinIva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTotalSinIva.setForeground(new java.awt.Color(255, 255, 255));
+        lblTotalSinIva.setText("Total sin IVA:");
+        panelFactura.add(lblTotalSinIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+        panelFactura.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 170, -1));
+
+        txtTotalSinIva.setBackground(new java.awt.Color(89, 199, 198));
+        txtTotalSinIva.setBorder(null);
+        panelFactura.add(txtTotalSinIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 170, -1));
+
+        lblIva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblIva.setForeground(new java.awt.Color(255, 255, 255));
+        lblIva.setText("IVA:");
+        panelFactura.add(lblIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        panelFactura.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 170, -1));
+
+        txtIva.setBackground(new java.awt.Color(89, 199, 198));
+        txtIva.setBorder(null);
+        panelFactura.add(txtIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 170, -1));
+
+        lblTotalFactura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTotalFactura.setForeground(new java.awt.Color(255, 255, 255));
+        lblTotalFactura.setText("Total Factura:");
+        panelFactura.add(lblTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+        panelFactura.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 170, -1));
+
+        txtTotalFactura.setBackground(new java.awt.Color(89, 199, 198));
+        txtTotalFactura.setBorder(null);
+        panelFactura.add(txtTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 170, -1));
+
+        jLayeredPane1.add(panelFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 340));
+        panelFactura.setVisible(false);
+
+        PanelProveedor.setBackground(new java.awt.Color(89, 199, 198));
+        PanelProveedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblProveedor.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblProveedor.setForeground(new java.awt.Color(255, 255, 255));
+        lblProveedor.setText("Proveedor");
+        PanelProveedor.add(lblProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Nombre:");
+        PanelProveedor.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        PanelProveedor.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 180, -1));
+
+        txtNombreProveedor.setBackground(new java.awt.Color(89, 199, 198));
+        txtNombreProveedor.setBorder(null);
+        PanelProveedor.add(txtNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 180, -1));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Ruc:");
+        PanelProveedor.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        PanelProveedor.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 180, -1));
+
+        txtRucProveedor.setBackground(new java.awt.Color(89, 199, 198));
+        txtRucProveedor.setBorder(null);
+        PanelProveedor.add(txtRucProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 180, 20));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Direccion:");
+        PanelProveedor.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
+        PanelProveedor.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 180, 10));
+
+        txtDireccion.setBackground(new java.awt.Color(89, 199, 198));
+        txtDireccion.setBorder(null);
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDireccionActionPerformed(evt);
+            }
+        });
+        PanelProveedor.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 180, 20));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Ciudad:");
+        PanelProveedor.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
+        PanelProveedor.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 262, 180, 10));
+
+        txtCiudad.setBackground(new java.awt.Color(89, 199, 198));
+        txtCiudad.setBorder(null);
+        PanelProveedor.add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 180, 20));
+
+        jLayeredPane1.add(PanelProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 200, 320));
+        PanelProveedor.setVisible(false);
+
+        panelCliente.setBackground(new java.awt.Color(89, 199, 198));
+        panelCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblCliente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblCliente.setForeground(new java.awt.Color(255, 255, 255));
+        lblCliente.setText("Cliente");
+        panelCliente.add(lblCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+
+        lblNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombre.setText("Nombres y Apellidos:");
+        panelCliente.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        lblRuc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblRuc.setForeground(new java.awt.Color(255, 255, 255));
+        lblRuc.setText("Ruc-CI:");
+        panelCliente.add(lblRuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        panelCliente.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 180, -1));
+        panelCliente.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 180, -1));
+
+        txtNombreCliente.setBackground(new java.awt.Color(89, 199, 198));
+        txtNombreCliente.setBorder(null);
+        txtNombreCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreClienteActionPerformed(evt);
+            }
+        });
+        panelCliente.add(txtNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 180, -1));
+
+        txtRuc.setBackground(new java.awt.Color(89, 199, 198));
+        txtRuc.setBorder(null);
+        panelCliente.add(txtRuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, -1));
+
+        jLayeredPane1.add(panelCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 330));
+        panelCliente.setVisible(false);
+
+        jPanel2.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, -1, -1));
+
+        PanelMostrar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 590));
 
         jPanel1.setBackground(new java.awt.Color(12, 15, 22));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        btnCliente.setBackground(new java.awt.Color(12, 15, 22));
+        btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Circled User Male_32px.png"))); // NOI18N
+        btnCliente.setBorder(null);
+        btnCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnClienteMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 40, 40));
 
-        PanelMostrar.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 30, 360));
+        btnProveedor.setBackground(new java.awt.Color(12, 15, 22));
+        btnProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Move by Trolley_32px.png"))); // NOI18N
+        btnProveedor.setBorder(null);
+        btnProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnProveedorMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 40, -1));
+
+        btnFactura.setBackground(new java.awt.Color(12, 15, 22));
+        btnFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Purchase Order_32px.png"))); // NOI18N
+        btnFactura.setBorder(null);
+        btnFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFacturaMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 283, 40, 40));
+
+        btnVolver.setBackground(new java.awt.Color(12, 15, 22));
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Forward_32px_1.png"))); // NOI18N
+        btnVolver.setBorder(null);
+        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVolverMouseClicked(evt);
+            }
+        });
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 40, 40));
+
+        PanelMostrar.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 40, 590));
         PanelMostrar.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 520, 210));
 
         btnSalir.setBackground(new java.awt.Color(36, 46, 68));
@@ -134,7 +381,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                 btnSalirMouseExited(evt);
             }
         });
-        PanelMostrar.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 120, -1));
+        PanelMostrar.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 520, 120, -1));
 
         btnGuardar.setBackground(new java.awt.Color(36, 46, 68));
         btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -154,7 +401,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        PanelMostrar.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, 120, -1));
+        PanelMostrar.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 120, -1));
 
         btnModificar.setBackground(new java.awt.Color(36, 46, 68));
         btnModificar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -169,7 +416,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                 btnModificarMouseExited(evt);
             }
         });
-        PanelMostrar.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, -1, -1));
+        PanelMostrar.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, -1, -1));
 
         lblReporte.setBackground(new java.awt.Color(36, 46, 68));
         lblReporte.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
@@ -200,25 +447,116 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         PanelMostrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, -1, -1));
 
-        jButton2.setText("jButton2");
-        PanelMostrar.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, -1, -1));
+        btnAlimentacion.setBackground(new java.awt.Color(107, 116, 147));
+        btnAlimentacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Restaurant_32px.png"))); // NOI18N
+        PanelMostrar.add(btnAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, -1, -1));
 
-        jButton3.setText("jButton3");
-        PanelMostrar.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, -1, -1));
+        btnVestido.setBackground(new java.awt.Color(107, 116, 147));
+        btnVestido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Clothes_32px.png"))); // NOI18N
+        PanelMostrar.add(btnVestido, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, -1, -1));
 
-        jButton4.setText("jButton4");
-        PanelMostrar.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
+        btnSalud.setBackground(new java.awt.Color(107, 116, 147));
+        btnSalud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Doctors Bag_32px.png"))); // NOI18N
+        PanelMostrar.add(btnSalud, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
 
-        jButton5.setText("jButton5");
-        PanelMostrar.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
+        btnEducacion.setBackground(new java.awt.Color(107, 116, 147));
+        btnEducacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Literature_32px.png"))); // NOI18N
+        PanelMostrar.add(btnEducacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
 
-        jButton6.setText("jButton6");
-        PanelMostrar.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 360, -1, -1));
+        btnVivienda.setBackground(new java.awt.Color(107, 116, 147));
+        btnVivienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Home_32px.png"))); // NOI18N
+        btnVivienda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViviendaActionPerformed(evt);
+            }
+        });
+        PanelMostrar.add(btnVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 360, -1, -1));
 
-        jButton7.setText("jButton7");
-        PanelMostrar.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, -1, -1));
+        btnOtros.setBackground(new java.awt.Color(107, 116, 147));
+        btnOtros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ok_32px.png"))); // NOI18N
+        PanelMostrar.add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, -1, -1));
 
-        getContentPane().add(PanelMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 490));
+        jTextField1.setBackground(new java.awt.Color(36, 46, 68));
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.setText("$ 0.00");
+        jTextField1.setBorder(null);
+        PanelMostrar.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 50, -1));
+
+        jTextField2.setBackground(new java.awt.Color(36, 46, 68));
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField2.setText("$ 0.00");
+        jTextField2.setBorder(null);
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        PanelMostrar.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 410, -1, -1));
+
+        jTextField3.setBackground(new java.awt.Color(36, 46, 68));
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField3.setText("$ 0.00");
+        jTextField3.setBorder(null);
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        PanelMostrar.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
+
+        jTextField4.setBackground(new java.awt.Color(36, 46, 68));
+        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField4.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField4.setText("$ 0.00");
+        jTextField4.setBorder(null);
+        PanelMostrar.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 410, -1, -1));
+
+        jTextField5.setBackground(new java.awt.Color(36, 46, 68));
+        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField5.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField5.setText("$ 0.00");
+        jTextField5.setBorder(null);
+        PanelMostrar.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 410, -1, -1));
+
+        jTextField6.setBackground(new java.awt.Color(36, 46, 68));
+        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField6.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField6.setText("$ 0.00");
+        jTextField6.setBorder(null);
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
+        PanelMostrar.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(26, 29, 40));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(109, 115, 130));
+        jLabel1.setText("Total sin IVA: ");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
+
+        jTextField7.setBackground(new java.awt.Color(26, 29, 40));
+        jTextField7.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 90, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(109, 115, 130));
+        jLabel2.setText("Total Factura:");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
+
+        jTextField8.setBackground(new java.awt.Color(26, 29, 40));
+        jTextField8.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 100, -1));
+
+        PanelMostrar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 570, 40));
+
+        getContentPane().add(PanelMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -313,6 +651,76 @@ public class PantallaGestor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnViviendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViviendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnViviendaActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void btnClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClienteMouseClicked
+        // TODO add your handling code here:
+        lblImagenPanel.setVisible(false);
+        separador1.setVisible(false);
+        separador2.setVisible(false);
+        panelCliente.setVisible(true);
+        PanelProveedor.setVisible(false);
+        panelFactura.setVisible(false);
+        
+    }//GEN-LAST:event_btnClienteMouseClicked
+
+    private void txtNombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreClienteActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseClicked
+        // TODO add your handling code here:
+        lblImagenPanel.setVisible(true);
+        separador1.setVisible(true);
+        separador2.setVisible(true);
+        panelCliente.setVisible(false);
+        PanelProveedor.setVisible(false);
+        panelFactura.setVisible(false);
+    }//GEN-LAST:event_btnVolverMouseClicked
+
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionActionPerformed
+
+    private void btnProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProveedorMouseClicked
+        // TODO add your handling code here:
+        lblImagenPanel.setVisible(false);
+        separador1.setVisible(false);
+        separador2.setVisible(false);
+        PanelProveedor.setVisible(true);
+        panelFactura.setVisible(false);
+        panelCliente.setVisible(false);
+        
+    }//GEN-LAST:event_btnProveedorMouseClicked
+
+    private void btnFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFacturaMouseClicked
+        // TODO add your handling code here:
+        lblImagenPanel.setVisible(false);
+        separador1.setVisible(false);
+        separador2.setVisible(false);
+        panelFactura.setVisible(true);
+        panelCliente.setVisible(false);
+        PanelProveedor.setVisible(false);
+    }//GEN-LAST:event_btnFacturaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -350,25 +758,80 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelMostrar;
+    private javax.swing.JPanel PanelProveedor;
+    private javax.swing.JButton btnAlimentacion;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnEducacion;
+    private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnOtros;
+    private javax.swing.JButton btnProveedor;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnSalud;
+    private javax.swing.JButton btnVestido;
+    private javax.swing.JButton btnVivienda;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     private javax.swing.JLabel lblBuscar;
-    private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblCodigo;
+    private javax.swing.JLabel lblFactura;
+    private javax.swing.JLabel lblImagenPanel;
+    private javax.swing.JLabel lblIva;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblProveedor;
     private javax.swing.JLabel lblRegresar;
     private javax.swing.JLabel lblReporte;
+    private javax.swing.JLabel lblRuc;
+    private javax.swing.JLabel lblTotalFactura;
+    private javax.swing.JLabel lblTotalSinIva;
+    private javax.swing.JPanel panelCliente;
+    private javax.swing.JPanel panelFactura;
+    private javax.swing.JSeparator separador1;
+    private javax.swing.JSeparator separador2;
+    private javax.swing.JSeparator separador3;
+    private javax.swing.JSeparator separador6;
+    private javax.swing.JTextField txtCiudad;
+    private javax.swing.JTextField txtCodigoFactura;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtIva;
+    private javax.swing.JTextField txtNombreCliente;
+    private javax.swing.JTextField txtNombreProveedor;
+    private javax.swing.JTextField txtRuc;
+    private javax.swing.JTextField txtRucProveedor;
+    private javax.swing.JTextField txtTotalFactura;
+    private javax.swing.JTextField txtTotalSinIva;
     // End of variables declaration//GEN-END:variables
 }
