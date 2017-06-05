@@ -33,9 +33,9 @@ public class ConvertirXML {
         this.fileEntrada = new FileReader(this.direccion);
         bufferEntrada = new BufferedReader(fileEntrada);
         
-        fichero = new FileWriter("C:\\Users\\por-tosh\\Desktop\\EPN\\ALibres2017A\\FacturasXML\\factura.xml");
+        fichero = new FileWriter("C:\\Users\\molin\\Documents\\factura.xml");
         pw = new PrintWriter(fichero);
-        this.direccion="C:\\Users\\por-tosh\\Desktop\\EPN\\ALibres2017A\\FacturasXML\\factura.xml";
+        this.direccion="C:\\Users\\molin\\Documents\\factura.xml";
         boolean cdata = false;
         boolean corchetesFinal = true;
         

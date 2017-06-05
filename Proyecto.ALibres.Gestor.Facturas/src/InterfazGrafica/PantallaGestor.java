@@ -5,9 +5,19 @@
  */
 package InterfazGrafica;
 
+import LectorXML.ConvertirXML;
+import LectorXML.LectorXml;
+import Pojos.Producto;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileReader;
+import javax.swing.JFileChooser;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -93,19 +103,19 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         lblReporte = new javax.swing.JLabel();
         lblBuscar = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         btnAlimentacion = new javax.swing.JButton();
         btnVestido = new javax.swing.JButton();
         btnSalud = new javax.swing.JButton();
         btnEducacion = new javax.swing.JButton();
         btnVivienda = new javax.swing.JButton();
         btnOtros = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        txtTotalAlimentacion = new javax.swing.JTextField();
+        txtTotalVestido = new javax.swing.JTextField();
+        txtTotalSalud = new javax.swing.JTextField();
+        txtTotalEducacion = new javax.swing.JTextField();
+        txtTotalVivienda = new javax.swing.JTextField();
+        txtTotalOtros = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
@@ -438,14 +448,19 @@ public class PantallaGestor extends javax.swing.JFrame {
         lblBuscar.setText("Buscar");
         PanelMostrar.add(lblBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 130, 70));
 
-        jButton1.setBackground(new java.awt.Color(36, 46, 68));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Search_32px.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        btnBuscar.setBackground(new java.awt.Color(36, 46, 68));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Search_32px.png"))); // NOI18N
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
             }
         });
-        PanelMostrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, -1, -1));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        PanelMostrar.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, -1, -1));
 
         btnAlimentacion.setBackground(new java.awt.Color(107, 116, 147));
         btnAlimentacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Restaurant_32px.png"))); // NOI18N
@@ -476,62 +491,62 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnOtros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ok_32px.png"))); // NOI18N
         PanelMostrar.add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, -1, -1));
 
-        jTextField1.setBackground(new java.awt.Color(36, 46, 68));
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("$ 0.00");
-        jTextField1.setBorder(null);
-        PanelMostrar.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 50, -1));
+        txtTotalAlimentacion.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalAlimentacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalAlimentacion.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalAlimentacion.setText("$ 0.00");
+        txtTotalAlimentacion.setBorder(null);
+        PanelMostrar.add(txtTotalAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 50, -1));
 
-        jTextField2.setBackground(new java.awt.Color(36, 46, 68));
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setText("$ 0.00");
-        jTextField2.setBorder(null);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtTotalVestido.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalVestido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalVestido.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalVestido.setText("$ 0.00");
+        txtTotalVestido.setBorder(null);
+        txtTotalVestido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtTotalVestidoActionPerformed(evt);
             }
         });
-        PanelMostrar.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 410, -1, -1));
+        PanelMostrar.add(txtTotalVestido, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 410, -1, -1));
 
-        jTextField3.setBackground(new java.awt.Color(36, 46, 68));
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField3.setText("$ 0.00");
-        jTextField3.setBorder(null);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtTotalSalud.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalSalud.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalSalud.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalSalud.setText("$ 0.00");
+        txtTotalSalud.setBorder(null);
+        txtTotalSalud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtTotalSaludActionPerformed(evt);
             }
         });
-        PanelMostrar.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
+        PanelMostrar.add(txtTotalSalud, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
 
-        jTextField4.setBackground(new java.awt.Color(36, 46, 68));
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField4.setText("$ 0.00");
-        jTextField4.setBorder(null);
-        PanelMostrar.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 410, -1, -1));
+        txtTotalEducacion.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalEducacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalEducacion.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalEducacion.setText("$ 0.00");
+        txtTotalEducacion.setBorder(null);
+        PanelMostrar.add(txtTotalEducacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 410, -1, -1));
 
-        jTextField5.setBackground(new java.awt.Color(36, 46, 68));
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField5.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField5.setText("$ 0.00");
-        jTextField5.setBorder(null);
-        PanelMostrar.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 410, -1, -1));
+        txtTotalVivienda.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalVivienda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalVivienda.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalVivienda.setText("$ 0.00");
+        txtTotalVivienda.setBorder(null);
+        PanelMostrar.add(txtTotalVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 410, -1, -1));
 
-        jTextField6.setBackground(new java.awt.Color(36, 46, 68));
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField6.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField6.setText("$ 0.00");
-        jTextField6.setBorder(null);
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        txtTotalOtros.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalOtros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalOtros.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalOtros.setText("$ 0.00");
+        txtTotalOtros.setBorder(null);
+        txtTotalOtros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                txtTotalOtrosActionPerformed(evt);
             }
         });
-        PanelMostrar.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, -1, -1));
+        PanelMostrar.add(txtTotalOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(26, 29, 40));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -647,25 +662,25 @@ public class PantallaGestor extends javax.swing.JFrame {
         
     }//GEN-LAST:event_lblReporteMouseExited
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnViviendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViviendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnViviendaActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtTotalSaludActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalSaludActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtTotalSaludActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void txtTotalOtrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalOtrosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_txtTotalOtrosActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtTotalVestidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalVestidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtTotalVestidoActionPerformed
 
     private void btnClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClienteMouseClicked
         // TODO add your handling code here:
@@ -721,6 +736,94 @@ public class PantallaGestor extends javax.swing.JFrame {
         PanelProveedor.setVisible(false);
     }//GEN-LAST:event_btnFacturaMouseClicked
 
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+        // TODO add your handling code here:
+        JFileChooser fc=new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.XML", "xml");
+ 
+        //Le indicamos el filtro
+        fc.setFileFilter(filtro);
+        String direccion;
+        //Abrimos la ventana, guardamos la opcion seleccionada por el usuario
+        int seleccion=fc.showOpenDialog(PanelMostrar);
+ 
+        //Si el usuario, pincha en aceptar
+        if(seleccion==JFileChooser.APPROVE_OPTION)
+        {
+ 
+            //Seleccionamos el fichero
+            File fichero=fc.getSelectedFile();
+            
+            direccion=fichero.getAbsolutePath();
+            direccion=direccion.replace("\\", "//");
+            
+            System.out.println("La direccion:"+direccion);
+            //txtDireccion.setText(direccion);
+            try(FileReader fr=new FileReader(fichero))
+            {
+                String cadena="";
+                int valor=fr.read();
+                while(valor!=-1)
+                {
+                    cadena=cadena+(char)valor;
+                    valor=fr.read();
+                }
+            } 
+            catch (IOException e1) 
+            {
+                e1.printStackTrace();
+            }
+            ConvertirXML xmlNuevo;
+            try 
+            {
+                xmlNuevo = new ConvertirXML(direccion);
+                LectorXml leerXml = new LectorXml(xmlNuevo.getDireccion());
+                leerXml.leerFacturaXml();
+                txtNombreCliente.setText(leerXml.getCliente().getNombres());
+                txtCodigoFactura.setText(leerXml.getFactura().getCodigo());
+                txtRuc.setText(leerXml.getCliente().getRucCi());
+                txtRucProveedor.setText(leerXml.getProveedor().getRuc());
+                txtFecha.setText(leerXml.getFactura().getFecha());
+                txtTotalSinIva.setText(Double.toString(leerXml.getFactura().getTotalSinIva()));
+                txtTotalFactura.setText(Double.toString(leerXml.getFactura().getTotalConIva()));
+                txtTotalAlimentacion.setText(Double.toString(leerXml.getFactura().getListaGastos().get(1).getTotalSinIva()));
+                txtTotalVestido.setText(Double.toString(leerXml.getFactura().getListaGastos().get(0).getTotalSinIva()));
+                txtTotalSalud.setText(Double.toString(leerXml.getFactura().getListaGastos().get(2).getTotalSinIva()));
+                txtTotalEducacion.setText(Double.toString(leerXml.getFactura().getListaGastos().get(3).getTotalSinIva()));
+                txtTotalVivienda.setText(Double.toString(leerXml.getFactura().getListaGastos().get(4).getTotalSinIva()));
+                txtTotalOtros.setText(Double.toString(leerXml.getFactura().getListaGastos().get(5).getTotalSinIva()));
+                
+                /*for(Producto prod :  leerXml.getFactura().getListaProductos()){
+                    if(prod.getTipo().contains("vestimenta")){
+                        lblVestimenta.setText(lblVestimenta.getText() + prod.getNombre() + ",");
+                    }
+                    if(prod.getTipo().contains("vivienda")){
+                        lblVivienda.setText(lblVivienda.getText() + prod.getNombre() + ",");
+                    }
+                    if(prod.getTipo().contains("educacion")){
+                        lblEducacion.setText(lblEducacion.getText() + prod.getNombre() + ",");
+                    }
+                    if(prod.getTipo().contains("salud")){
+                        lblSalud.setText(lblSalud.getText() + prod.getNombre() + ",");
+                    }
+                    if(prod.getTipo().contains("alimentacion")){
+                        //lblAlimentacion.setText(lblAlimentacion.getText() + prod.getNombre() + ",");
+                    }
+                    if(prod.getTipo().contains("otros")){
+                        lblOtros.setText(prod.getNombre() + ",");
+                    }
+                }*/
+                
+            } 
+            catch (IOException ex) 
+            {
+                Logger.getLogger(IPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+        }
+    }//GEN-LAST:event_btnBuscarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -760,6 +863,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JPanel PanelMostrar;
     private javax.swing.JPanel PanelProveedor;
     private javax.swing.JButton btnAlimentacion;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnEducacion;
@@ -773,7 +877,6 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JButton btnVestido;
     private javax.swing.JButton btnVivienda;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -795,12 +898,6 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JLabel lblBuscar;
@@ -831,7 +928,13 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombreProveedor;
     private javax.swing.JTextField txtRuc;
     private javax.swing.JTextField txtRucProveedor;
+    private javax.swing.JTextField txtTotalAlimentacion;
+    private javax.swing.JTextField txtTotalEducacion;
     private javax.swing.JTextField txtTotalFactura;
+    private javax.swing.JTextField txtTotalOtros;
+    private javax.swing.JTextField txtTotalSalud;
     private javax.swing.JTextField txtTotalSinIva;
+    private javax.swing.JTextField txtTotalVestido;
+    private javax.swing.JTextField txtTotalVivienda;
     // End of variables declaration//GEN-END:variables
 }
