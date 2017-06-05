@@ -9,7 +9,7 @@
 ## PROYECTO: CAPTURADOR DE FACTURAS XML
 
 
-## Enfasis de texto
+## Integrantes:
 * Chulca Cristian
 * Molina Raul
 * Santacruz Cristian
