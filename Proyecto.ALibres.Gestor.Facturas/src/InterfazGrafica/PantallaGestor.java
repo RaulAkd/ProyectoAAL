@@ -163,7 +163,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         lblFactura.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblFactura.setForeground(new java.awt.Color(255, 255, 255));
         lblFactura.setText("Datos Factura");
-        panelFactura.add(lblFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        panelFactura.add(lblFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblCodigo.setForeground(new java.awt.Color(255, 255, 255));
