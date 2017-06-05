@@ -8,7 +8,9 @@ package Pojos;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -35,6 +37,8 @@ public class ListaProveedores {
                 rucProveedor = cadena.split(",")[1].split(":")[1];
                 direcProveedor = cadena.split(",")[2].split(":")[1];
                 ciudadProveedor = cadena.split(",")[3].split(":")[1];
+                Proveedor provAux = new Proveedor(nombreProveedor, rucProveedor, direcProveedor, ciudadProveedor);
+                this.listaProveedor.add(provAux);
             }
         } catch (FileNotFoundException ex) {
             //Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
@@ -44,6 +48,12 @@ public class ListaProveedores {
         catch (IOException ex) {
             //Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void guardarDatos(){
+        FileWriter fichero;
+        PrintWriter pw;
+        
     }
 }
 
