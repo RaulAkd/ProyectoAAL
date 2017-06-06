@@ -6,6 +6,7 @@
 package LectorXML;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -31,11 +32,16 @@ public class ConvertirXML {
         this.direccion = direccion;
         String cadena;
         String nuevaDireccion;
+        String direccionCarpeta;
         this.fileEntrada = new FileReader(this.direccion);
         bufferEntrada = new BufferedReader(fileEntrada);
         nuevaDireccion=direccionAbsoluta(this.direccion);
-        nuevaDireccion+="\\\\Documents\\factura.xml";
+        nuevaDireccion+="\\\\ArchivosGestorFacturas";
+   
+        File carpeta = new File(nuevaDireccion);
+        carpeta.mkdirs();
         
+        nuevaDireccion+="\\\\factura.xml";
         nuevaDireccion=nuevaDireccion.replace("/", "\\");
         
         fichero = new FileWriter(nuevaDireccion);
