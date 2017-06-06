@@ -5,6 +5,7 @@
  */
 package LectorXML;
 
+import Operaciones.Operaciones;
 import Pojos.Cliente;
 import Pojos.Factura;
 import Pojos.Producto;
@@ -27,6 +28,7 @@ public class LectorXml {
     private Cliente cliente = new Cliente();
     private Factura factura = new Factura();
     private String direccionArchivo;
+
 
     public LectorXml(String direccionArchivo) {
         this.direccionArchivo = direccionArchivo;
@@ -82,22 +84,16 @@ public class LectorXml {
                      */
                     //Codigo Producto
                     Producto producto = new Producto();
-                    //Detalle += "'" + eElement2.getElementsByTagName("codigoPrincipal").item(temp).getTextContent()+ "'";
                     producto.setCodigo(eElement2.getElementsByTagName("codigoPrincipal").item(temp).getTextContent());
                     //Descripcion Producto
-                    //Detalle += ",'" + eElement2.getElementsByTagName("descripcion").item(temp).getTextContent()+ "'";
                     producto.setNombre(eElement2.getElementsByTagName("descripcion").item(temp).getTextContent());
                     //Cantidad de Productos
-                    //Detalle += ",'" + eElement2.getElementsByTagName("cantidad").item(temp).getTextContent()+ "'";
                     producto.setCantidad(Double.parseDouble(eElement2.getElementsByTagName("cantidad").item(temp).getTextContent()));
                     //Precio Unitario Producto
-                    //Detalle += ",'" + eElement2.getElementsByTagName("precioUnitario").item(temp).getTextContent()+ "'";
                     producto.setPrecioUnitario(Double.parseDouble(eElement2.getElementsByTagName("precioUnitario").item(temp).getTextContent()));
                     //Valor Total de Productos
-                    //Detalle += ",'" + eElement2.getElementsByTagName("baseImponible").item(temp).getTextContent()+ "'";
                     producto.setValorTotal(Double.parseDouble(eElement2.getElementsByTagName("baseImponible").item(temp).getTextContent()));
                     //Codigo de Factura
-                    //Detalle += ",'" + eElement.getElementsByTagName("secuencial").item(0).getTextContent() + "')";
                     this.factura.setProducto(producto);
                 }
                 
@@ -107,11 +103,19 @@ public class LectorXml {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        this.factura.setRucCliente(this.cliente.getRucCi());
+        this.factura.setRucProveedor(this.proveedor.getRuc());
         this.factura.clasificar();
         System.out.println(this.proveedor);
         System.out.println(this.cliente);
         System.err.println(this.factura);
         System.err.println(this.factura.listaToString());
+        
+        /*Operaciones operaciones = new Operaciones();
+        operaciones.conectar();
+        operaciones.guardarFactura(this.factura);
+        operaciones.guardarCliente(this.cliente);
+        operaciones.guardarProveedor(this.proveedor);*/
     }
 
     public Proveedor getProveedor() {

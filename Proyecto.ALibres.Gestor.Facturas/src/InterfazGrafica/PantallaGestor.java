@@ -7,6 +7,7 @@ package InterfazGrafica;
 
 import LectorXML.ConvertirXML;
 import LectorXML.LectorXml;
+import Operaciones.Operaciones;
 import Pojos.Producto;
 import java.awt.Color;
 import java.awt.Image;
@@ -32,8 +33,10 @@ public class PantallaGestor extends javax.swing.JFrame {
     int indexSeleccion;
     ConvertirXML xmlNuevo;
     LectorXml leerXml;
-    /**
-     * Creates new form PantallaGestor
+    Operaciones operaciones = new Operaciones();
+    
+    /*
+        
      */
     public PantallaGestor() {
         initComponents();
@@ -436,6 +439,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save_32px.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnGuardarMouseEntered(evt);
             }
@@ -953,6 +959,15 @@ public class PantallaGestor extends javax.swing.JFrame {
         this.leerXml.getFactura().actualizarValores();
         this.ingresarValoresGastos();
     }//GEN-LAST:event_btnOtrosMouseClicked
+
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+        // TODO add your handling code here:
+        this.operaciones.conectar();
+        operaciones.guardarFactura(this.leerXml.getFactura());
+        operaciones.guardarCliente(this.leerXml.getCliente());
+        operaciones.guardarProveedor(this.leerXml.getProveedor());
+        
+    }//GEN-LAST:event_btnGuardarMouseClicked
 
     /**
      * @param args the command line arguments

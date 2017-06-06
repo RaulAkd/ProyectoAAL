@@ -23,6 +23,32 @@ public class Factura {
     DecimalFormat df = new DecimalFormat("#.##");
     private String codigo;
     private String fecha;
+    private String rucCliente;
+    private String rucProveedor;
+
+    public DecimalFormat getDf() {
+        return df;
+    }
+
+    public void setDf(DecimalFormat df) {
+        this.df = df;
+    }
+
+    public String getRucCliente() {
+        return rucCliente;
+    }
+
+    public void setRucCliente(String rucCliente) {
+        this.rucCliente = rucCliente;
+    }
+
+    public String getRucProveedor() {
+        return rucProveedor;
+    }
+
+    public void setRucProveedor(String rucProveedor) {
+        this.rucProveedor = rucProveedor;
+    }
     private double totalSinIva;
     private double totalConIva;
     private double iva;
