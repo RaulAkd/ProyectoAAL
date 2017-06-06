@@ -19,5 +19,5 @@
 Repositorio del Proyecto: [Capturador de facturas XML](https://github.com/RaulAkd/ProyectoAAL)
 
 
-![](http://programacion.net/files/article/20151118051128_xml.png)
+![](http://net-informations.com/q/faq/img/xml.png)
 
