@@ -1,3 +1,4 @@
+![](http://noticias.universia.com.ec/net/images/logos/l/lo/log/logo-epn.jpg)
 # ESCUELA POLITÉCNICA NACIONAL
 
 ## FACULTAD DE INGENIERÍA DE SISTEMAS
