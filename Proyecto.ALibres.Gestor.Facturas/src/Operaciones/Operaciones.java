@@ -17,8 +17,9 @@ public class Operaciones extends Conexion{
     /**
      * Constructor for objects of class Operaciones
      */
-    public Operaciones()
+    public Operaciones(String dir)
     {
+        super(dir);
         // initialise instance variables
     }
     

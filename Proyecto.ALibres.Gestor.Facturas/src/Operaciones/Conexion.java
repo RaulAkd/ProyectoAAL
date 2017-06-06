@@ -23,9 +23,10 @@ public class Conexion{
     /**
      * Constructor for objects of class Conexion
      */
-    public Conexion()
+    public Conexion(String direccion)
     {
-        ruta = "C:\\Users\\por-tosh\\Desktop\\LibresFinal\\Base de Datos\\Bdd.s3db";
+        ruta=direccion;
+        //ruta = "C:\\Users\\por-tosh\\Desktop\\LibresFinal\\Base de Datos\\Bdd.s3db";
         //ruta = "C:\\Users\\por-tosh\\Desktop\\Nueva carpeta\\registro.s3db";
     }
     public void conectar(){

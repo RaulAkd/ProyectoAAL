@@ -33,7 +33,8 @@ public class PantallaGestor extends javax.swing.JFrame {
     int indexSeleccion;
     ConvertirXML xmlNuevo;
     LectorXml leerXml;
-    Operaciones operaciones = new Operaciones();
+    String direccion;
+    //Operaciones operaciones = new Operaciones();
     
     /*
         
@@ -78,15 +79,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         txtFecha = new javax.swing.JTextField();
-        lblTotalSinIva = new javax.swing.JLabel();
-        jSeparator7 = new javax.swing.JSeparator();
-        txtTotalSinIva = new javax.swing.JTextField();
         lblIva = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
         txtIva = new javax.swing.JTextField();
-        lblTotalFactura = new javax.swing.JLabel();
-        jSeparator9 = new javax.swing.JSeparator();
-        txtTotalFactura = new javax.swing.JTextField();
         PanelProveedor = new javax.swing.JPanel();
         lblProveedor = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -136,9 +131,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         txtTotalOtros = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtTotalSinIva = new javax.swing.JTextField();
+        txtTotalFactura = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(36, 46, 68));
@@ -213,35 +208,15 @@ public class PantallaGestor extends javax.swing.JFrame {
         txtFecha.setBorder(null);
         panelFactura.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 170, -1));
 
-        lblTotalSinIva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblTotalSinIva.setForeground(new java.awt.Color(255, 255, 255));
-        lblTotalSinIva.setText("Total sin IVA:");
-        panelFactura.add(lblTotalSinIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
-        panelFactura.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 170, -1));
-
-        txtTotalSinIva.setBackground(new java.awt.Color(89, 199, 198));
-        txtTotalSinIva.setBorder(null);
-        panelFactura.add(txtTotalSinIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 170, -1));
-
         lblIva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblIva.setForeground(new java.awt.Color(255, 255, 255));
         lblIva.setText("IVA:");
-        panelFactura.add(lblIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
-        panelFactura.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 170, -1));
+        panelFactura.add(lblIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+        panelFactura.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 170, -1));
 
         txtIva.setBackground(new java.awt.Color(89, 199, 198));
         txtIva.setBorder(null);
-        panelFactura.add(txtIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 170, -1));
-
-        lblTotalFactura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblTotalFactura.setForeground(new java.awt.Color(255, 255, 255));
-        lblTotalFactura.setText("Total Factura:");
-        panelFactura.add(lblTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
-        panelFactura.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 170, -1));
-
-        txtTotalFactura.setBackground(new java.awt.Color(89, 199, 198));
-        txtTotalFactura.setBorder(null);
-        panelFactura.add(txtTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 170, -1));
+        panelFactura.add(txtIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 170, 20));
 
         jLayeredPane1.add(panelFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 340));
         panelFactura.setVisible(false);
@@ -629,18 +604,18 @@ public class PantallaGestor extends javax.swing.JFrame {
         jLabel1.setText("Total sin IVA: ");
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
-        jTextField7.setBackground(new java.awt.Color(26, 29, 40));
-        jTextField7.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel3.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 90, -1));
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(109, 115, 130));
         jLabel2.setText("Total Factura:");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
-        jTextField8.setBackground(new java.awt.Color(26, 29, 40));
-        jTextField8.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel3.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 100, -1));
+        txtTotalSinIva.setBackground(new java.awt.Color(26, 29, 40));
+        txtTotalSinIva.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel3.add(txtTotalSinIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 90, 20));
+
+        txtTotalFactura.setBackground(new java.awt.Color(26, 29, 40));
+        txtTotalFactura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel3.add(txtTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 90, 20));
 
         PanelMostrar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 570, 40));
 
@@ -816,7 +791,7 @@ public class PantallaGestor extends javax.swing.JFrame {
  
         //Le indicamos el filtro
         fc.setFileFilter(filtro);
-        String direccion;
+        //String direccion;
         //Abrimos la ventana, guardamos la opcion seleccionada por el usuario
         int seleccion=fc.showOpenDialog(PanelMostrar);
  
@@ -962,13 +937,42 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
-        this.operaciones.conectar();
+        String nuevaDireccion;
+        nuevaDireccion=direccionAbsoluta(this.direccion);
+        nuevaDireccion+="\\\\ArchivosGestorFacturas\\\\BaseDeDatos";
+        File carpeta = new File(nuevaDireccion);
+        carpeta.mkdirs();
+        
+        nuevaDireccion+="\\\\Bdd.s3db";
+        nuevaDireccion=nuevaDireccion.replace("/", "\\");
+        //Bdd.s3db
+        Operaciones operaciones = new Operaciones(nuevaDireccion);
+    
+        
+        operaciones.conectar();
         operaciones.guardarFactura(this.leerXml.getFactura());
         operaciones.guardarCliente(this.leerXml.getCliente());
         operaciones.guardarProveedor(this.leerXml.getProveedor());
         
     }//GEN-LAST:event_btnGuardarMouseClicked
 
+    public String direccionAbsoluta(String dir)
+    {
+        String auxiliar="";
+        int i=0, contador=0;
+                
+        do
+        {
+            if(dir.substring(i, i+1).equals("\\")||dir.substring(i, i+1).equals("/"))
+            {
+                contador++;
+            }
+            auxiliar+=dir.substring(i, i+1);
+            i++;
+        }
+        while(i<dir.length()-1&&contador<=4);
+        return auxiliar;
+    }
     /**
      * @param args the command line arguments
      */
@@ -1040,12 +1044,8 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTable jTableProductos;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblCodigo;
@@ -1057,8 +1057,6 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JLabel lblRegresar;
     private javax.swing.JLabel lblReporte;
     private javax.swing.JLabel lblRuc;
-    private javax.swing.JLabel lblTotalFactura;
-    private javax.swing.JLabel lblTotalSinIva;
     private javax.swing.JPanel panelCliente;
     private javax.swing.JPanel panelFactura;
     private javax.swing.JSeparator separador1;
