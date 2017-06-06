@@ -7,6 +7,7 @@ package InterfazGrafica;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,12 +18,21 @@ public class Reportes extends javax.swing.JFrame {
     /**
      * Creates new form Reportes
      */
+    DefaultTableModel modelo;
+    int indexSeleccion;
+    
     public Reportes() {
         initComponents();
         this.setLocationRelativeTo(null);
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/infopago.png"));
         setIconImage(retValue);
         setVisible(true);
+        
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Lista");
+        this.jTableReportes.setModel(modelo);
+        
+        indexSeleccion = -1;
     }
 
     /**
@@ -39,8 +49,9 @@ public class Reportes extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnFactura = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        lblvolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jTableReportes = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,17 +94,31 @@ public class Reportes extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, 40, 40));
 
-        jButton2.setBackground(new java.awt.Color(12, 15, 22));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Long Arrow Left_32px_1.png"))); // NOI18N
-        jButton2.setBorder(null);
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblvolver.setBackground(new java.awt.Color(12, 15, 22));
+        lblvolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Long Arrow Left_32px_1.png"))); // NOI18N
+        lblvolver.setBorder(null);
+        lblvolver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                lblvolverMouseClicked(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 40, -1));
+        jPanel2.add(lblvolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 40, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 390));
+
+        jTableReportes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableReportes);
+
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 450, 240));
 
         lblTitulo.setBackground(new java.awt.Color(12, 15, 22));
@@ -110,17 +135,20 @@ public class Reportes extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         lblTitulo.setText("Proveedores");
+        
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void btnFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFacturaMouseClicked
         // TODO add your handling code here:
         lblTitulo.setText("Facturas");
+        
     }//GEN-LAST:event_btnFacturaMouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void lblvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblvolverMouseClicked
         // TODO add your handling code here:
         lblTitulo.setText("Reportes");
-    }//GEN-LAST:event_jButton2MouseClicked
+        
+    }//GEN-LAST:event_lblvolverMouseClicked
 
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         // TODO add your handling code here:
@@ -168,10 +196,11 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableReportes;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JButton lblvolver;
     // End of variables declaration//GEN-END:variables
 }
