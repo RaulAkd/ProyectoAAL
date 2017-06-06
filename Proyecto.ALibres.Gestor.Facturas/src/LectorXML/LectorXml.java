@@ -56,26 +56,13 @@ public class LectorXml {
                 
                 NodeList nAuxiliar = doc.getElementsByTagName("detalle");
                 /*PROVEEDOR*/
-                /**
-                 * ******************************************************************************************************************
-                 */
                 //RUC
-                //System.out.println("si llega    ruc "+eElement.getElementsByTagName("ruc").item(0).getTextContent());
                 this.proveedor.setRuc(eElement.getElementsByTagName("ruc").item(0).getTextContent());
-                //objProveedor.setStrRucProv(eElement.getElementsByTagName("ruc").item(0).getTextContent());
-                //Proveedor += "'" + eElement.getElementsByTagName("ruc").item(0).getTextContent() + "'";
                 //Razón Social
                 this.proveedor.setNombre(eElement.getElementsByTagName("razonSocial").item(0).getTextContent());
-                //Proveedor += ",'" + eElement.getElementsByTagName("razonSocial").item(0).getTextContent() + "','','')";
                 //Direccion Matriz
                 this.proveedor.setDireccion(eElement.getElementsByTagName("dirMatriz").item(0).getTextContent());
                 /*COMPRADOR*/
-                /**
-                 * ******************************************************************************************************************
-                 */
-                //Cedula
-                //Comprador += "'" + eElement1.getElementsByTagName("identificacionComprador").item(0).getTextContent() + "'";
-                
                 this.cliente.setNombres(eElement1.getElementsByTagName("razonSocialComprador").item(0).getTextContent());
                 this.cliente.setRucCi(eElement1.getElementsByTagName("identificacionComprador").item(0).getTextContent());
                 

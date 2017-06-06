@@ -213,4 +213,37 @@ public class Factura {
             }
         }
     }
+    
+    public void actualizarValores(){
+        
+        for(Gasto gasto : this.listaGastos){
+            gasto.reiniciarGasto();
+        }
+        
+        for(Producto prod :  this.listaProductos){
+            if(prod.getTipo().compareToIgnoreCase("vestimenta") == 0){
+                this.listaGastos.get(0).sumarGasto(prod.getValorTotal());
+            }
+            
+            else if(prod.getTipo().compareToIgnoreCase("alimentacion") == 0){
+                this.listaGastos.get(1).sumarGasto(prod.getValorTotal());
+            }
+            
+            else if(prod.getTipo().compareToIgnoreCase("salud") == 0){
+                this.listaGastos.get(2).sumarGasto(prod.getValorTotal());
+            }
+            
+            else if(prod.getTipo().compareToIgnoreCase("educacion") == 0){
+                this.listaGastos.get(3).sumarGasto(prod.getValorTotal());
+            }
+            
+            else if(prod.getTipo().compareToIgnoreCase("vivienda") == 0){
+                this.listaGastos.get(4).sumarGasto(prod.getValorTotal());
+            }
+            
+            else{
+                this.listaGastos.get(5).sumarGasto(prod.getValorTotal());
+            }
+        }
+    }
 }

@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileReader;
 import javax.swing.JFileChooser;
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -29,6 +30,8 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
     int indexSeleccion;
+    ConvertirXML xmlNuevo;
+    LectorXml leerXml;
     /**
      * Creates new form PantallaGestor
      */
@@ -123,7 +126,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnVivienda = new javax.swing.JButton();
         btnOtros = new javax.swing.JButton();
         txtTotalAlimentacion = new javax.swing.JTextField();
-        txtTotalVestido = new javax.swing.JTextField();
+        txtTotalVestimenta = new javax.swing.JTextField();
         txtTotalSalud = new javax.swing.JTextField();
         txtTotalEducacion = new javax.swing.JTextField();
         txtTotalVivienda = new javax.swing.JTextField();
@@ -548,6 +551,11 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         btnOtros.setBackground(new java.awt.Color(107, 116, 147));
         btnOtros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ok_32px.png"))); // NOI18N
+        btnOtros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOtrosMouseClicked(evt);
+            }
+        });
         PanelMostrar.add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, -1, -1));
 
         txtTotalAlimentacion.setBackground(new java.awt.Color(36, 46, 68));
@@ -557,17 +565,17 @@ public class PantallaGestor extends javax.swing.JFrame {
         txtTotalAlimentacion.setBorder(null);
         PanelMostrar.add(txtTotalAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 50, -1));
 
-        txtTotalVestido.setBackground(new java.awt.Color(36, 46, 68));
-        txtTotalVestido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTotalVestido.setForeground(new java.awt.Color(255, 255, 255));
-        txtTotalVestido.setText("$ 0.00");
-        txtTotalVestido.setBorder(null);
-        txtTotalVestido.addActionListener(new java.awt.event.ActionListener() {
+        txtTotalVestimenta.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalVestimenta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalVestimenta.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalVestimenta.setText("$ 0.00");
+        txtTotalVestimenta.setBorder(null);
+        txtTotalVestimenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalVestidoActionPerformed(evt);
+                txtTotalVestimentaActionPerformed(evt);
             }
         });
-        PanelMostrar.add(txtTotalVestido, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 410, -1, -1));
+        PanelMostrar.add(txtTotalVestimenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 410, -1, -1));
 
         txtTotalSalud.setBackground(new java.awt.Color(36, 46, 68));
         txtTotalSalud.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -737,9 +745,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalOtrosActionPerformed
 
-    private void txtTotalVestidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalVestidoActionPerformed
+    private void txtTotalVestimentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalVestimentaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTotalVestidoActionPerformed
+    }//GEN-LAST:event_txtTotalVestimentaActionPerformed
 
     private void btnClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClienteMouseClicked
         // TODO add your handling code here:
@@ -832,11 +840,11 @@ public class PantallaGestor extends javax.swing.JFrame {
             {
                 e1.printStackTrace();
             }
-            ConvertirXML xmlNuevo;
+            //ConvertirXML xmlNuevo;
             try 
             {
-                xmlNuevo = new ConvertirXML(direccion);
-                LectorXml leerXml = new LectorXml(xmlNuevo.getDireccion());
+                this.xmlNuevo = new ConvertirXML(direccion);
+                this.leerXml = new LectorXml(xmlNuevo.getDireccion());
                 leerXml.leerFacturaXml();
                 //cargar datos proveedor
                 txtNombreProveedor.setText(leerXml.getProveedor().getNombre());
@@ -850,12 +858,13 @@ public class PantallaGestor extends javax.swing.JFrame {
                 txtFecha.setText(leerXml.getFactura().getFecha());
                 txtTotalSinIva.setText(Double.toString(leerXml.getFactura().getTotalSinIva()));
                 txtTotalFactura.setText(Double.toString(leerXml.getFactura().getTotalConIva()));
-                txtTotalAlimentacion.setText(Double.toString(leerXml.getFactura().getListaGastos().get(1).getTotalSinIva()));
-                txtTotalVestido.setText(Double.toString(leerXml.getFactura().getListaGastos().get(0).getTotalSinIva()));
+                /*txtTotalAlimentacion.setText(Double.toString(leerXml.getFactura().getListaGastos().get(1).getTotalSinIva()));
+                txtTotalVestimenta.setText(Double.toString(leerXml.getFactura().getListaGastos().get(0).getTotalSinIva()));
                 txtTotalSalud.setText(Double.toString(leerXml.getFactura().getListaGastos().get(2).getTotalSinIva()));
                 txtTotalEducacion.setText(Double.toString(leerXml.getFactura().getListaGastos().get(3).getTotalSinIva()));
                 txtTotalVivienda.setText(Double.toString(leerXml.getFactura().getListaGastos().get(4).getTotalSinIva()));
-                txtTotalOtros.setText(Double.toString(leerXml.getFactura().getListaGastos().get(5).getTotalSinIva()));
+                txtTotalOtros.setText(Double.toString(leerXml.getFactura().getListaGastos().get(5).getTotalSinIva()));*/
+                this.ingresarValoresGastos();
                 
                 String entrada[] = new String[2];
                 for(Producto prod :  leerXml.getFactura().getListaProductos()){
@@ -863,28 +872,6 @@ public class PantallaGestor extends javax.swing.JFrame {
                     entrada[1] = prod.getTipo();
                     modelo.addRow(entrada);
                 }
-                
-                
-                /*for(Producto prod :  leerXml.getFactura().getListaProductos()){
-                    if(prod.getTipo().contains("vestimenta")){
-                        lblVestimenta.setText(lblVestimenta.getText() + prod.getNombre() + ",");
-                    }
-                    if(prod.getTipo().contains("vivienda")){
-                        lblVivienda.setText(lblVivienda.getText() + prod.getNombre() + ",");
-                    }
-                    if(prod.getTipo().contains("educacion")){
-                        lblEducacion.setText(lblEducacion.getText() + prod.getNombre() + ",");
-                    }
-                    if(prod.getTipo().contains("salud")){
-                        lblSalud.setText(lblSalud.getText() + prod.getNombre() + ",");
-                    }
-                    if(prod.getTipo().contains("alimentacion")){
-                        //lblAlimentacion.setText(lblAlimentacion.getText() + prod.getNombre() + ",");
-                    }
-                    if(prod.getTipo().contains("otros")){
-                        lblOtros.setText(prod.getNombre() + ",");
-                    }
-                }*/
                 
             } 
             catch (IOException ex) 
@@ -902,9 +889,23 @@ public class PantallaGestor extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
+    public void ingresarValoresGastos(){
+        DecimalFormat df = new DecimalFormat("#.##");
+        txtTotalAlimentacion.setText(df.format(leerXml.getFactura().getListaGastos().get(1).getTotalSinIva()));
+        //txtTotalAlimentacion.setText(Double.toString(leerXml.getFactura().getListaGastos().get(1).getTotalSinIva()));
+        txtTotalVestimenta.setText(df.format(leerXml.getFactura().getListaGastos().get(0).getTotalSinIva()));
+        txtTotalSalud.setText(df.format(leerXml.getFactura().getListaGastos().get(2).getTotalSinIva()));
+        txtTotalEducacion.setText(df.format(leerXml.getFactura().getListaGastos().get(3).getTotalSinIva()));
+        txtTotalVivienda.setText(df.format(leerXml.getFactura().getListaGastos().get(4).getTotalSinIva()));
+        txtTotalOtros.setText(df.format(leerXml.getFactura().getListaGastos().get(5).getTotalSinIva()));
+    }
+    
     private void btnAlimentacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlimentacionMouseClicked
         // TODO add your handling code here:
-        modelo.setValueAt("Alimentacion", this.indexSeleccion, 1);
+        modelo.setValueAt("alimentacion", this.indexSeleccion, 1);
+        this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("alimentacion");
+        this.leerXml.getFactura().actualizarValores();
+        this.ingresarValoresGastos();
     }//GEN-LAST:event_btnAlimentacionMouseClicked
 
     private void jTableProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductosMouseClicked
@@ -915,23 +916,43 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void btnVestimentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVestimentaMouseClicked
         // TODO add your handling code here:
-        modelo.setValueAt("Vestimenta", this.indexSeleccion, 1);
+        modelo.setValueAt("vestimenta", this.indexSeleccion, 1);
+        this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("vestimenta");
+        this.leerXml.getFactura().actualizarValores();
+        this.ingresarValoresGastos();
     }//GEN-LAST:event_btnVestimentaMouseClicked
 
     private void btnSaludMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaludMouseClicked
         // TODO add your handling code here:
-        modelo.setValueAt("Salud", this.indexSeleccion, 1);
+        modelo.setValueAt("salud", this.indexSeleccion, 1);
+        this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("salud");
+        this.leerXml.getFactura().actualizarValores();
+        this.ingresarValoresGastos();
     }//GEN-LAST:event_btnSaludMouseClicked
 
     private void btnEducacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEducacionMouseClicked
         // TODO add your handling code here:
-        modelo.setValueAt("Educacion", this.indexSeleccion, 1);
+        modelo.setValueAt("educacion", this.indexSeleccion, 1);
+        this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("educacion");
+        this.leerXml.getFactura().actualizarValores();
+        this.ingresarValoresGastos();
     }//GEN-LAST:event_btnEducacionMouseClicked
 
     private void btnViviendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViviendaMouseClicked
         // TODO add your handling code here:
-        modelo.setValueAt("Vivienda", this.indexSeleccion, 1);
+        modelo.setValueAt("vivienda", this.indexSeleccion, 1);
+        this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("vivienda");
+        this.leerXml.getFactura().actualizarValores();
+        this.ingresarValoresGastos();
     }//GEN-LAST:event_btnViviendaMouseClicked
+
+    private void btnOtrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOtrosMouseClicked
+        // TODO add your handling code here:
+        modelo.setValueAt("otros", this.indexSeleccion, 1);
+        this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("otros");
+        this.leerXml.getFactura().actualizarValores();
+        this.ingresarValoresGastos();
+    }//GEN-LAST:event_btnOtrosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1044,7 +1065,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JTextField txtTotalOtros;
     private javax.swing.JTextField txtTotalSalud;
     private javax.swing.JTextField txtTotalSinIva;
-    private javax.swing.JTextField txtTotalVestido;
+    private javax.swing.JTextField txtTotalVestimenta;
     private javax.swing.JTextField txtTotalVivienda;
     // End of variables declaration//GEN-END:variables
 }

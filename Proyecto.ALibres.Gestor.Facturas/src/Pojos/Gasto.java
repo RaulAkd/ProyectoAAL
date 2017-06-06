@@ -27,6 +27,11 @@ public class Gasto {
     public void sumarGasto(double valor){
         this.totalSinIva = this.totalSinIva + valor;
     }
+    
+    public void reiniciarGasto(){
+        this.totalSinIva = 0.00;
+        this.totalConIva = 0.00;
+    }
 
     public DecimalFormat getDf() {
         return df;
@@ -46,6 +51,7 @@ public class Gasto {
 
     public double getTotalConIva() {
         return totalConIva;
+        //return Double.parseDouble(df.format(totalConIva));
     }
 
     public void setTotalConIva(double totalConIva) {
@@ -54,6 +60,7 @@ public class Gasto {
 
     public double getTotalSinIva() {
         return totalSinIva;
+        //return Double.parseDouble(df.format(totalSinIva));
     }
 
     public void setTotalSinIva(double totalSinIva) {
