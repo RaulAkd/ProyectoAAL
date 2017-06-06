@@ -34,6 +34,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     ConvertirXML xmlNuevo;
     LectorXml leerXml;
     String direccion;
+    String nuevaDireccion;
     //Operaciones operaciones = new Operaciones();
     
     /*
@@ -801,13 +802,17 @@ public class PantallaGestor extends javax.swing.JFrame {
         //Si el usuario, pincha en aceptar
         if(seleccion==JFileChooser.APPROVE_OPTION)
         {
- 
+            
             //Seleccionamos el fichero
             File fichero=fc.getSelectedFile();
             
             direccion=fichero.getAbsolutePath();
             direccion=direccion.replace("\\", "//");
             
+            nuevaDireccion=direccionAbsoluta(this.direccion);
+            nuevaDireccion+="\\\\ArchivosGestorFacturas\\\\BaseDeDatos";
+            File carpeta = new File(nuevaDireccion);
+            carpeta.mkdirs();
             System.out.println("La direccion:"+direccion);
             //txtDireccion.setText(direccion);
             try(FileReader fr=new FileReader(fichero))
@@ -940,11 +945,6 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
-        String nuevaDireccion;
-        nuevaDireccion=direccionAbsoluta(this.direccion);
-        nuevaDireccion+="\\\\ArchivosGestorFacturas\\\\BaseDeDatos";
-        File carpeta = new File(nuevaDireccion);
-        carpeta.mkdirs();
         
         nuevaDireccion+="\\\\Bdd.s3db";
         nuevaDireccion=nuevaDireccion.replace("/", "\\");
