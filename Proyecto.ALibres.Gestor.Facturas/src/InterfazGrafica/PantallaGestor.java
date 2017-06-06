@@ -451,6 +451,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         lblReporte.setForeground(new java.awt.Color(109, 115, 130));
         lblReporte.setText("Reporte");
         lblReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReporteMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblReporteMouseEntered(evt);
             }
@@ -955,6 +958,13 @@ public class PantallaGestor extends javax.swing.JFrame {
         operaciones.guardarProveedor(this.leerXml.getProveedor());
         
     }//GEN-LAST:event_btnGuardarMouseClicked
+
+    private void lblReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporteMouseClicked
+        // TODO add your handling code here:
+        Reportes reporte = new Reportes();
+        this.dispose();
+        reporte.setVisible(true);
+    }//GEN-LAST:event_lblReporteMouseClicked
 
     public String direccionAbsoluta(String dir)
     {
