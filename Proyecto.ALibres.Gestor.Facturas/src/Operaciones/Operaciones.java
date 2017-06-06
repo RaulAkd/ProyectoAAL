@@ -30,7 +30,7 @@ public class Operaciones extends Conexion{
             consulta.executeUpdate(sql);
         } catch (SQLException e) {
                 valor = false;
-                JOptionPane.showMessageDialog(null, e.getMessage());
+                JOptionPane.showMessageDialog(null, "Factura ya registrada");
             }      
         finally{  
             try{    
@@ -95,7 +95,7 @@ public class Operaciones extends Conexion{
         ResultSet resultado = null;
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
-        String sql = "select * from Persona";
+        String sql = "select * from Proveedor";
         try {
             resultado = consultar(sql);
             if(resultado != null){

@@ -5,6 +5,7 @@
  */
 package InterfazGrafica;
 
+import Operaciones.Operaciones;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.table.DefaultTableModel;
@@ -20,14 +21,16 @@ public class Reportes extends javax.swing.JFrame {
      */
     DefaultTableModel modelo;
     int indexSeleccion;
+    String direccionBdd;
     
-    public Reportes() {
+    public Reportes(String dir) {
         initComponents();
         this.setLocationRelativeTo(null);
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/infopago.png"));
         setIconImage(retValue);
         setVisible(true);
         
+        this.direccionBdd = dir;
         modelo = new DefaultTableModel();
         modelo.addColumn("Lista");
         this.jTableReportes.setModel(modelo);
@@ -47,8 +50,8 @@ public class Reportes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        btnFactura = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnReportesFactura = new javax.swing.JButton();
+        btnReporteProveedores = new javax.swing.JButton();
         lblvolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableReportes = new javax.swing.JTable();
@@ -74,25 +77,25 @@ public class Reportes extends javax.swing.JFrame {
         });
         jPanel2.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 40, -1));
 
-        btnFactura.setBackground(new java.awt.Color(12, 15, 22));
-        btnFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Purchase Order_32px_1.png"))); // NOI18N
-        btnFactura.setBorder(null);
-        btnFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReportesFactura.setBackground(new java.awt.Color(12, 15, 22));
+        btnReportesFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Purchase Order_32px_1.png"))); // NOI18N
+        btnReportesFactura.setBorder(null);
+        btnReportesFactura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFacturaMouseClicked(evt);
+                btnReportesFacturaMouseClicked(evt);
             }
         });
-        jPanel2.add(btnFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 40, 40));
+        jPanel2.add(btnReportesFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 40, 40));
 
-        jButton1.setBackground(new java.awt.Color(12, 15, 22));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Move by Trolley_32px_1.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReporteProveedores.setBackground(new java.awt.Color(12, 15, 22));
+        btnReporteProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Move by Trolley_32px_1.png"))); // NOI18N
+        btnReporteProveedores.setBorder(null);
+        btnReporteProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnReporteProveedoresMouseClicked(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, 40, 40));
+        jPanel2.add(btnReporteProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, 40, 40));
 
         lblvolver.setBackground(new java.awt.Color(12, 15, 22));
         lblvolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Long Arrow Left_32px_1.png"))); // NOI18N
@@ -108,13 +111,13 @@ public class Reportes extends javax.swing.JFrame {
 
         jTableReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(jTableReportes);
@@ -132,17 +135,20 @@ public class Reportes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnReporteProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteProveedoresMouseClicked
         // TODO add your handling code here:
-        lblTitulo.setText("Proveedores");
         
-    }//GEN-LAST:event_jButton1MouseClicked
+        Operaciones operaciones = new Operaciones(this.direccionBdd);
+        operaciones.conectar();
+        operaciones.totalPersonas((DefaultTableModel)jTableReportes.getModel());
+        
+    }//GEN-LAST:event_btnReporteProveedoresMouseClicked
 
-    private void btnFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFacturaMouseClicked
+    private void btnReportesFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesFacturaMouseClicked
         // TODO add your handling code here:
         lblTitulo.setText("Facturas");
         
-    }//GEN-LAST:event_btnFacturaMouseClicked
+    }//GEN-LAST:event_btnReportesFacturaMouseClicked
 
     private void lblvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblvolverMouseClicked
         // TODO add your handling code here:
@@ -187,15 +193,15 @@ public class Reportes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Reportes().setVisible(true);
+                new Reportes("").setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnReporteProveedores;
+    private javax.swing.JButton btnReportesFactura;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -615,6 +616,11 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         txtTotalSinIva.setBackground(new java.awt.Color(26, 29, 40));
         txtTotalSinIva.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtTotalSinIva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalSinIvaActionPerformed(evt);
+            }
+        });
         jPanel3.add(txtTotalSinIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 90, 20));
 
         txtTotalFactura.setBackground(new java.awt.Color(26, 29, 40));
@@ -957,14 +963,26 @@ public class PantallaGestor extends javax.swing.JFrame {
         operaciones.guardarCliente(this.leerXml.getCliente());
         operaciones.guardarProveedor(this.leerXml.getProveedor());
         
+        JOptionPane.showMessageDialog(null, modelo.getRowCount());
+        int numeroborrar = modelo.getRowCount();
+        while(modelo.getRowCount()>0)modelo.removeRow(0);
+        
+        txtTotalSinIva.setText("");
+        txtTotalFactura.setText("");
+        
+        
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void lblReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporteMouseClicked
         // TODO add your handling code here:
-        Reportes reporte = new Reportes();
+        Reportes reporte = new Reportes(nuevaDireccion);
         this.dispose();
         reporte.setVisible(true);
     }//GEN-LAST:event_lblReporteMouseClicked
+
+    private void txtTotalSinIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalSinIvaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalSinIvaActionPerformed
 
     public String direccionAbsoluta(String dir)
     {
