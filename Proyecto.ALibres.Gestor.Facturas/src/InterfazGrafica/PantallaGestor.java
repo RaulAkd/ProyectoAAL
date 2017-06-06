@@ -963,8 +963,6 @@ public class PantallaGestor extends javax.swing.JFrame {
         operaciones.guardarCliente(this.leerXml.getCliente());
         operaciones.guardarProveedor(this.leerXml.getProveedor());
         
-        JOptionPane.showMessageDialog(null, modelo.getRowCount());
-        int numeroborrar = modelo.getRowCount();
         while(modelo.getRowCount()>0)modelo.removeRow(0);
         
         txtTotalSinIva.setText("");

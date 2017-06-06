@@ -56,6 +56,7 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableReportes = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -130,6 +131,15 @@ public class Reportes extends javax.swing.JFrame {
         lblTitulo.setText("Reportes");
         jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 410, 40));
 
+        jButton1.setBackground(new java.awt.Color(12, 15, 22));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Close Window_32px.png"))); // NOI18N
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 390));
 
         pack();
@@ -137,7 +147,7 @@ public class Reportes extends javax.swing.JFrame {
 
     private void btnReporteProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteProveedoresMouseClicked
         // TODO add your handling code here:
-        
+        lblTitulo.setText("Proveedores");
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         operaciones.totalPersonas((DefaultTableModel)jTableReportes.getModel());
@@ -147,6 +157,9 @@ public class Reportes extends javax.swing.JFrame {
     private void btnReportesFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesFacturaMouseClicked
         // TODO add your handling code here:
         lblTitulo.setText("Facturas");
+        Operaciones operaciones = new Operaciones(this.direccionBdd);
+        operaciones.conectar();
+        operaciones.totalFacturas((DefaultTableModel)jTableReportes.getModel());
         
     }//GEN-LAST:event_btnReportesFacturaMouseClicked
 
@@ -162,6 +175,11 @@ public class Reportes extends javax.swing.JFrame {
         this.dispose();
         pg.setVisible(true);
     }//GEN-LAST:event_btnRegresarMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -202,6 +220,7 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnReporteProveedores;
     private javax.swing.JButton btnReportesFactura;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

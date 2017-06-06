@@ -131,4 +131,44 @@ public class Operaciones extends Conexion{
      }
     }
     
+    public void totalFacturas(DefaultTableModel tableModel){
+        ResultSet resultado = null;
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        String sql = "select * from Factura";
+        try {
+            resultado = consultar(sql);
+            if(resultado != null){
+                int numeroColumna = resultado.getMetaData().getColumnCount();
+                for(int j = 1;j <= numeroColumna;j++){
+                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+                }
+                while(resultado.next()){
+                    Object []objetos = new Object[numeroColumna];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                    }
+                    tableModel.addRow(objetos);
+                }
+            }
+        }catch(SQLException e){
+        }
+
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
 }
