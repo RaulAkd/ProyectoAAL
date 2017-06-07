@@ -6,6 +6,7 @@
 package LectorXML;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -30,12 +31,22 @@ public class ConvertirXML {
     public ConvertirXML(String direccion) throws FileNotFoundException, IOException {
         this.direccion = direccion;
         String cadena;
+        String nuevaDireccion;
+        String direccionCarpeta;
         this.fileEntrada = new FileReader(this.direccion);
         bufferEntrada = new BufferedReader(fileEntrada);
+        nuevaDireccion=direccionAbsoluta(this.direccion);
+        nuevaDireccion+="\\\\ArchivosGestorFacturas";
+   
+        File carpeta = new File(nuevaDireccion);
+        carpeta.mkdirs();
         
-        fichero = new FileWriter("C:\\Users\\molin\\Documents\\factura.xml");
+        nuevaDireccion+="\\\\factura.xml";
+        nuevaDireccion=nuevaDireccion.replace("/", "\\");
+        
+        fichero = new FileWriter(nuevaDireccion);
         pw = new PrintWriter(fichero);
-        this.direccion="C:\\Users\\molin\\Documents\\factura.xml";
+        this.direccion=nuevaDireccion;
         boolean cdata = false;
         boolean corchetesFinal = true;
         
@@ -82,5 +93,21 @@ public class ConvertirXML {
         this.direccion = direccion;
     }
     
-    
+    public String direccionAbsoluta(String dir)
+    {
+        String auxiliar="";
+        int i=0, contador=0;
+                
+        do
+        {
+            if(dir.substring(i, i+1).equals("\\")||dir.substring(i, i+1).equals("/"))
+            {
+                contador++;
+            }
+            auxiliar+=dir.substring(i, i+1);
+            i++;
+        }
+        while(i<dir.length()-1&&contador<=4);
+        return auxiliar;
+    }
 }
