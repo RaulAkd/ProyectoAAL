@@ -36,6 +36,8 @@ public class PantallaGestor extends javax.swing.JFrame {
     LectorXml leerXml;
     String direccion;
     String nuevaDireccion;
+    String nombreUsuario;
+    String direccionProyecto="";
     //Operaciones operaciones = new Operaciones();
     
     /*
@@ -43,6 +45,12 @@ public class PantallaGestor extends javax.swing.JFrame {
      */
     public PantallaGestor() {
         initComponents();
+        this.nombreUsuario=System.getProperty("user.name");
+        //nuevaDireccion+="\\\\ArchivosGestorFacturas\\\\BaseDeDatos";
+        this.direccionProyecto="C:\\\\Users\\\\"+this.nombreUsuario+"\\\\ArchivosGestorFacturas\\\\BaseDeDatos";
+        File carpeta = new File(direccionProyecto);
+        carpeta.mkdirs();
+        
         this.setLocationRelativeTo(null);
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/infopago.png"));
         setIconImage(retValue);
@@ -615,6 +623,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
         txtTotalSinIva.setBackground(new java.awt.Color(26, 29, 40));
+        txtTotalSinIva.setForeground(new java.awt.Color(255, 255, 255));
         txtTotalSinIva.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         txtTotalSinIva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -624,6 +633,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         jPanel3.add(txtTotalSinIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 90, 20));
 
         txtTotalFactura.setBackground(new java.awt.Color(26, 29, 40));
+        txtTotalFactura.setForeground(new java.awt.Color(255, 255, 255));
         txtTotalFactura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel3.add(txtTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 90, 20));
 
@@ -815,11 +825,11 @@ public class PantallaGestor extends javax.swing.JFrame {
             direccion=fichero.getAbsolutePath();
             direccion=direccion.replace("\\", "//");
             
-            nuevaDireccion=direccionAbsoluta(this.direccion);
-            nuevaDireccion+="\\\\ArchivosGestorFacturas\\\\BaseDeDatos";
-            File carpeta = new File(nuevaDireccion);
-            carpeta.mkdirs();
-            System.out.println("La direccion:"+direccion);
+            //nuevaDireccion=direccionAbsoluta(this.direccion);
+            //nuevaDireccion+="\\\\ArchivosGestorFacturas\\\\BaseDeDatos";
+            //File carpeta = new File(nuevaDireccion);
+            //carpeta.mkdirs();
+            //System.out.println("La direccion:"+direccion);
             //txtDireccion.setText(direccion);
             try(FileReader fr=new FileReader(fichero))
             {
@@ -951,13 +961,15 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
+        String direccionBase="";
         
-        nuevaDireccion+="\\\\Bdd.s3db";
-        nuevaDireccion=nuevaDireccion.replace("/", "\\");
+        direccionBase=this.direccionProyecto+"\\\\Bdd.s3db";
+        System.out.println("Dir base:"+direccionBase);
+        //nuevaDireccion+="\\\\Bdd.s3db";
+        //nuevaDireccion=nuevaDireccion.replace("/", "\\");
         //Bdd.s3db
-        Operaciones operaciones = new Operaciones(nuevaDireccion);
-    
-        
+        Operaciones operaciones = new Operaciones(direccionBase);
+        //Operaciones operaciones = new Operaciones(nuevaDireccion);
         operaciones.conectar();
         operaciones.guardarFactura(this.leerXml.getFactura());
         operaciones.guardarCliente(this.leerXml.getCliente());
