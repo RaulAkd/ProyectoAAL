@@ -43,39 +43,64 @@ public class ConvertirXML {
         
         nuevaDireccion+="\\\\factura.xml";
         nuevaDireccion=nuevaDireccion.replace("/", "\\");
+        //prueba
+        //FileWriter archivoPrueba = new FileWriter("C:\\Users\\por-tosh\\Desktop\\pruebaXml.txt");
+        //PrintWriter escribirPrueba = new PrintWriter(archivoPrueba);
+        //BufferedReader numeroLineas = new BufferedReader(fileEntrada);
         
         fichero = new FileWriter(nuevaDireccion);
         pw = new PrintWriter(fichero);
         this.direccion=nuevaDireccion;
         boolean cdata = false;
         boolean corchetesFinal = true;
-        
+        /*
+        int lNumeroLineas = 0;
+        String nCadena;
+        while ((nCadena = numeroLineas.readLine())!=null) {
+            lNumeroLineas++;
+        }
+        numeroLineas.close();
+        System.out.println("numero de lineas = "+ lNumeroLineas);
+        */
+        //bufferEntrada = new BufferedReader(fileEntrada);
         while((cadena = bufferEntrada.readLine())!=null && corchetesFinal) {
+            //System.out.println("..LINEA "+contadorlinea + cadena);
+            //contadorlinea++;
             Pattern pat = Pattern.compile(".*CDATA.*");
             Matcher mat = pat.matcher(cadena);
             Pattern patB = Pattern.compile(".*]].*");
             Matcher matB = patB.matcher(cadena);
             
-            if (matB.matches()){
-                int posicionB = cadena.indexOf("]]");
-                //System.out.println(cadena.substring(0, posicionB ));
-                pw.println(cadena.substring(0, posicionB ));
-                corchetesFinal = false;
-                }
-            
-            if(cdata && corchetesFinal){
-                pw.println(cadena);
-                //System.out.println(cadena);
-            }
-            if (mat.matches()) {
-         //System.out.println("SI");
+            if(matB.matches() && mat.matches()){
                 int posicion = cadena.indexOf("CDATA");
-                //System.out.println(cadena.substring(posicion + 6));
-                pw.println(cadena.substring(posicion + 6));
-                cdata = true;
+                int posicionB = cadena.indexOf("]]");
+                //escribirPrueba.println(cadena.substring(posicion + 6,posicionB));
+                pw.println(cadena.substring(posicion + 6, posicionB));
             }
             else{
-         //System.out.println("NO");
+            
+                if (matB.matches()){
+                    int posicionB = cadena.indexOf("]]");
+                    //System.out.println("SI ENCONTRO ]]");
+                    //System.out.println(cadena.substring(0, posicionB ));
+                    pw.println(cadena.substring(0, posicionB ));
+                    //escribirPrueba.println(cadena.substring(0, posicionB ));
+                    corchetesFinal = false;
+                    }
+
+                if(cdata && corchetesFinal){
+                    pw.println(cadena);
+                    //System.out.println(cadena);
+                }
+
+                if (mat.matches()) {
+                    int posicion = cadena.indexOf("CDATA");
+                    //System.out.println("SI ENCONTRO CDATA");
+                    //System.out.println("........." + cadena.substring(posicion + 6));
+                    //escribirPrueba.println(cadena.substring(posicion + 6));
+                    pw.println(cadena.substring(posicion + 6));
+                    cdata = true;
+                }
             }
             
         }
