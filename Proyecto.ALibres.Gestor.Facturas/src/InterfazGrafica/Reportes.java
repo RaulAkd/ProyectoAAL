@@ -36,6 +36,7 @@ public class Reportes extends javax.swing.JFrame {
         this.jTableReportes.setModel(modelo);
         
         indexSeleccion = -1;
+        
     }
 
     /**
@@ -57,6 +58,7 @@ public class Reportes extends javax.swing.JFrame {
         jTableReportes = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        choiceProveedores = new java.awt.Choice();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -129,7 +131,7 @@ public class Reportes extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Reportes");
-        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 410, 40));
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 410, 40));
 
         jButton1.setBackground(new java.awt.Color(12, 15, 22));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Close Window_32px.png"))); // NOI18N
@@ -139,6 +141,7 @@ public class Reportes extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, -1, -1));
+        jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 170, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 390));
 
@@ -160,7 +163,7 @@ public class Reportes extends javax.swing.JFrame {
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         operaciones.totalFacturas((DefaultTableModel)jTableReportes.getModel());
-        
+        operaciones.totalProveedores(choiceProveedores);
     }//GEN-LAST:event_btnReportesFacturaMouseClicked
 
     private void lblvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblvolverMouseClicked
@@ -220,6 +223,7 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnReporteProveedores;
     private javax.swing.JButton btnReportesFactura;
+    private java.awt.Choice choiceProveedores;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

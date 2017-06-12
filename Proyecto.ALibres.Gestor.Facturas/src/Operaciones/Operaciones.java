@@ -8,6 +8,7 @@ package Operaciones;
 import Pojos.Cliente;
 import Pojos.Factura;
 import Pojos.Proveedor;
+import java.awt.Choice;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -109,6 +110,47 @@ public class Operaciones extends Conexion{
                         objetos[i-1] = resultado.getObject(i);
                     }
                     tableModel.addRow(objetos);
+                }
+            }
+        }catch(SQLException e){
+        }
+
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
+    public void totalProveedores(Choice choiceProveedores){
+        ResultSet resultado = null;
+        //tableModel.setRowCount(0);
+        //tableModel.setColumnCount(0);
+        String sql = "select * from Proveedor";
+        try {
+            resultado = consultar(sql);
+            if(resultado != null){
+                /*int numeroColumna = resultado.getMetaData().getColumnCount();
+                for(int j = 1;j <= numeroColumna;j++){
+                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+                }*/
+                while(resultado.next()){
+                    //Object []objetos = new Object[1];
+                    for(int i = 1;i <= 1;i++){
+                        //objetos[i-1] = resultado.getObject(i);
+                        choiceProveedores.addItem((String) resultado.getObject(i));
+                    }
+                    
                 }
             }
         }catch(SQLException e){

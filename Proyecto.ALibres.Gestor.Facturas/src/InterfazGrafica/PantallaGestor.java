@@ -968,6 +968,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         //nuevaDireccion+="\\\\Bdd.s3db";
         //nuevaDireccion=nuevaDireccion.replace("/", "\\");
         //Bdd.s3db
+        
         Operaciones operaciones = new Operaciones(direccionBase);
         //Operaciones operaciones = new Operaciones(nuevaDireccion);
         operaciones.conectar();
@@ -985,7 +986,8 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void lblReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporteMouseClicked
         // TODO add your handling code here:
-        Reportes reporte = new Reportes(nuevaDireccion);
+        String direccionBase=this.direccionProyecto+"\\\\Bdd.s3db";
+        Reportes reporte = new Reportes(direccionBase);
         this.dispose();
         reporte.setVisible(true);
     }//GEN-LAST:event_lblReporteMouseClicked
