@@ -8,6 +8,9 @@ package InterfazGrafica;
 import Operaciones.Operaciones;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -125,13 +128,13 @@ public class Reportes extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableReportes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 450, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 770, 240));
 
         lblTitulo.setBackground(new java.awt.Color(12, 15, 22));
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Reportes");
-        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 410, 40));
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 410, 40));
 
         jButton1.setBackground(new java.awt.Color(12, 15, 22));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Close Window_32px.png"))); // NOI18N
@@ -140,10 +143,17 @@ public class Reportes extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, -1, -1));
-        jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 170, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 390));
+        choiceProveedores.setEnabled(false);
+        choiceProveedores.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                choiceProveedoresItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 170, 20));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 390));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -154,7 +164,7 @@ public class Reportes extends javax.swing.JFrame {
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         operaciones.totalPersonas((DefaultTableModel)jTableReportes.getModel());
-        
+        choiceProveedores.setEnabled(false);
     }//GEN-LAST:event_btnReporteProveedoresMouseClicked
 
     private void btnReportesFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesFacturaMouseClicked
@@ -162,8 +172,9 @@ public class Reportes extends javax.swing.JFrame {
         lblTitulo.setText("Facturas");
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
-        operaciones.totalFacturas((DefaultTableModel)jTableReportes.getModel());
+        //operaciones.totalFacturas((DefaultTableModel)jTableReportes.getModel());
         operaciones.totalProveedores(choiceProveedores);
+        choiceProveedores.setEnabled(true);
     }//GEN-LAST:event_btnReportesFacturaMouseClicked
 
     private void lblvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblvolverMouseClicked
@@ -183,6 +194,18 @@ public class Reportes extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void choiceProveedoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceProveedoresItemStateChanged
+        // TODO add your handling code here:
+        Operaciones operaciones = new Operaciones(this.direccionBdd);
+        operaciones.conectar();
+        try {
+            operaciones.totalFacturas((DefaultTableModel)jTableReportes.getModel(), choiceProveedores.getSelectedItem());
+        } catch (SQLException ex) {
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_choiceProveedoresItemStateChanged
 
     /**
      * @param args the command line arguments

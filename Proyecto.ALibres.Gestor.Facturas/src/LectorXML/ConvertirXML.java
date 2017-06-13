@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static jdk.nashorn.internal.parser.TokenType.EOF;
+//import static jdk.nashorn.internal.parser.TokenType.EOF;
 
 /**
  *

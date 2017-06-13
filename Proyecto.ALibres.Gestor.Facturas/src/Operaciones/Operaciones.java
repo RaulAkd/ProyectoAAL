@@ -96,7 +96,7 @@ public class Operaciones extends Conexion{
         ResultSet resultado = null;
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
-        String sql = "select * from Proveedor";
+        String sql = "select rucProv AS \"RUC PROVEEDOR\", nombreProv AS \"NOMBRE PROVEEDOR\", direccionProv AS \"DIRECCION PROVEEDOR\" from Proveedor";
         try {
             resultado = consultar(sql);
             if(resultado != null){
@@ -138,7 +138,9 @@ public class Operaciones extends Conexion{
         //tableModel.setColumnCount(0);
         String sql = "select * from Proveedor";
         try {
+            
             resultado = consultar(sql);
+            
             if(resultado != null){
                 /*int numeroColumna = resultado.getMetaData().getColumnCount();
                 for(int j = 1;j <= numeroColumna;j++){
@@ -146,11 +148,10 @@ public class Operaciones extends Conexion{
                 }*/
                 while(resultado.next()){
                     //Object []objetos = new Object[1];
-                    for(int i = 1;i <= 1;i++){
+                    //for(int i = 1;i <= 1;i++){
                         //objetos[i-1] = resultado.getObject(i);
-                        choiceProveedores.addItem((String) resultado.getObject(i));
-                    }
-                    
+                        choiceProveedores.addItem((String) resultado.getObject(2));
+                      
                 }
             }
         }catch(SQLException e){
@@ -173,11 +174,18 @@ public class Operaciones extends Conexion{
      }
     }
     
-    public void totalFacturas(DefaultTableModel tableModel){
+    public void totalFacturas(DefaultTableModel tableModel, String nombreProveedor) throws SQLException{
         ResultSet resultado = null;
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
-        String sql = "select * from Factura";
+        //select rucProv from Proveedor where nombreProv = 'MEGA SANTAMARIA S.A.'
+        String sqlRucProveedor = "select rucProv from Proveedor where nombreProv = '" + nombreProveedor + "'";
+        ResultSet resultadoRuc = null;
+        resultadoRuc = consultar(sqlRucProveedor);
+        String rucProveedor = ((String) resultadoRuc.getObject(1));
+        
+        
+        String sql = "select codigoFactura AS \"CODIGO\", fechaEmision AS \"FECHA\", totalVestimenta AS \"VESTIMENTA\", totalAlimentacion AS \"ALIMENTACION\", totalSalud AS \"SALUD\", totalEducacion AS \"EDUCACION\", totalVivienda AS \"VIVIENDA\", totalOtros AS \"OTROS\", totalConIva AS \"TOTAL\" from Factura where rucProveedor = '" + rucProveedor + "'";
         try {
             resultado = consultar(sql);
             if(resultado != null){
