@@ -12,8 +12,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.logging.Logger;
 //import static jdk.nashorn.internal.parser.TokenType.EOF;
 
 /**
@@ -27,6 +29,7 @@ public class ConvertirXML {
     //sfsdf
     FileWriter fichero;
     PrintWriter pw;
+     private static final Logger log = Logger.getLogger(ConvertirXML.class.getName());
 
     public ConvertirXML(String direccion) throws FileNotFoundException, IOException {
         this.direccion = direccion;
@@ -63,6 +66,7 @@ public class ConvertirXML {
         System.out.println("numero de lineas = "+ lNumeroLineas);
         */
         //bufferEntrada = new BufferedReader(fileEntrada);
+        log.log(Level.FINE, "Antes de while");
         while((cadena = bufferEntrada.readLine())!=null && corchetesFinal) {
             //System.out.println("..LINEA "+contadorlinea + cadena);
             //contadorlinea++;
@@ -70,7 +74,7 @@ public class ConvertirXML {
             Matcher mat = pat.matcher(cadena);
             Pattern patB = Pattern.compile(".*]].*");
             Matcher matB = patB.matcher(cadena);
-            
+            log.log(Level.FINE, "Pasa expresion regular");
             if(matB.matches() && mat.matches()){
                 int posicion = cadena.indexOf("CDATA");
                 int posicionB = cadena.indexOf("]]");

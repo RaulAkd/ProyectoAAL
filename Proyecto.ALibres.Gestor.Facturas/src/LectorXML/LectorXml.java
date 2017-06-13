@@ -18,6 +18,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,13 +30,16 @@ public class LectorXml {
     private Cliente cliente = new Cliente();
     private Factura factura = new Factura();
     private String direccionArchivo;
-
+    private static final Logger log = Logger.getLogger(LectorXml.class.getName());
 
     public LectorXml(String direccionArchivo) {
         this.direccionArchivo = direccionArchivo;
     }
     
     public void leerFacturaXml(){
+        
+        log.log(Level.FINE, "Si llega aqui");
+        
         try {
             int temp = 0;
             File fXmlFile = new File(this.direccionArchivo);

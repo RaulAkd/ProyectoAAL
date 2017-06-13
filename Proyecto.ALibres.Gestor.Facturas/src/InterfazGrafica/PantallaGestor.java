@@ -46,7 +46,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     public PantallaGestor() {
         initComponents();
         this.nombreUsuario=System.getProperty("user.name");
-        //nuevaDireccion+="\\\\ArchivosGestorFacturas\\\\BaseDeDatos";
+        //nuevaDireccion+="\\\\ArchivosGaestorFacturas\\\\BaseDeDatos";
         this.direccionProyecto="C:\\\\Users\\\\"+this.nombreUsuario+"\\\\ArchivosGestorFacturas\\\\BaseDeDatos";
         File carpeta = new File(direccionProyecto);
         carpeta.mkdirs();
@@ -964,9 +964,9 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
-        String direccionBase="";
-        
-        direccionBase=this.direccionProyecto+"\\\\Bdd.s3db";
+        String direccionBase="src\\ArchivosLecturaAuxiliar";
+        direccionBase+="\\\\Bdd.s3db";
+        //direccionBase=this.direccionProyecto+"\\\\Bdd.s3db";
         System.out.println("Dir base:"+direccionBase);
         //nuevaDireccion+="\\\\Bdd.s3db";
         //nuevaDireccion=nuevaDireccion.replace("/", "\\");
@@ -978,7 +978,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         operaciones.guardarFactura(this.leerXml.getFactura());
         operaciones.guardarCliente(this.leerXml.getCliente());
         operaciones.guardarProveedor(this.leerXml.getProveedor());
-        
+        JOptionPane.showMessageDialog(null, "Factura ingresada exitosamente");
         while(modelo.getRowCount()>0)modelo.removeRow(0);
         
         txtTotalSinIva.setText("");
@@ -989,7 +989,9 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void lblReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporteMouseClicked
         // TODO add your handling code here:
-        String direccionBase=this.direccionProyecto+"\\\\Bdd.s3db";
+        //String direccionBase=this.direccionProyecto+"\\\\Bdd.s3db";
+        String direccionBase="src\\ArchivosLecturaAuxiliar";
+        direccionBase+="\\\\Bdd.s3db";
         Reportes reporte = new Reportes(direccionBase);
         this.dispose();
         reporte.setVisible(true);
