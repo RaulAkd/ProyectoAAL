@@ -123,7 +123,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         jTableProductos = new javax.swing.JTable();
         btnSalir = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         lblReporte = new javax.swing.JLabel();
         lblBuscar = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
@@ -441,20 +441,23 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         PanelMostrar.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 120, -1));
 
-        btnModificar.setBackground(new java.awt.Color(36, 46, 68));
-        btnModificar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnModificar.setForeground(new java.awt.Color(204, 204, 204));
-        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Edit_32px.png"))); // NOI18N
-        btnModificar.setText("Modificar");
-        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnLimpiar.setBackground(new java.awt.Color(36, 46, 68));
+        btnLimpiar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnLimpiar.setForeground(new java.awt.Color(204, 204, 204));
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Restart_32px_2.png"))); // NOI18N
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLimpiarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnModificarMouseEntered(evt);
+                btnLimpiarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnModificarMouseExited(evt);
+                btnLimpiarMouseExited(evt);
             }
         });
-        PanelMostrar.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, -1, -1));
+        PanelMostrar.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, -1, -1));
 
         lblReporte.setBackground(new java.awt.Color(36, 46, 68));
         lblReporte.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
@@ -700,17 +703,17 @@ public class PantallaGestor extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseEntered
+    private void btnLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseEntered
         // TODO add your handling code here:
-        btnModificar.setForeground(Color.white);
-        btnModificar.setBackground(new Color(89, 199, 198));
-    }//GEN-LAST:event_btnModificarMouseEntered
+        btnLimpiar.setForeground(Color.white);
+        btnLimpiar.setBackground(new Color(89, 199, 198));
+    }//GEN-LAST:event_btnLimpiarMouseEntered
 
-    private void btnModificarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseExited
+    private void btnLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseExited
         // TODO add your handling code here:
-        btnModificar.setForeground(new Color(204,204,204));
-        btnModificar.setBackground(new Color(36, 46, 68));
-    }//GEN-LAST:event_btnModificarMouseExited
+        btnLimpiar.setForeground(new Color(204,204,204));
+        btnLimpiar.setBackground(new Color(36, 46, 68));
+    }//GEN-LAST:event_btnLimpiarMouseExited
 
     private void lblReporteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporteMouseEntered
         // TODO add your handling code here:
@@ -996,6 +999,11 @@ public class PantallaGestor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalSinIvaActionPerformed
 
+    private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
+        // TODO add your handling code here:
+        while(modelo.getRowCount()>0)modelo.removeRow(0);
+    }//GEN-LAST:event_btnLimpiarMouseClicked
+
     public String direccionAbsoluta(String dir)
     {
         String auxiliar="";
@@ -1058,7 +1066,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JButton btnEducacion;
     private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnOtros;
     private javax.swing.JButton btnProveedor;
     private javax.swing.JButton btnSalir;

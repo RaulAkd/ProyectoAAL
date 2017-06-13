@@ -56,11 +56,10 @@ public class Reportes extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnReportesFactura = new javax.swing.JButton();
         btnReporteProveedores = new javax.swing.JButton();
-        lblvolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableReportes = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnCerrarReporte = new javax.swing.JButton();
         choiceProveedores = new java.awt.Choice();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,16 +102,6 @@ public class Reportes extends javax.swing.JFrame {
         });
         jPanel2.add(btnReporteProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, 40, 40));
 
-        lblvolver.setBackground(new java.awt.Color(12, 15, 22));
-        lblvolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Long Arrow Left_32px_1.png"))); // NOI18N
-        lblvolver.setBorder(null);
-        lblvolver.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblvolverMouseClicked(evt);
-            }
-        });
-        jPanel2.add(lblvolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 40, -1));
-
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 390));
 
         jTableReportes.setModel(new javax.swing.table.DefaultTableModel(
@@ -136,14 +125,20 @@ public class Reportes extends javax.swing.JFrame {
         lblTitulo.setText("Reportes");
         jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 410, 40));
 
-        jButton1.setBackground(new java.awt.Color(12, 15, 22));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Close Window_32px.png"))); // NOI18N
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCerrarReporte.setBackground(new java.awt.Color(36, 46, 68));
+        btnCerrarReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Close Window_32px.png"))); // NOI18N
+        btnCerrarReporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnCerrarReporteMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCerrarReporteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarReporteMouseExited(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, -1, -1));
+        jPanel1.add(btnCerrarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(795, 20, 30, 30));
 
         choiceProveedores.setEnabled(false);
         choiceProveedores.addItemListener(new java.awt.event.ItemListener() {
@@ -177,12 +172,6 @@ public class Reportes extends javax.swing.JFrame {
         choiceProveedores.setEnabled(true);
     }//GEN-LAST:event_btnReportesFacturaMouseClicked
 
-    private void lblvolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblvolverMouseClicked
-        // TODO add your handling code here:
-        lblTitulo.setText("Reportes");
-        
-    }//GEN-LAST:event_lblvolverMouseClicked
-
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         // TODO add your handling code here:
         PantallaGestor pg = new PantallaGestor();
@@ -190,10 +179,10 @@ public class Reportes extends javax.swing.JFrame {
         pg.setVisible(true);
     }//GEN-LAST:event_btnRegresarMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnCerrarReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarReporteMouseClicked
         // TODO add your handling code here:
         System.exit(0);
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btnCerrarReporteMouseClicked
 
     private void choiceProveedoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceProveedoresItemStateChanged
         // TODO add your handling code here:
@@ -206,6 +195,16 @@ public class Reportes extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_choiceProveedoresItemStateChanged
+
+    private void btnCerrarReporteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarReporteMouseEntered
+        // TODO add your handling code here:
+        btnCerrarReporte.setBackground(new java.awt.Color(254, 132, 132));
+    }//GEN-LAST:event_btnCerrarReporteMouseEntered
+
+    private void btnCerrarReporteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarReporteMouseExited
+        // TODO add your handling code here:
+        btnCerrarReporte.setBackground(new java.awt.Color(36,46,68));
+    }//GEN-LAST:event_btnCerrarReporteMouseExited
 
     /**
      * @param args the command line arguments
@@ -243,16 +242,15 @@ public class Reportes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrarReporte;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnReporteProveedores;
     private javax.swing.JButton btnReportesFactura;
     private java.awt.Choice choiceProveedores;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableReportes;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JButton lblvolver;
     // End of variables declaration//GEN-END:variables
 }
