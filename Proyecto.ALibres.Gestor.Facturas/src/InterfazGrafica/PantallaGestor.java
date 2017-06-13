@@ -1002,6 +1002,8 @@ public class PantallaGestor extends javax.swing.JFrame {
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
         // TODO add your handling code here:
         while(modelo.getRowCount()>0)modelo.removeRow(0);
+        txtTotalSinIva.setText("");
+        txtTotalFactura.setText("");
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
     public String direccionAbsoluta(String dir)
