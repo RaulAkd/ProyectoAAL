@@ -5,12 +5,20 @@
  */
 package InterfazGrafica;
 
+import GeneradorExcel.Exporter;
 import Operaciones.Operaciones;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -56,6 +64,7 @@ public class Reportes extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnReportesFactura = new javax.swing.JButton();
         btnReporteProveedores = new javax.swing.JButton();
+        btnExportatExcel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableReportes = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
@@ -102,7 +111,16 @@ public class Reportes extends javax.swing.JFrame {
         });
         jPanel2.add(btnReporteProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, 40, 40));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 390));
+        btnExportatExcel.setBackground(new java.awt.Color(12, 15, 22));
+        btnExportatExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Microsoft Excel_32px_2.png"))); // NOI18N
+        btnExportatExcel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExportatExcelMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnExportatExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 40, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 420));
 
         jTableReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -148,7 +166,7 @@ public class Reportes extends javax.swing.JFrame {
         });
         jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 170, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 390));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -206,6 +224,40 @@ public class Reportes extends javax.swing.JFrame {
         btnCerrarReporte.setBackground(new java.awt.Color(36,46,68));
     }//GEN-LAST:event_btnCerrarReporteMouseExited
 
+    private void btnExportatExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportatExcelMouseClicked
+        // TODO add your handling code here:
+        if (this.jTableReportes.getRowCount()==0) {
+            JOptionPane.showMessageDialog (null, "No hay datos en la tabla para exportar.","BCO",
+                JOptionPane.INFORMATION_MESSAGE);
+            //this.cmbConsorcio.grabFocus();
+            return;
+        }
+        JFileChooser chooser=new JFileChooser();
+        FileNameExtensionFilter filter=new FileNameExtensionFilter("Archivos de excel","xls");
+        chooser.setFileFilter(filter);
+        chooser.setDialogTitle("Guardar archivo");
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setAcceptAllFileFilterUsed(false);
+        if (chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
+            List<JTable> tb=new ArrayList<>();
+            List<String>nom=new ArrayList<>();
+            tb.add(jTableReportes);
+            nom.add("Detalle de Gastos");
+            String file=chooser.getSelectedFile().toString().concat(".xls");
+            try {
+                GeneradorExcel.Exporter e=new Exporter(new File(file),tb, nom);
+                if (e.export()) {
+                    JOptionPane.showMessageDialog(null, "Los datos fueron exportados a excel.","BCO",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Hubo un error"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_btnExportatExcelMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -243,6 +295,7 @@ public class Reportes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarReporte;
+    private javax.swing.JButton btnExportatExcel;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnReporteProveedores;
     private javax.swing.JButton btnReportesFactura;

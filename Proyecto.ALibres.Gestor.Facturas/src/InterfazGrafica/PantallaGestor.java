@@ -5,6 +5,7 @@
  */
 package InterfazGrafica;
 
+import GeneradorExcel.Exporter;
 import LectorXML.ConvertirXML;
 import LectorXML.LectorXml;
 import Operaciones.Operaciones;
@@ -38,6 +39,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     String nuevaDireccion;
     String nombreUsuario;
     String direccionProyecto="";
+    
     //Operaciones operaciones = new Operaciones();
     
     /*
