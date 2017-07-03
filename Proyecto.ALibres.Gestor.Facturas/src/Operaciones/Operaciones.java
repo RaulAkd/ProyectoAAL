@@ -160,6 +160,7 @@ public class Operaciones extends Conexion{
     }
     
     public void guardarGastos(String idCliente){
+        JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS....");
         insertar("INSERT INTO GASTOS (ID_CLIENTE, TOTAL_ALIMENTACION_CLIENTE, TOTAL_VESTIMENTA_CLIENTE, "
                 + "TOTAL_VIVIENDA_CLIENTE, TOTAL_SALUD_CLIENTE, TOTAL_EDUCACION_CLIENTE, "
                 + "TOTAL_OTROS_CLIENTE) VALUES('" + idCliente + "','" + 
@@ -172,16 +173,21 @@ public class Operaciones extends Conexion{
         resultado = consultar("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE\n" +
                     "RUC_PROVEEDOR = '" + proveedor.getRuc() + 
                     "' AND NOMBRE_PROVEEDOR = '" + proveedor.getNombre()+"'");
-        if(resultado != null){
+        try {
+            //if(resultado != null){
+            if(resultado.next()){
+                JOptionPane.showMessageDialog(null, "PROVEEDOR YA SE ENCUENTRA REGISTRADO");
+            }
+            else{
             JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
             insertar("INSERT INTO PROVEEDOR (RUC_PROVEEDOR, NOMBRE_PROVEEDOR, CIUDAD_PROVEEDOR, DIRECCION_PROVEEDOR) VALUES('" + 
                     proveedor.getRuc() + "','" + 
                     proveedor.getNombre() + "','" + 
                     proveedor.getCiudad() + "','" + 
                     proveedor.getDireccion() +"')");
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "PROVEEDOR YA SE ENCUENTRA REGISTRADO");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
   
