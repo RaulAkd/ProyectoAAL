@@ -36,12 +36,6 @@ public class Operaciones extends Conexion{
                 //int numeroColumna = resultado.getMetaData().getColumnCount();
 
                 while(resultado.next()){
-                    /*Object []objetos = new Object[numeroColumna];
-                    for(int i = 1;i <= numeroColumna;i++){
-                        objetos[i-1] = resultado.getObject(i);
-                        System.out.print(resultado.getObject(i));
-                    }*/
-                    //System.out.println(resultado.getObject(1));
                     if((resultado.getObject(1).toString().compareTo(codigoFactura) == 0)
                             &&(resultado.getObject(2).toString().compareTo(rucCiCliente) == 0)
                             &&(resultado.getObject(3).toString().compareTo(RucProveedor) == 0)){
