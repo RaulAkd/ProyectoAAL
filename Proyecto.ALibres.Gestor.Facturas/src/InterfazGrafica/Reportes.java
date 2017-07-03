@@ -5,12 +5,20 @@
  */
 package InterfazGrafica;
 
+import GeneradorExcel.Exporter;
 import Operaciones.Operaciones;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -56,6 +64,7 @@ public class Reportes extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnReportesFactura = new javax.swing.JButton();
         btnReporteProveedores = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableReportes = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
@@ -101,6 +110,15 @@ public class Reportes extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnReporteProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, 40, 40));
+
+        btnExportar.setBackground(new java.awt.Color(12, 15, 22));
+        btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Microsoft Excel_32px_3.png"))); // NOI18N
+        btnExportar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExportarMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 40, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 390));
 
@@ -206,6 +224,41 @@ public class Reportes extends javax.swing.JFrame {
         btnCerrarReporte.setBackground(new java.awt.Color(36,46,68));
     }//GEN-LAST:event_btnCerrarReporteMouseExited
 
+    private void btnExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarMouseClicked
+                // TODO add your handling code here:
+        if (this.jTableReportes.getRowCount()==0) {
+            JOptionPane.showMessageDialog (null, "No hay datos en la tabla para exportar.","BCO",
+                JOptionPane.INFORMATION_MESSAGE);
+            //this.cmbConsorcio.grabFocus();
+            return;
+        }
+        JFileChooser chooser=new JFileChooser();
+        FileNameExtensionFilter filter=new FileNameExtensionFilter("Archivos de excel","xls");
+        chooser.setFileFilter(filter);
+        chooser.setDialogTitle("Guardar archivo");
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setAcceptAllFileFilterUsed(false);
+        if (chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
+            List<JTable> tb=new ArrayList<>();
+            List<String>nom=new ArrayList<>();
+            tb.add(jTableReportes);
+            nom.add("Detalle de Gastos");
+            String file=chooser.getSelectedFile().toString().concat(".xls");
+            try {
+                GeneradorExcel.Exporter e=new Exporter(new File(file),tb, nom);
+                if (e.export()) {
+                    JOptionPane.showMessageDialog(null, "Los datos fueron exportados a excel.","BCO",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Hubo un error"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        
+    }//GEN-LAST:event_btnExportarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -243,6 +296,7 @@ public class Reportes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarReporte;
+    private javax.swing.JButton btnExportar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnReporteProveedores;
     private javax.swing.JButton btnReportesFactura;
