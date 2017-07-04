@@ -985,6 +985,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         operaciones.guardarCliente(this.leerXml.getCliente());
         JOptionPane.showMessageDialog(null, "guardando proveedor....");
         operaciones.guardarProveedor(this.leerXml.getProveedor());
+        JOptionPane.showMessageDialog(null, "guardando factura....");
         operaciones.guardarFactura(this.leerXml.getFactura());
         
         JOptionPane.showMessageDialog(null, "Factura ingresada exitosamente");
