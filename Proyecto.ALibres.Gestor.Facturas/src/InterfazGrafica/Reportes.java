@@ -62,14 +62,15 @@ public class Reportes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        btnReportesFactura = new javax.swing.JButton();
         btnReporteProveedores = new javax.swing.JButton();
-        btnExportar = new javax.swing.JButton();
+        btnExportarExcel = new javax.swing.JButton();
+        btnExportarPdf = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableReportes = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
         btnCerrarReporte = new javax.swing.JButton();
         choiceProveedores = new java.awt.Choice();
+        choiceClientes = new java.awt.Choice();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -91,18 +92,8 @@ public class Reportes extends javax.swing.JFrame {
         });
         jPanel2.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 40, -1));
 
-        btnReportesFactura.setBackground(new java.awt.Color(12, 15, 22));
-        btnReportesFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Purchase Order_32px_1.png"))); // NOI18N
-        btnReportesFactura.setBorder(null);
-        btnReportesFactura.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnReportesFacturaMouseClicked(evt);
-            }
-        });
-        jPanel2.add(btnReportesFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 40, 40));
-
         btnReporteProveedores.setBackground(new java.awt.Color(12, 15, 22));
-        btnReporteProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Move by Trolley_32px_1.png"))); // NOI18N
+        btnReporteProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Gender Neutral User_32px.png"))); // NOI18N
         btnReporteProveedores.setBorder(null);
         btnReporteProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -111,14 +102,23 @@ public class Reportes extends javax.swing.JFrame {
         });
         jPanel2.add(btnReporteProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, 40, 40));
 
-        btnExportar.setBackground(new java.awt.Color(12, 15, 22));
-        btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Microsoft Excel_32px_3.png"))); // NOI18N
-        btnExportar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnExportarExcel.setBackground(new java.awt.Color(12, 15, 22));
+        btnExportarExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Microsoft Excel_32px_4.png"))); // NOI18N
+        btnExportarExcel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnExportarMouseClicked(evt);
+                btnExportarExcelMouseClicked(evt);
             }
         });
-        jPanel2.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 40, 40));
+        jPanel2.add(btnExportarExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 40, 40));
+
+        btnExportarPdf.setBackground(new java.awt.Color(12, 15, 22));
+        btnExportarPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PDF 2_32px.png"))); // NOI18N
+        btnExportarPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarPdfActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnExportarPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 40, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 390));
 
@@ -164,7 +164,8 @@ public class Reportes extends javax.swing.JFrame {
                 choiceProveedoresItemStateChanged(evt);
             }
         });
-        jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 170, 20));
+        jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 170, 20));
+        jPanel1.add(choiceClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 170, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 390));
 
@@ -179,16 +180,6 @@ public class Reportes extends javax.swing.JFrame {
         operaciones.totalPersonas((DefaultTableModel)jTableReportes.getModel());
         choiceProveedores.setEnabled(false);
     }//GEN-LAST:event_btnReporteProveedoresMouseClicked
-
-    private void btnReportesFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesFacturaMouseClicked
-        // TODO add your handling code here:
-        lblTitulo.setText("Facturas");
-        Operaciones operaciones = new Operaciones(this.direccionBdd);
-        operaciones.conectar();
-        //operaciones.totalFacturas((DefaultTableModel)jTableReportes.getModel());
-        operaciones.totalProveedores(choiceProveedores);
-        choiceProveedores.setEnabled(true);
-    }//GEN-LAST:event_btnReportesFacturaMouseClicked
 
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         // TODO add your handling code here:
@@ -224,7 +215,7 @@ public class Reportes extends javax.swing.JFrame {
         btnCerrarReporte.setBackground(new java.awt.Color(36,46,68));
     }//GEN-LAST:event_btnCerrarReporteMouseExited
 
-    private void btnExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarMouseClicked
+    private void btnExportarExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarExcelMouseClicked
                 // TODO add your handling code here:
         if (this.jTableReportes.getRowCount()==0) {
             JOptionPane.showMessageDialog (null, "No hay datos en la tabla para exportar.","BCO",
@@ -257,7 +248,11 @@ public class Reportes extends javax.swing.JFrame {
         }
 
         
-    }//GEN-LAST:event_btnExportarMouseClicked
+    }//GEN-LAST:event_btnExportarExcelMouseClicked
+
+    private void btnExportarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPdfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExportarPdfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,10 +291,11 @@ public class Reportes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarReporte;
-    private javax.swing.JButton btnExportar;
+    private javax.swing.JButton btnExportarExcel;
+    private javax.swing.JButton btnExportarPdf;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnReporteProveedores;
-    private javax.swing.JButton btnReportesFactura;
+    private java.awt.Choice choiceClientes;
     private java.awt.Choice choiceProveedores;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
