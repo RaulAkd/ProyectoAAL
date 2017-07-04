@@ -113,6 +113,11 @@ public class Reportes extends javax.swing.JFrame {
 
         btnExportarPdf.setBackground(new java.awt.Color(12, 15, 22));
         btnExportarPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PDF 2_32px.png"))); // NOI18N
+        btnExportarPdf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExportarPdfMouseClicked(evt);
+            }
+        });
         btnExportarPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarPdfActionPerformed(evt);
@@ -266,6 +271,7 @@ public class Reportes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExportarPdfActionPerformed
 
+<<<<<<< HEAD
     private void choiceClientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceClientesItemStateChanged
         // TODO add your handling code here:
         Operaciones operaciones = new Operaciones(this.direccionBdd);
@@ -274,6 +280,41 @@ public class Reportes extends javax.swing.JFrame {
         operaciones.totalProveedoresPorCliente(choiceProveedores, choiceClientes.getSelectedItem());
         operaciones.totalFacturasPorCliente((DefaultTableModel)jTableReportes.getModel(), choiceClientes.getSelectedItem());
     }//GEN-LAST:event_choiceClientesItemStateChanged
+=======
+    private void btnExportarPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarPdfMouseClicked
+        // TODO add your handling code here:
+        if (this.jTableReportes.getRowCount()==0) {
+            JOptionPane.showMessageDialog (null, "No hay datos en la tabla para exportar.","BCO",
+                JOptionPane.INFORMATION_MESSAGE);
+            //this.cmbConsorcio.grabFocus();
+            return;
+        }
+        JFileChooser chooser=new JFileChooser();
+        FileNameExtensionFilter filter=new FileNameExtensionFilter("Archivos de excel","xls");
+        chooser.setFileFilter(filter);
+        chooser.setDialogTitle("Guardar archivo");
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setAcceptAllFileFilterUsed(false);
+        if (chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
+            List<JTable> tb=new ArrayList<>();
+            List<String>nom=new ArrayList<>();
+            tb.add(jTableReportes);
+            nom.add("Detalle de Gastos");
+            String file=chooser.getSelectedFile().toString().concat(".xls");
+            try {
+                GeneradorExcel.Exporter e=new Exporter(new File(file),tb, nom);
+                if (e.export()) {
+                    JOptionPane.showMessageDialog(null, "Los datos fueron exportados a excel.","BCO",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Hubo un error"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_btnExportarPdfMouseClicked
+>>>>>>> dd692cae39c941a19e38c3b6a26817e570811323
 
     /**
      * @param args the command line arguments
