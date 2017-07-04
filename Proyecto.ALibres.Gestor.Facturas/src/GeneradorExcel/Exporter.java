@@ -36,25 +36,31 @@ public class Exporter {
     
     public boolean export() {
         
-        try {
+        try 
+        {
             DataOutputStream out=new DataOutputStream (new FileOutputStream(file));
             WritableWorkbook w = Workbook.createWorkbook(out);
-            for (int index=0; index<tabla.size(); index++){
+            for (int index=0; index<tabla.size(); index++)
+            {
                 JTable table=tabla.get(index);
                 WritableSheet s=w.createSheet(nom_files.get(index),0);
                //Para que salga el titulo de las columnas
-for (int i = 0; i < table.getColumnCount(); i++) {
-      for (int j = 0; j < table.getRowCount(); j++) {
-            Object titulo = table.getColumnName(i);
-            s.addCell(new Label(i+1, j+1, String.valueOf(titulo)));
-       }
-}
-for (int i = 0; i < table.getColumnCount(); i++) {
-      for (int j = 0; j < table.getRowCount(); j++) {
-            Object object = table.getValueAt(j, i);
-            s.addCell(new Label(i+1, j+2, String.valueOf(object)));
-      }
-    }
+                for (int i = 0; i < table.getColumnCount(); i++) 
+                {
+                    for (int j = 0; j < table.getRowCount(); j++) 
+                    {
+                        Object titulo = table.getColumnName(i);
+                        s.addCell(new Label(i+1, j+1, String.valueOf(titulo)));
+                    }
+                }
+                for (int i = 0; i < table.getColumnCount(); i++) 
+                {
+                    for (int j = 0; j < table.getRowCount(); j++) 
+                    {
+                        Object object = table.getValueAt(j, i);
+                        s.addCell(new Label(i+1, j+2, String.valueOf(object)));
+                    }
+                }
              /*
             *    for sin titulo de columnas:
             *
