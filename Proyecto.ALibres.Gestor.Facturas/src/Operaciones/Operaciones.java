@@ -7,10 +7,12 @@ package Operaciones;
 //import Objetos.Persona;
 import Pojos.Cliente;
 import Pojos.Factura;
+import Pojos.Gasto;
 import Pojos.Proveedor;
 import java.awt.Choice;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -43,6 +45,7 @@ public class Operaciones extends Conexion{
                     }
                 }
             }
+            resultado.close();
         }
         catch(SQLException e){
             
@@ -85,6 +88,7 @@ public class Operaciones extends Conexion{
     }
     
     public void guardarFactura(Factura factura){
+        JOptionPane.showMessageDialog(null, "llego a metodo guardar factura....");
         ResultSet resultadoIdcliente = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE RUC_CI_CLIENTE = '"+factura.getRucCliente()+"'");
         ResultSet resultadoIdProveedor = consultar("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE RUC_PROVEEDOR = '"+factura.getRucProveedor()+"'");
         String idCliente = "", idProveedor = "";
@@ -95,10 +99,12 @@ public class Operaciones extends Conexion{
             while(resultadoIdProveedor.next()){
                 idProveedor = resultadoIdProveedor.getObject(1).toString();
             }
+            resultadoIdcliente.close();
+            resultadoIdProveedor.close();
         } catch (SQLException ex) {
             Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        JOptionPane.showMessageDialog(null, "id cliente...." + idCliente + "   id proveedor...." + idProveedor);
         insertar("INSERT INTO FACTURA (ID_PROVEEDOR, ID_CLIENTE, CODIGO_FACTURA, FECHA, IVA, "
                 + "TOTAL_SIN_IVA, TOTAL_CON_IVA, TOTAL_ALIMENTACION_CLIENTE, TOTAL_VESTIMENTA_CLIENTE, "
                 + "TOTAL_VIVIENDA_CLIENTE, TOTAL_SALUD_CLIENTE, TOTAL_EDUCACION_CLIENTE, TOTAL_OTROS_CLIENTE) VALUES('" + 
@@ -109,21 +115,23 @@ public class Operaciones extends Conexion{
                     factura.getIva() + "','" + 
                     factura.getTotalSinIva() + "','" + 
                     factura.getTotalConIva() + "','" + 
-                    factura.getListaGastos().get(1).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(0).getTotalSinIva() + "','" + 
-                    factura.getListaGastos().get(4).getTotalSinIva() + "','" + 
+                    factura.getListaGastos().get(1).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(2).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(3).getTotalSinIva() + "','" + 
+                    factura.getListaGastos().get(4).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(5).getTotalSinIva() +"')");
+        JOptionPane.showMessageDialog(null, "factura guardada....");
+        sumarGastos(idCliente, factura.getListaGastos());
     }
     
     public void guardarCliente(Cliente cliente){
         JOptionPane.showMessageDialog(null, "llego a metodo guardar cliente....");
         ResultSet resultado = null;
-        resultado = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE\n" +
+        try {
+            resultado = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE\n" +
                     "RUC_CI_CLIENTE = '"+ cliente.getRucCi()/* + 
                     "' AND NOMBRES_CLIENTE = '"+cliente.getNombres()*/+"'");
-        try {
             //if(resultado != null){
             if(resultado.next()){
                 JOptionPane.showMessageDialog(null, "CLIENTE YA SE ENCUENTRA REGISTRADO");
@@ -144,13 +152,43 @@ public class Operaciones extends Conexion{
                 }
                 guardarGastos(idCliente);
             }
+            resultado.close();
         } catch (SQLException ex) {
             Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void sumarGastos(String idCliente){
-        
+    public void sumarGastos(String idCliente, ArrayList<Gasto> gastosFactura){
+        JOptionPane.showMessageDialog(null, "llego a metodo sumar gastos....");
+        double sumaVestimenta, sumaAlimentacion, sumaSalud, sumaEducacion, sumaVivienda, sumaOtros;
+        ResultSet resultado = null;
+        try {
+            resultado = consultar("SELECT * FROM GASTOS WHERE\n" +
+                    " ID_CLIENTE = '" + idCliente +"'");
+            //if(resultado != null){
+            if(resultado.next()){    
+                //JOptionPane.showMessageDialog(null, "gastos......" + resultado.getObject(3).toString());
+                sumaVestimenta = Double.parseDouble(resultado.getObject(3).toString().replace(",", ".")) + gastosFactura.get(0).getTotalSinIva();
+                sumaAlimentacion = Double.parseDouble(resultado.getObject(4).toString().replace(",", ".")) + gastosFactura.get(1).getTotalSinIva();
+                sumaSalud = Double.parseDouble(resultado.getObject(5).toString().replace(",", ".")) + gastosFactura.get(2).getTotalSinIva();
+                sumaEducacion = Double.parseDouble(resultado.getObject(6).toString().replace(",", ".")) + gastosFactura.get(3).getTotalSinIva();
+                sumaVivienda = Double.parseDouble(resultado.getObject(7).toString().replace(",", ".")) + gastosFactura.get(4).getTotalSinIva();
+                sumaOtros = Double.parseDouble(resultado.getObject(8).toString().replace(",", ".")) + gastosFactura.get(5).getTotalSinIva();
+                JOptionPane.showMessageDialog(null, "id cliente a modificar gastos...." + idCliente);
+                resultado.close();
+                consultar("UPDATE GASTOS SET TOTAL_VESTIMENTA_CLIENTE = '" + sumaVestimenta + "',\n" +
+                            "TOTAL_ALIMENTACION_CLIENTE = '" + sumaAlimentacion +
+                            "', TOTAL_SALUD_CLIENTE = '" + sumaSalud +
+                            "', TOTAL_EDUCACION_CLIENTE = '" + sumaEducacion +
+                            "', TOTAL_VIVIENDA_CLIENTE = '" + sumaVivienda +
+                            "', TOTAL_OTROS_CLIENTE = '" + sumaOtros 
+                            + "' WHERE ID_CLIENTE = '" + idCliente + "'");
+                JOptionPane.showMessageDialog(null, "gastos modificados....");
+            }
+            resultado.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void guardarGastos(String idCliente){
@@ -164,10 +202,11 @@ public class Operaciones extends Conexion{
     public void guardarProveedor(Proveedor proveedor){
         JOptionPane.showMessageDialog(null, "llego a metodo proveedor....");
         ResultSet resultado = null;
-        resultado = consultar("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE\n" +
-                    "RUC_PROVEEDOR = '" + proveedor.getRuc() + 
-                    "' AND NOMBRE_PROVEEDOR = '" + proveedor.getNombre()+"'");
+        
         try {
+            resultado = consultar("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE\n" +
+                    "RUC_PROVEEDOR = '" + proveedor.getRuc() +/* 
+                    "' AND NOMBRE_PROVEEDOR = '" + proveedor.getNombre()+*/"'");
             //if(resultado != null){
             if(resultado.next()){
                 JOptionPane.showMessageDialog(null, "PROVEEDOR YA SE ENCUENTRA REGISTRADO");
@@ -180,6 +219,7 @@ public class Operaciones extends Conexion{
                     proveedor.getCiudad() + "','" + 
                     proveedor.getDireccion() +"')");
             }
+            resultado.close();
         } catch (SQLException ex) {
             Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
