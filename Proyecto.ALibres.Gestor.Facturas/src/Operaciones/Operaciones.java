@@ -265,26 +265,32 @@ public class Operaciones extends Conexion{
      }
     }
     
-    public void totalProveedores(Choice choiceProveedores){
+    public void totalFacturasPorCliente(DefaultTableModel tableModel, String nombreCliente){
         ResultSet resultado = null;
-        //tableModel.setRowCount(0);
-        //tableModel.setColumnCount(0);
-        String sql = "select * from Proveedor";
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
+                        "C.TOTAL_CON_IVA AS 'TOTAL', C.TOTAL_VESTIMENTA_CLIENTE AS 'TOTAL VESTIMENTA', \n" +
+                        "C.TOTAL_ALIMENTACION_CLIENTE AS 'TOTAL ALIMENTACION', C.TOTAL_SALUD_CLIENTE AS 'TOTAL SALUD', \n" +
+                        "C.TOTAL_EDUCACION_CLIENTE AS 'TOTAL EDUCACION', C.TOTAL_VIVIENDA_CLIENTE AS 'TOTAL VIVIENDA', \n" +
+                        "C.TOTAL_OTROS_CLIENTE AS 'TOTAL OTROS' FROM PROVEEDOR P INNER JOIN FACTURA C \n" +
+                        "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
+                        "INNER JOIN CLIENTE CLI \n" +
+                        "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
+                        "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "'";
         try {
-            
             resultado = consultar(sql);
-            
             if(resultado != null){
-                /*int numeroColumna = resultado.getMetaData().getColumnCount();
+                int numeroColumna = resultado.getMetaData().getColumnCount();
                 for(int j = 1;j <= numeroColumna;j++){
                     tableModel.addColumn(resultado.getMetaData().getColumnName(j));
-                }*/
+                }
                 while(resultado.next()){
-                    //Object []objetos = new Object[1];
-                    //for(int i = 1;i <= 1;i++){
-                        //objetos[i-1] = resultado.getObject(i);
-                        choiceProveedores.addItem((String) resultado.getObject(2));
-                      
+                    Object []objetos = new Object[numeroColumna];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                    }
+                    tableModel.addRow(objetos);
                 }
             }
         }catch(SQLException e){
@@ -307,18 +313,85 @@ public class Operaciones extends Conexion{
      }
     }
     
-    public void totalFacturas(DefaultTableModel tableModel, String nombreProveedor) throws SQLException{
+    public void totalClientes(Choice choiceClientes){
+        ResultSet resultado = null;
+        String sql = "SELECT NOMBRES_CLIENTE FROM CLIENTE";
+        try {
+            resultado = consultar(sql);
+            if(resultado != null){
+                while(resultado.next()){
+                        choiceClientes.addItem((String) resultado.getObject(1));
+                }
+            }
+        }catch(SQLException e){
+        }
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
+    public void totalProveedoresPorCliente(Choice choiceProveedores, String nombreCliente){
+        ResultSet resultado = null;
+        //tableModel.setRowCount(0);
+        //tableModel.setColumnCount(0);
+        String sql = "SELECT P.NOMBRE_PROVEEDOR FROM PROVEEDOR P INNER JOIN FACTURA F \n" +
+                        "ON P.ID_PROVEEDOR = F.ID_PROVEEDOR \n" +
+                        "INNER JOIN CLIENTE C \n" +
+                        "ON C.ID_CLIENTE = F.ID_CLIENTE \n" +
+                        "WHERE C.NOMBRES_CLIENTE = '" + nombreCliente + "' GROUP BY P.NOMBRE_PROVEEDOR";
+        try {
+            resultado = consultar(sql);
+            
+            if(resultado != null){
+                while(resultado.next()){
+                        choiceProveedores.addItem((String) resultado.getObject(1));
+                }
+            }
+        }catch(SQLException e){
+        }
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
+    public void totalFacturasPorClienteYProveedor(DefaultTableModel tableModel, String nombreProveedor, String nombreCliente) throws SQLException{
         ResultSet resultado = null;
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
-        //select rucProv from Proveedor where nombreProv = 'MEGA SANTAMARIA S.A.'
-        String sqlRucProveedor = "select rucProv from Proveedor where nombreProv = '" + nombreProveedor + "'";
-        ResultSet resultadoRuc = null;
-        resultadoRuc = consultar(sqlRucProveedor);
-        String rucProveedor = ((String) resultadoRuc.getObject(1));
+        String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
+                            "C.TOTAL_CON_IVA AS 'TOTAL', C.TOTAL_VESTIMENTA_CLIENTE AS 'TOTAL VESTIMENTA', \n" +
+                            "C.TOTAL_ALIMENTACION_CLIENTE AS 'TOTAL ALIMENTACION', C.TOTAL_SALUD_CLIENTE AS 'TOTAL SALUD', \n" +
+                            "C.TOTAL_EDUCACION_CLIENTE AS 'TOTAL EDUCACION', C.TOTAL_VIVIENDA_CLIENTE AS 'TOTAL VIVIENDA', \n" +
+                            "C.TOTAL_OTROS_CLIENTE AS 'TOTAL OTROS' FROM PROVEEDOR P INNER JOIN FACTURA C \n" +
+                            "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
+                            "INNER JOIN CLIENTE CLI \n" +
+                            "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
+                            "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND P.NOMBRE_PROVEEDOR = '" + nombreProveedor + "'";
         
-        
-        String sql = "select codigoFactura AS \"CODIGO\", fechaEmision AS \"FECHA\", totalVestimenta AS \"VESTIMENTA\", totalAlimentacion AS \"ALIMENTACION\", totalSalud AS \"SALUD\", totalEducacion AS \"EDUCACION\", totalVivienda AS \"VIVIENDA\", totalOtros AS \"OTROS\", totalConIva AS \"TOTAL\" from Factura where rucProveedor = '" + rucProveedor + "'";
         try {
             resultado = consultar(sql);
             if(resultado != null){
