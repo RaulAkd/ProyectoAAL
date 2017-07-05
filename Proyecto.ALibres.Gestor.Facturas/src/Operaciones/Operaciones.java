@@ -88,7 +88,7 @@ public class Operaciones extends Conexion{
     }
     
     public void guardarFactura(Factura factura){
-        JOptionPane.showMessageDialog(null, "llego a metodo guardar factura....");
+        //JOptionPane.showMessageDialog(null, "llego a metodo guardar factura....");
         ResultSet resultadoIdcliente = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE RUC_CI_CLIENTE = '"+factura.getRucCliente()+"'");
         ResultSet resultadoIdProveedor = consultar("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE RUC_PROVEEDOR = '"+factura.getRucProveedor()+"'");
         String idCliente = "", idProveedor = "";
@@ -102,9 +102,9 @@ public class Operaciones extends Conexion{
             resultadoIdcliente.close();
             resultadoIdProveedor.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(null, "id cliente...." + idCliente + "   id proveedor...." + idProveedor);
+        //JOptionPane.showMessageDialog(null, "id cliente...." + idCliente + "   id proveedor...." + idProveedor);
         insertar("INSERT INTO FACTURA (ID_PROVEEDOR, ID_CLIENTE, CODIGO_FACTURA, FECHA, IVA, "
                 + "TOTAL_SIN_IVA, TOTAL_CON_IVA, TOTAL_ALIMENTACION_CLIENTE, TOTAL_VESTIMENTA_CLIENTE, "
                 + "TOTAL_VIVIENDA_CLIENTE, TOTAL_SALUD_CLIENTE, TOTAL_EDUCACION_CLIENTE, TOTAL_OTROS_CLIENTE) VALUES('" + 
@@ -121,12 +121,12 @@ public class Operaciones extends Conexion{
                     factura.getListaGastos().get(3).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(4).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(5).getTotalSinIva() +"')");
-        JOptionPane.showMessageDialog(null, "factura guardada....");
+        //JOptionPane.showMessageDialog(null, "factura guardada....");
         sumarGastos(idCliente, factura.getListaGastos());
     }
     
     public void guardarCliente(Cliente cliente){
-        JOptionPane.showMessageDialog(null, "llego a metodo guardar cliente....");
+        //JOptionPane.showMessageDialog(null, "llego a metodo guardar cliente....");
         ResultSet resultado = null;
         try {
             resultado = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE\n" +
@@ -134,10 +134,10 @@ public class Operaciones extends Conexion{
                     "' AND NOMBRES_CLIENTE = '"+cliente.getNombres()*/+"'");
             //if(resultado != null){
             if(resultado.next()){
-                JOptionPane.showMessageDialog(null, "CLIENTE YA SE ENCUENTRA REGISTRADO");
+                JOptionPane.showMessageDialog(null, "...CLIENTE YA SE ENCUENTRA REGISTRADO");
             }
             else{
-                JOptionPane.showMessageDialog(null, "no existe cliente, se ingresara uno nuevo....");
+                //JOptionPane.showMessageDialog(null, "no existe cliente, se ingresara uno nuevo....");
                 insertar("INSERT INTO CLIENTE (RUC_CI_CLIENTE, NOMBRES_CLIENTE) VALUES('"+cliente.getRucCi()
                         +"','"+cliente.getNombres()+"')");
                 ResultSet resultadoIdcliente = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE RUC_CI_CLIENTE = '"+cliente.getRucCi()+/*"' AND NOMBRES_CLIENTE = '"+cliente.getNombres()+*/"'");
@@ -145,7 +145,7 @@ public class Operaciones extends Conexion{
                 try {
                     while(resultadoIdcliente.next()){
                         idCliente = resultadoIdcliente.getObject(1).toString();
-                        JOptionPane.showMessageDialog(null, "id de cliente nuevo...." + idCliente);
+                  //      JOptionPane.showMessageDialog(null, "id de cliente nuevo...." + idCliente);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,12 +154,12 @@ public class Operaciones extends Conexion{
             }
             resultado.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public void sumarGastos(String idCliente, ArrayList<Gasto> gastosFactura){
-        JOptionPane.showMessageDialog(null, "llego a metodo sumar gastos....");
+        //JOptionPane.showMessageDialog(null, "llego a metodo sumar gastos....");
         double sumaVestimenta, sumaAlimentacion, sumaSalud, sumaEducacion, sumaVivienda, sumaOtros;
         ResultSet resultado = null;
         try {
@@ -174,7 +174,7 @@ public class Operaciones extends Conexion{
                 sumaEducacion = Double.parseDouble(resultado.getObject(6).toString().replace(",", ".")) + gastosFactura.get(3).getTotalSinIva();
                 sumaVivienda = Double.parseDouble(resultado.getObject(7).toString().replace(",", ".")) + gastosFactura.get(4).getTotalSinIva();
                 sumaOtros = Double.parseDouble(resultado.getObject(8).toString().replace(",", ".")) + gastosFactura.get(5).getTotalSinIva();
-                JOptionPane.showMessageDialog(null, "id cliente a modificar gastos...." + idCliente);
+                //JOptionPane.showMessageDialog(null, "id cliente a modificar gastos...." + idCliente);
                 resultado.close();
                 consultar("UPDATE GASTOS SET TOTAL_VESTIMENTA_CLIENTE = '" + sumaVestimenta + "',\n" +
                             "TOTAL_ALIMENTACION_CLIENTE = '" + sumaAlimentacion +
@@ -183,16 +183,16 @@ public class Operaciones extends Conexion{
                             "', TOTAL_VIVIENDA_CLIENTE = '" + sumaVivienda +
                             "', TOTAL_OTROS_CLIENTE = '" + sumaOtros 
                             + "' WHERE ID_CLIENTE = '" + idCliente + "'");
-                JOptionPane.showMessageDialog(null, "gastos modificados....");
+                //JOptionPane.showMessageDialog(null, "gastos modificados....");
             }
             resultado.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public void guardarGastos(String idCliente){
-        JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS....");
+        //JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS....");
         insertar("INSERT INTO GASTOS (ID_CLIENTE, TOTAL_ALIMENTACION_CLIENTE, TOTAL_VESTIMENTA_CLIENTE, "
                 + "TOTAL_VIVIENDA_CLIENTE, TOTAL_SALUD_CLIENTE, TOTAL_EDUCACION_CLIENTE, "
                 + "TOTAL_OTROS_CLIENTE) VALUES('" + idCliente + "','" + 
@@ -200,7 +200,7 @@ public class Operaciones extends Conexion{
     }
     
     public void guardarProveedor(Proveedor proveedor){
-        JOptionPane.showMessageDialog(null, "llego a metodo proveedor....");
+        //JOptionPane.showMessageDialog(null, "llego a metodo proveedor....");
         ResultSet resultado = null;
         
         try {
@@ -212,7 +212,7 @@ public class Operaciones extends Conexion{
                 JOptionPane.showMessageDialog(null, "PROVEEDOR YA SE ENCUENTRA REGISTRADO");
             }
             else{
-            JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
+            //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
             insertar("INSERT INTO PROVEEDOR (RUC_PROVEEDOR, NOMBRE_PROVEEDOR, CIUDAD_PROVEEDOR, DIRECCION_PROVEEDOR) VALUES('" + 
                     proveedor.getRuc() + "','" + 
                     proveedor.getNombre() + "','" + 
@@ -221,7 +221,7 @@ public class Operaciones extends Conexion{
             }
             resultado.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
   

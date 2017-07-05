@@ -271,7 +271,7 @@ public class Reportes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExportarPdfActionPerformed
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
     private void choiceClientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceClientesItemStateChanged
         // TODO add your handling code here:
         Operaciones operaciones = new Operaciones(this.direccionBdd);
@@ -280,7 +280,7 @@ public class Reportes extends javax.swing.JFrame {
         operaciones.totalProveedoresPorCliente(choiceProveedores, choiceClientes.getSelectedItem());
         operaciones.totalFacturasPorCliente((DefaultTableModel)jTableReportes.getModel(), choiceClientes.getSelectedItem());
     }//GEN-LAST:event_choiceClientesItemStateChanged
-=======
+//=======
     private void btnExportarPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarPdfMouseClicked
         // TODO add your handling code here:
         if (this.jTableReportes.getRowCount()==0) {
@@ -314,7 +314,7 @@ public class Reportes extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnExportarPdfMouseClicked
->>>>>>> dd692cae39c941a19e38c3b6a26817e570811323
+//>>>>>>> dd692cae39c941a19e38c3b6a26817e570811323
 
     /**
      * @param args the command line arguments

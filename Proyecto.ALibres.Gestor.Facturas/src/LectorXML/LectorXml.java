@@ -110,6 +110,9 @@ public class LectorXml {
         }
         this.factura.setRucCliente(this.cliente.getRucCi());
         this.factura.setRucProveedor(this.proveedor.getRuc());
+        //
+        this.factura.calcularIva();
+        //
         this.factura.clasificar();
         System.out.println(this.proveedor);
         System.out.println(this.cliente);

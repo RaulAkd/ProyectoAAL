@@ -134,6 +134,10 @@ public class Factura {
         this.listaProductos.add(prod);
     }
     
+    public void calcularIva(){
+        this.iva = this.totalConIva - this.totalSinIva;
+    }
+    
     public String listaToString(){
         String salida = "";
         for(Producto prod :  this.listaProductos){
