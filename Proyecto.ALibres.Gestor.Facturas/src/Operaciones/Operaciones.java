@@ -88,7 +88,7 @@ public class Operaciones extends Conexion{
     }
     
     public void guardarFactura(Factura factura){
-        JOptionPane.showMessageDialog(null, "llego a metodo guardar factura....");
+        //JOptionPane.showMessageDialog(null, "llego a metodo guardar factura....");
         ResultSet resultadoIdcliente = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE RUC_CI_CLIENTE = '"+factura.getRucCliente()+"'");
         ResultSet resultadoIdProveedor = consultar("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE RUC_PROVEEDOR = '"+factura.getRucProveedor()+"'");
         String idCliente = "", idProveedor = "";
@@ -102,9 +102,9 @@ public class Operaciones extends Conexion{
             resultadoIdcliente.close();
             resultadoIdProveedor.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(null, "id cliente...." + idCliente + "   id proveedor...." + idProveedor);
+        //JOptionPane.showMessageDialog(null, "id cliente...." + idCliente + "   id proveedor...." + idProveedor);
         insertar("INSERT INTO FACTURA (ID_PROVEEDOR, ID_CLIENTE, CODIGO_FACTURA, FECHA, IVA, "
                 + "TOTAL_SIN_IVA, TOTAL_CON_IVA, TOTAL_ALIMENTACION_CLIENTE, TOTAL_VESTIMENTA_CLIENTE, "
                 + "TOTAL_VIVIENDA_CLIENTE, TOTAL_SALUD_CLIENTE, TOTAL_EDUCACION_CLIENTE, TOTAL_OTROS_CLIENTE) VALUES('" + 
@@ -121,12 +121,12 @@ public class Operaciones extends Conexion{
                     factura.getListaGastos().get(3).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(4).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(5).getTotalSinIva() +"')");
-        JOptionPane.showMessageDialog(null, "factura guardada....");
+        //JOptionPane.showMessageDialog(null, "factura guardada....");
         sumarGastos(idCliente, factura.getListaGastos());
     }
     
     public void guardarCliente(Cliente cliente){
-        JOptionPane.showMessageDialog(null, "llego a metodo guardar cliente....");
+        //JOptionPane.showMessageDialog(null, "llego a metodo guardar cliente....");
         ResultSet resultado = null;
         try {
             resultado = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE\n" +
@@ -134,10 +134,10 @@ public class Operaciones extends Conexion{
                     "' AND NOMBRES_CLIENTE = '"+cliente.getNombres()*/+"'");
             //if(resultado != null){
             if(resultado.next()){
-                JOptionPane.showMessageDialog(null, "CLIENTE YA SE ENCUENTRA REGISTRADO");
+                JOptionPane.showMessageDialog(null, "...CLIENTE YA SE ENCUENTRA REGISTRADO");
             }
             else{
-                JOptionPane.showMessageDialog(null, "no existe cliente, se ingresara uno nuevo....");
+                //JOptionPane.showMessageDialog(null, "no existe cliente, se ingresara uno nuevo....");
                 insertar("INSERT INTO CLIENTE (RUC_CI_CLIENTE, NOMBRES_CLIENTE) VALUES('"+cliente.getRucCi()
                         +"','"+cliente.getNombres()+"')");
                 ResultSet resultadoIdcliente = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE RUC_CI_CLIENTE = '"+cliente.getRucCi()+/*"' AND NOMBRES_CLIENTE = '"+cliente.getNombres()+*/"'");
@@ -145,7 +145,7 @@ public class Operaciones extends Conexion{
                 try {
                     while(resultadoIdcliente.next()){
                         idCliente = resultadoIdcliente.getObject(1).toString();
-                        JOptionPane.showMessageDialog(null, "id de cliente nuevo...." + idCliente);
+                  //      JOptionPane.showMessageDialog(null, "id de cliente nuevo...." + idCliente);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,12 +154,12 @@ public class Operaciones extends Conexion{
             }
             resultado.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public void sumarGastos(String idCliente, ArrayList<Gasto> gastosFactura){
-        JOptionPane.showMessageDialog(null, "llego a metodo sumar gastos....");
+        //JOptionPane.showMessageDialog(null, "llego a metodo sumar gastos....");
         double sumaVestimenta, sumaAlimentacion, sumaSalud, sumaEducacion, sumaVivienda, sumaOtros;
         ResultSet resultado = null;
         try {
@@ -174,7 +174,7 @@ public class Operaciones extends Conexion{
                 sumaEducacion = Double.parseDouble(resultado.getObject(6).toString().replace(",", ".")) + gastosFactura.get(3).getTotalSinIva();
                 sumaVivienda = Double.parseDouble(resultado.getObject(7).toString().replace(",", ".")) + gastosFactura.get(4).getTotalSinIva();
                 sumaOtros = Double.parseDouble(resultado.getObject(8).toString().replace(",", ".")) + gastosFactura.get(5).getTotalSinIva();
-                JOptionPane.showMessageDialog(null, "id cliente a modificar gastos...." + idCliente);
+                //JOptionPane.showMessageDialog(null, "id cliente a modificar gastos...." + idCliente);
                 resultado.close();
                 consultar("UPDATE GASTOS SET TOTAL_VESTIMENTA_CLIENTE = '" + sumaVestimenta + "',\n" +
                             "TOTAL_ALIMENTACION_CLIENTE = '" + sumaAlimentacion +
@@ -183,16 +183,16 @@ public class Operaciones extends Conexion{
                             "', TOTAL_VIVIENDA_CLIENTE = '" + sumaVivienda +
                             "', TOTAL_OTROS_CLIENTE = '" + sumaOtros 
                             + "' WHERE ID_CLIENTE = '" + idCliente + "'");
-                JOptionPane.showMessageDialog(null, "gastos modificados....");
+                //JOptionPane.showMessageDialog(null, "gastos modificados....");
             }
             resultado.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public void guardarGastos(String idCliente){
-        JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS....");
+        //JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS....");
         insertar("INSERT INTO GASTOS (ID_CLIENTE, TOTAL_ALIMENTACION_CLIENTE, TOTAL_VESTIMENTA_CLIENTE, "
                 + "TOTAL_VIVIENDA_CLIENTE, TOTAL_SALUD_CLIENTE, TOTAL_EDUCACION_CLIENTE, "
                 + "TOTAL_OTROS_CLIENTE) VALUES('" + idCliente + "','" + 
@@ -200,7 +200,7 @@ public class Operaciones extends Conexion{
     }
     
     public void guardarProveedor(Proveedor proveedor){
-        JOptionPane.showMessageDialog(null, "llego a metodo proveedor....");
+        //JOptionPane.showMessageDialog(null, "llego a metodo proveedor....");
         ResultSet resultado = null;
         
         try {
@@ -212,7 +212,7 @@ public class Operaciones extends Conexion{
                 JOptionPane.showMessageDialog(null, "PROVEEDOR YA SE ENCUENTRA REGISTRADO");
             }
             else{
-            JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
+            //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
             insertar("INSERT INTO PROVEEDOR (RUC_PROVEEDOR, NOMBRE_PROVEEDOR, CIUDAD_PROVEEDOR, DIRECCION_PROVEEDOR) VALUES('" + 
                     proveedor.getRuc() + "','" + 
                     proveedor.getNombre() + "','" + 
@@ -221,7 +221,7 @@ public class Operaciones extends Conexion{
             }
             resultado.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
   
@@ -265,26 +265,32 @@ public class Operaciones extends Conexion{
      }
     }
     
-    public void totalProveedores(Choice choiceProveedores){
+    public void totalFacturasPorCliente(DefaultTableModel tableModel, String nombreCliente){
         ResultSet resultado = null;
-        //tableModel.setRowCount(0);
-        //tableModel.setColumnCount(0);
-        String sql = "select * from Proveedor";
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
+                        "C.TOTAL_CON_IVA AS 'TOTAL', C.TOTAL_VESTIMENTA_CLIENTE AS 'TOTAL VESTIMENTA', \n" +
+                        "C.TOTAL_ALIMENTACION_CLIENTE AS 'TOTAL ALIMENTACION', C.TOTAL_SALUD_CLIENTE AS 'TOTAL SALUD', \n" +
+                        "C.TOTAL_EDUCACION_CLIENTE AS 'TOTAL EDUCACION', C.TOTAL_VIVIENDA_CLIENTE AS 'TOTAL VIVIENDA', \n" +
+                        "C.TOTAL_OTROS_CLIENTE AS 'TOTAL OTROS' FROM PROVEEDOR P INNER JOIN FACTURA C \n" +
+                        "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
+                        "INNER JOIN CLIENTE CLI \n" +
+                        "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
+                        "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "'";
         try {
-            
             resultado = consultar(sql);
-            
             if(resultado != null){
-                /*int numeroColumna = resultado.getMetaData().getColumnCount();
+                int numeroColumna = resultado.getMetaData().getColumnCount();
                 for(int j = 1;j <= numeroColumna;j++){
                     tableModel.addColumn(resultado.getMetaData().getColumnName(j));
-                }*/
+                }
                 while(resultado.next()){
-                    //Object []objetos = new Object[1];
-                    //for(int i = 1;i <= 1;i++){
-                        //objetos[i-1] = resultado.getObject(i);
-                        choiceProveedores.addItem((String) resultado.getObject(2));
-                      
+                    Object []objetos = new Object[numeroColumna];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                    }
+                    tableModel.addRow(objetos);
                 }
             }
         }catch(SQLException e){
@@ -307,18 +313,85 @@ public class Operaciones extends Conexion{
      }
     }
     
-    public void totalFacturas(DefaultTableModel tableModel, String nombreProveedor) throws SQLException{
+    public void totalClientes(Choice choiceClientes){
+        ResultSet resultado = null;
+        String sql = "SELECT NOMBRES_CLIENTE FROM CLIENTE";
+        try {
+            resultado = consultar(sql);
+            if(resultado != null){
+                while(resultado.next()){
+                        choiceClientes.addItem((String) resultado.getObject(1));
+                }
+            }
+        }catch(SQLException e){
+        }
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
+    public void totalProveedoresPorCliente(Choice choiceProveedores, String nombreCliente){
+        ResultSet resultado = null;
+        //tableModel.setRowCount(0);
+        //tableModel.setColumnCount(0);
+        String sql = "SELECT P.NOMBRE_PROVEEDOR FROM PROVEEDOR P INNER JOIN FACTURA F \n" +
+                        "ON P.ID_PROVEEDOR = F.ID_PROVEEDOR \n" +
+                        "INNER JOIN CLIENTE C \n" +
+                        "ON C.ID_CLIENTE = F.ID_CLIENTE \n" +
+                        "WHERE C.NOMBRES_CLIENTE = '" + nombreCliente + "' GROUP BY P.NOMBRE_PROVEEDOR";
+        try {
+            resultado = consultar(sql);
+            
+            if(resultado != null){
+                while(resultado.next()){
+                        choiceProveedores.addItem((String) resultado.getObject(1));
+                }
+            }
+        }catch(SQLException e){
+        }
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
+    public void totalFacturasPorClienteYProveedor(DefaultTableModel tableModel, String nombreProveedor, String nombreCliente) throws SQLException{
         ResultSet resultado = null;
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
-        //select rucProv from Proveedor where nombreProv = 'MEGA SANTAMARIA S.A.'
-        String sqlRucProveedor = "select rucProv from Proveedor where nombreProv = '" + nombreProveedor + "'";
-        ResultSet resultadoRuc = null;
-        resultadoRuc = consultar(sqlRucProveedor);
-        String rucProveedor = ((String) resultadoRuc.getObject(1));
+        String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
+                            "C.TOTAL_CON_IVA AS 'TOTAL', C.TOTAL_VESTIMENTA_CLIENTE AS 'TOTAL VESTIMENTA', \n" +
+                            "C.TOTAL_ALIMENTACION_CLIENTE AS 'TOTAL ALIMENTACION', C.TOTAL_SALUD_CLIENTE AS 'TOTAL SALUD', \n" +
+                            "C.TOTAL_EDUCACION_CLIENTE AS 'TOTAL EDUCACION', C.TOTAL_VIVIENDA_CLIENTE AS 'TOTAL VIVIENDA', \n" +
+                            "C.TOTAL_OTROS_CLIENTE AS 'TOTAL OTROS' FROM PROVEEDOR P INNER JOIN FACTURA C \n" +
+                            "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
+                            "INNER JOIN CLIENTE CLI \n" +
+                            "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
+                            "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND P.NOMBRE_PROVEEDOR = '" + nombreProveedor + "'";
         
-        
-        String sql = "select codigoFactura AS \"CODIGO\", fechaEmision AS \"FECHA\", totalVestimenta AS \"VESTIMENTA\", totalAlimentacion AS \"ALIMENTACION\", totalSalud AS \"SALUD\", totalEducacion AS \"EDUCACION\", totalVivienda AS \"VIVIENDA\", totalOtros AS \"OTROS\", totalConIva AS \"TOTAL\" from Factura where rucProveedor = '" + rucProveedor + "'";
         try {
             resultado = consultar(sql);
             if(resultado != null){

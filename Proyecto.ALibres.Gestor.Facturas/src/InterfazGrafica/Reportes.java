@@ -62,7 +62,7 @@ public class Reportes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        btnReporteProveedores = new javax.swing.JButton();
+        btnReporte = new javax.swing.JButton();
         btnExportarExcel = new javax.swing.JButton();
         btnExportarPdf = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -92,15 +92,15 @@ public class Reportes extends javax.swing.JFrame {
         });
         jPanel2.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 40, -1));
 
-        btnReporteProveedores.setBackground(new java.awt.Color(12, 15, 22));
-        btnReporteProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Gender Neutral User_32px.png"))); // NOI18N
-        btnReporteProveedores.setBorder(null);
-        btnReporteProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReporte.setBackground(new java.awt.Color(12, 15, 22));
+        btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Gender Neutral User_32px.png"))); // NOI18N
+        btnReporte.setBorder(null);
+        btnReporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnReporteProveedoresMouseClicked(evt);
+                btnReporteMouseClicked(evt);
             }
         });
-        jPanel2.add(btnReporteProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, 40, 40));
+        jPanel2.add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, 40, 40));
 
         btnExportarExcel.setBackground(new java.awt.Color(12, 15, 22));
         btnExportarExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Microsoft Excel_32px_4.png"))); // NOI18N
@@ -140,7 +140,7 @@ public class Reportes extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableReportes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 770, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 830, 240));
 
         lblTitulo.setBackground(new java.awt.Color(12, 15, 22));
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -170,21 +170,32 @@ public class Reportes extends javax.swing.JFrame {
             }
         });
         jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 170, 20));
+
+        choiceClientes.setEnabled(false);
+        choiceClientes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                choiceClientesItemStateChanged(evt);
+            }
+        });
         jPanel1.add(choiceClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 170, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 390));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 390));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnReporteProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteProveedoresMouseClicked
+    private void btnReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseClicked
         // TODO add your handling code here:
-        lblTitulo.setText("Proveedores");
+        lblTitulo.setText("REPORTES POR CLIENTE");
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
-        operaciones.totalPersonas((DefaultTableModel)jTableReportes.getModel());
-        choiceProveedores.setEnabled(false);
-    }//GEN-LAST:event_btnReporteProveedoresMouseClicked
+        //operaciones.totalPersonas((DefaultTableModel)jTableReportes.getModel());
+        //choiceProveedores.setEnabled(false);
+        choiceClientes.setEnabled(true);
+        operaciones.totalClientes(choiceClientes);
+        choiceProveedores.setEnabled(true);
+        operaciones.totalProveedoresPorCliente(choiceProveedores, choiceClientes.getSelectedItem());
+    }//GEN-LAST:event_btnReporteMouseClicked
 
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         // TODO add your handling code here:
@@ -203,7 +214,8 @@ public class Reportes extends javax.swing.JFrame {
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         try {
-            operaciones.totalFacturas((DefaultTableModel)jTableReportes.getModel(), choiceProveedores.getSelectedItem());
+            operaciones.totalFacturasPorClienteYProveedor((DefaultTableModel)jTableReportes.getModel(),
+                    choiceProveedores.getSelectedItem(), choiceClientes.getSelectedItem());
         } catch (SQLException ex) {
             Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -259,6 +271,16 @@ public class Reportes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExportarPdfActionPerformed
 
+//<<<<<<< HEAD
+    private void choiceClientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceClientesItemStateChanged
+        // TODO add your handling code here:
+        Operaciones operaciones = new Operaciones(this.direccionBdd);
+        operaciones.conectar();
+        choiceProveedores.removeAll();
+        operaciones.totalProveedoresPorCliente(choiceProveedores, choiceClientes.getSelectedItem());
+        operaciones.totalFacturasPorCliente((DefaultTableModel)jTableReportes.getModel(), choiceClientes.getSelectedItem());
+    }//GEN-LAST:event_choiceClientesItemStateChanged
+//=======
     private void btnExportarPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarPdfMouseClicked
         // TODO add your handling code here:
         if (this.jTableReportes.getRowCount()==0) {
@@ -292,6 +314,7 @@ public class Reportes extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnExportarPdfMouseClicked
+//>>>>>>> dd692cae39c941a19e38c3b6a26817e570811323
 
     /**
      * @param args the command line arguments
@@ -333,7 +356,7 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton btnExportarExcel;
     private javax.swing.JButton btnExportarPdf;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton btnReporteProveedores;
+    private javax.swing.JButton btnReporte;
     private java.awt.Choice choiceClientes;
     private java.awt.Choice choiceProveedores;
     private javax.swing.JPanel jPanel1;

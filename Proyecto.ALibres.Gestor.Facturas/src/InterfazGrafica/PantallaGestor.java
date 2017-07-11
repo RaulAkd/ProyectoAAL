@@ -426,6 +426,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnGuardar.setForeground(new java.awt.Color(204, 204, 204));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save_32px.png"))); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGuardarMouseClicked(evt);
@@ -501,6 +502,7 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         btnAlimentacion.setBackground(new java.awt.Color(107, 116, 147));
         btnAlimentacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Restaurant_32px.png"))); // NOI18N
+        btnAlimentacion.setEnabled(false);
         btnAlimentacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAlimentacionMouseClicked(evt);
@@ -510,6 +512,7 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         btnVestimenta.setBackground(new java.awt.Color(107, 116, 147));
         btnVestimenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Clothes_32px.png"))); // NOI18N
+        btnVestimenta.setEnabled(false);
         btnVestimenta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnVestimentaMouseClicked(evt);
@@ -519,6 +522,7 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         btnSalud.setBackground(new java.awt.Color(107, 116, 147));
         btnSalud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Doctors Bag_32px.png"))); // NOI18N
+        btnSalud.setEnabled(false);
         btnSalud.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSaludMouseClicked(evt);
@@ -528,6 +532,7 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         btnEducacion.setBackground(new java.awt.Color(107, 116, 147));
         btnEducacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Literature_32px.png"))); // NOI18N
+        btnEducacion.setEnabled(false);
         btnEducacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEducacionMouseClicked(evt);
@@ -537,6 +542,7 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         btnVivienda.setBackground(new java.awt.Color(107, 116, 147));
         btnVivienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Home_32px.png"))); // NOI18N
+        btnVivienda.setEnabled(false);
         btnVivienda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnViviendaMouseClicked(evt);
@@ -551,6 +557,7 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         btnOtros.setBackground(new java.awt.Color(107, 116, 147));
         btnOtros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ok_32px.png"))); // NOI18N
+        btnOtros.setEnabled(false);
         btnOtros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnOtrosMouseClicked(evt);
@@ -812,10 +819,11 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         // TODO add your handling code here:
-        while(modelo.getRowCount()>0)modelo.removeRow(0);
+        //while(modelo.getRowCount()>0)modelo.removeRow(0);
         
-        txtTotalSinIva.setText("");
-        txtTotalFactura.setText("");
+        //txtTotalSinIva.setText("");
+        //txtTotalFactura.setText("");
+        this.borrarGUI();
         
         JFileChooser fc=new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.XML", "xml");
@@ -868,6 +876,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                 if(operaciones.existeFactura(leerXml.getFactura().getCodigo(),
                         leerXml.getCliente().getRucCi(),
                         leerXml.getProveedor().getRuc())){ 
+                    
                     //cargar datos proveedor
                     txtNombreProveedor.setText(leerXml.getProveedor().getNombre());
                     txtRucProveedor.setText(leerXml.getProveedor().getRuc());
@@ -880,7 +889,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                     txtFecha.setText(leerXml.getFactura().getFecha());
                     txtTotalSinIva.setText(Double.toString(leerXml.getFactura().getTotalSinIva()));
                     txtTotalFactura.setText(Double.toString(leerXml.getFactura().getTotalConIva()));
-                    
+                    txtIva.setText(Double.toString(leerXml.getFactura().getIva()));
                     this.ingresarValoresGastos();
 
                     String entrada[] = new String[2];
@@ -889,6 +898,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                         entrada[1] = prod.getTipo();
                         modelo.addRow(entrada);
                     }
+                    this.desbloquearBotonesGastos();
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "LA FACTURA YA HA SIDO INGRESADA ANTERIORMENTE");
@@ -905,7 +915,6 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
         // TODO add your handling code here:
-        
         
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
@@ -981,20 +990,19 @@ public class PantallaGestor extends javax.swing.JFrame {
         
         Operaciones operaciones = new Operaciones(this.direccionBase);
         operaciones.conectar();
-        JOptionPane.showMessageDialog(null, "guardando cliente....");
+        //JOptionPane.showMessageDialog(null, "guardando cliente....");
         operaciones.guardarCliente(this.leerXml.getCliente());
-        JOptionPane.showMessageDialog(null, "guardando proveedor....");
+        //JOptionPane.showMessageDialog(null, "guardando proveedor....");
         operaciones.guardarProveedor(this.leerXml.getProveedor());
-        JOptionPane.showMessageDialog(null, "guardando factura....");
+        //JOptionPane.showMessageDialog(null, "guardando factura....");
         operaciones.guardarFactura(this.leerXml.getFactura());
         
-        JOptionPane.showMessageDialog(null, "Factura ingresada exitosamente");
-        while(modelo.getRowCount()>0)modelo.removeRow(0);
+        JOptionPane.showMessageDialog(null, "....Factura ingresada exitosamente");
+        //while(modelo.getRowCount()>0)modelo.removeRow(0);
         
-        txtTotalSinIva.setText("");
-        txtTotalFactura.setText("");
-        
-        
+        //txtTotalSinIva.setText("");
+        //txtTotalFactura.setText("");
+        this.borrarGUI();
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void lblReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporteMouseClicked
@@ -1013,9 +1021,10 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
         // TODO add your handling code here:
-        while(modelo.getRowCount()>0)modelo.removeRow(0);
-        txtTotalSinIva.setText("");
-        txtTotalFactura.setText("");
+        //while(modelo.getRowCount()>0)modelo.removeRow(0);
+        //txtTotalSinIva.setText("");
+        //txtTotalFactura.setText("");
+        this.borrarGUI();
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
     public String direccionAbsoluta(String dir)
@@ -1034,6 +1043,38 @@ public class PantallaGestor extends javax.swing.JFrame {
         }
         while(i<dir.length()-1&&contador<=4);
         return auxiliar;
+    }
+    
+    public void borrarGUI(){
+        while(modelo.getRowCount()>0)modelo.removeRow(0);
+        
+        txtTotalSinIva.setText("");
+        txtTotalFactura.setText("");
+        txtCodigoFactura.setText("");
+        txtFecha.setText("");
+        txtIva.setText("");
+        txtNombreProveedor.setText("");
+        txtRucProveedor.setText("");
+        txtDireccionProveedor.setText("");
+        txtCiudad.setText("");
+        txtNombreCliente.setText("");
+        txtRuCliente.setText("");
+        txtTotalAlimentacion.setText("");
+        txtTotalEducacion.setText("");
+        txtTotalSalud.setText("");
+        txtTotalVivienda.setText("");
+        txtTotalVestimenta.setText("");
+        txtTotalOtros.setText("");
+    }
+    
+    public void desbloquearBotonesGastos(){
+        btnAlimentacion.setEnabled(true);
+        btnEducacion.setEnabled(true);
+        btnGuardar.setEnabled(true);
+        btnVestimenta.setEnabled(true);
+        btnSalud.setEnabled(true);
+        btnVivienda.setEnabled(true);
+        btnOtros.setEnabled(true);
     }
     /**
      * @param args the command line arguments
