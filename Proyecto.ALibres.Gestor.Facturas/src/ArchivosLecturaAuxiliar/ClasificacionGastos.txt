@@ -1,0 +1,5 @@
+vestimenta:pant,conjunto,BLUSA,medias,ZApat
+alimentacion:carne,arroz,leche,enlatad,fruta,huevo,sal,queso,harina
+salud:medicina,seguro,protesis,medico,lentes,aspirina,capsulas,ampollas,pastilla,algodom
+educacion:matricula,uniforme,escol,didactico,libro,cuaderno,lapiz
+vivienda:arriendo,empaste,construcci,electric,alicuota,llamada,cemento,carbonato,espesante,rodillo
