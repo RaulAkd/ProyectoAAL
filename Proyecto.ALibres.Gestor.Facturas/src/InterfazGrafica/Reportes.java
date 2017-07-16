@@ -6,6 +6,7 @@
 package InterfazGrafica;
 
 import GeneradorExcel.Exporter;
+import GeneradorPDF.ExporterPDF;
 import Operaciones.Operaciones;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -290,21 +291,27 @@ public class Reportes extends javax.swing.JFrame {
             return;
         }
         JFileChooser chooser=new JFileChooser();
-        FileNameExtensionFilter filter=new FileNameExtensionFilter("Archivos de excel","xls");
+        FileNameExtensionFilter filter=new FileNameExtensionFilter("Archivos pdf","pdf");
         chooser.setFileFilter(filter);
         chooser.setDialogTitle("Guardar archivo");
         chooser.setMultiSelectionEnabled(false);
         chooser.setAcceptAllFileFilterUsed(false);
+        //ExporterPDF exportar = new ExporterPDF(jTableReportes, new File(file), "Reporteeeeee");
         if (chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
             List<JTable> tb=new ArrayList<>();
             List<String>nom=new ArrayList<>();
             tb.add(jTableReportes);
             nom.add("Detalle de Gastos");
-            String file=chooser.getSelectedFile().toString().concat(".xls");
-            try {
-                GeneradorExcel.Exporter e=new Exporter(new File(file),tb, nom);
-                if (e.export()) {
-                    JOptionPane.showMessageDialog(null, "Los datos fueron exportados a excel.","BCO",
+            String file=chooser.getSelectedFile().toString().concat(".pdf");
+            System.out.println("El valor de file es:"+file);
+            try 
+            {
+                //GeneradorPDF.ExporterPDF e = new ExporterPDF(new File(file),tb, nom);
+                GeneradorPDF.ExporterPDF e = new ExporterPDF(jTableReportes, new File(file), "Reporteeeeee", file);
+                //GeneradorExcel.Exporter e=new Exporter(new File(file),tb, nom);
+                if (e.exportarPDF()) 
+                {
+                    JOptionPane.showMessageDialog(null, "Los datos fueron exportados a pdf.","BCO",
                         JOptionPane.INFORMATION_MESSAGE);
 
                 }
@@ -312,6 +319,46 @@ public class Reportes extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Hubo un error"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             }
         }
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//Vale en la carpeta         
+//        if (this.jTableReportes.getRowCount()==0) {
+//            JOptionPane.showMessageDialog (null, "No hay datos en la tabla para exportar.","BCO",
+//                JOptionPane.INFORMATION_MESSAGE);
+//            //this.cmbConsorcio.grabFocus();
+//            return;
+//        }
+//        JFileChooser chooser=new JFileChooser();
+//        FileNameExtensionFilter filter=new FileNameExtensionFilter("Archivos PDF","pdf");
+//        chooser.setFileFilter(filter);
+//        chooser.setDialogTitle("Guardar archivo");
+//        chooser.setMultiSelectionEnabled(false);
+//        chooser.setAcceptAllFileFilterUsed(false);
+//        String file=chooser.getSelectedFile().toString().concat(".pdf");
+//        
+//        if (chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
+//            ExporterPDF exportar = new ExporterPDF(jTableReportes, new File(file), "Reporteeeeee");
+//            //utilJTableToPdf(jTableFicheros, new File("pdfJTable.pdf"), getTitle() + " (Código Xules)");
+//            try {
+//                exportar.exportarPDF();// e=new Exporter(new File(file),tb, nom);
+//                System.out.println("Exportar exitoso");
+////                if (e.export()) {
+////                    JOptionPane.showMessageDialog(null, "Los datos fueron exportados a excel.","BCO",
+////                        JOptionPane.INFORMATION_MESSAGE);
+////
+////                }
+//            } catch (Exception ex) {
+//                JOptionPane.showMessageDialog(null,"Hubo un error"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
 
     }//GEN-LAST:event_btnExportarPdfMouseClicked
 //>>>>>>> dd692cae39c941a19e38c3b6a26817e570811323

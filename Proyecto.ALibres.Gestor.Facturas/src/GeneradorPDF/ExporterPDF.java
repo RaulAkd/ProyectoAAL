@@ -12,6 +12,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Section;
@@ -21,20 +22,8 @@ import java.io.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
  
-/**
- * Load files a route and simulate processing, in this example, 
- * we seek simply to explain the simple creation of a table (JTable) that 
- * can be reused by adding capabilities to generate a PDF.
- * Cargamos los ficheros de una ruta y simulamos su procesamiento, en este ejemplo,
- * buscamos simplemente explicar la creación sencilla de una tabla (JTable) que podemos reutilizar 
- * añadiéndole las capacidades de generar un PDF.
- * 
- * @author xules You can follow me on my website http://www.codigoxules.org/en
- * Puedes seguirme en mi web http://www.codigoxules.org
- */
 
-
-public class ExporterPDF extends javax.swing.JFrame {
+public class ExporterPDF {
  
     // Table model variable (variable para el modelo de datos).
     private DefaultTableModel tableModelFiles;
@@ -46,6 +35,7 @@ public class ExporterPDF extends javax.swing.JFrame {
         
     private JTable jTable;
     private File pdfNewFile;
+    private String ruta;
     String title;
     private static final Font categoryFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,  Font.BOLD);
     private static final Font subCategoryFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,  Font.BOLD);
@@ -57,11 +47,12 @@ public class ExporterPDF extends javax.swing.JFrame {
      */
 ////utilJTableToPdf(jTableFicheros, new File("pdfJTable.pdf"), getTitle() + " (Código Xules)");
  
-    public ExporterPDF(JTable tabla, File file, String titulo)
+    public ExporterPDF(JTable tabla, File file, String titulo, String dir)
     {
         this.jTable = tabla;
         this.pdfNewFile=file;
         this.title=titulo;
+        this.ruta=dir;
     }
     
     public String getPathFilesImport() {
@@ -77,14 +68,18 @@ public class ExporterPDF extends javax.swing.JFrame {
     }
  
 
-    public void exportarPDF(){
+    public boolean exportarPDF(){
+        float[] medidaCeldas = {5.50f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f};
+        
         try {
             // We create the document and set the file name.        
             // Creamos el documento e indicamos el nombre del fichero.
-            Document document = new Document();
+            Document document = new Document(PageSize.A4.rotate());
             try {
-                PdfWriter.getInstance(document, new FileOutputStream(pdfNewFile));
-            } catch (FileNotFoundException fileNotFoundException) {
+                //DataOutputStream out =new DataOutputStream (new FileOutputStream(pdfNewFile));
+                PdfWriter.getInstance(document, new FileOutputStream(ruta));
+            } 
+            catch (FileNotFoundException fileNotFoundException) {
                 System.out.println("No se encontró el fichero para generar el pdf)" + fileNotFoundException);
             }
             document.open();
@@ -103,9 +98,9 @@ public class ExporterPDF extends javax.swing.JFrame {
             // Second parameter is the number of the chapter (El segundo parámetro es el número del capítulo).
             Chapter catPart = new Chapter(new Paragraph(anchor), 1);
  
-            Paragraph subPara = new Paragraph("Do it by Xules (Realizado por Xules)", subCategoryFont);
+            Paragraph subPara = new Paragraph("\n", subCategoryFont);
             Section subCatPart = catPart.addSection(subPara);
-            subCatPart.add(new Paragraph("This is a simple example (Este es un ejemplo sencillo)"));
+            subCatPart.add(new Paragraph(""));
  
             // Create the table (Creamos la tabla)
             PdfPTable table = new PdfPTable(jTable.getColumnCount());
@@ -118,14 +113,19 @@ public class ExporterPDF extends javax.swing.JFrame {
                 columnHeader = new PdfPCell(new Phrase(jTable.getColumnName(column)));
                 columnHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(columnHeader);
+                //columnHeader.getFont().setSize(7);
+                
             }
-            table.setHeaderRows(1);
+        
+                  
             // Fill table rows (rellenamos las filas de la tabla).                
             for (int row = 0; row < jTable.getRowCount(); row++) {
                 for (int column = 0; column < jTable.getColumnCount(); column++) {
                     table.addCell(jTable.getValueAt(row, column).toString());
+                    
                 }
             }
+            table.setWidths(medidaCeldas);
             subCatPart.add(table);
  
             document.add(catPart);
@@ -133,10 +133,15 @@ public class ExporterPDF extends javax.swing.JFrame {
             document.close();
             JOptionPane.showMessageDialog(this.jPanelFicheros, "Your PDF file has been generated!(¡Se ha generado tu hoja PDF!)",
                     "RESULTADO", JOptionPane.INFORMATION_MESSAGE);
-        } catch (DocumentException documentException) {
+            return true;
+        } 
+        
+        catch (DocumentException documentException) 
+        {
             System.out.println("The file not exists (Se ha producido un error al generar un documento): " + documentException);
             JOptionPane.showMessageDialog(this.jPanelFicheros, "The file not exists (Se ha producido un error al generar un documento): " + documentException,
                     "ERROR", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
  
     }
