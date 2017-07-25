@@ -232,7 +232,10 @@ public class Reportes extends javax.swing.JFrame {
 
     private void btnCerrarReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarReporteMouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        PresentarFactura fac = new PresentarFactura();
+        this.dispose();
+        fac.setVisible(true);
+        //System.exit(0);
     }//GEN-LAST:event_btnCerrarReporteMouseClicked
 
     private void choiceAnioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceAnioItemStateChanged
