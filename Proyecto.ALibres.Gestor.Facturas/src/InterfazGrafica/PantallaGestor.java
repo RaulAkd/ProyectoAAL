@@ -122,6 +122,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnProveedor = new javax.swing.JButton();
         btnFactura = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
+        btnRegresarPanel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProductos = new javax.swing.JTable();
         btnSalir = new javax.swing.JButton();
@@ -152,6 +153,8 @@ public class PantallaGestor extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtTotalSinIva = new javax.swing.JTextField();
         txtTotalFactura = new javax.swing.JTextField();
+        lblGastoNegocio = new javax.swing.JLabel();
+        comboGastosNegocio = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(36, 46, 68));
@@ -383,6 +386,18 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 40, 40));
 
+        btnRegresarPanel.setBackground(new java.awt.Color(12, 15, 22));
+        btnRegresarPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Back_32px.png"))); // NOI18N
+        btnRegresarPanel.setBorder(null);
+        btnRegresarPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegresarPanelMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnRegresarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 40, -1));
+        btnRegresarPanel.setVisible(false);
+        btnRegresarPanel.setEnabled(false);
+
         PanelMostrar.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 40, 590));
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -406,7 +421,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableProductos);
 
-        PanelMostrar.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 520, 210));
+        PanelMostrar.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 520, 180));
 
         btnSalir.setBackground(new java.awt.Color(36, 46, 68));
         btnSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -604,7 +619,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                 lblFacturaNegocioMouseClicked(evt);
             }
         });
-        panelOpciones.add(lblFacturaNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        panelOpciones.add(lblFacturaNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 40));
 
         lblFacturaPersonal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblFacturaPersonal.setForeground(new java.awt.Color(109, 115, 130));
@@ -620,7 +635,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                 lblFacturaPersonalMouseExited(evt);
             }
         });
-        panelOpciones.add(lblFacturaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+        panelOpciones.add(lblFacturaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
 
         jLayeredPane2.add(panelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 520, 60));
 
@@ -698,6 +713,16 @@ public class PantallaGestor extends javax.swing.JFrame {
         jPanel3.add(txtTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 90, 20));
 
         PanelMostrar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 570, 40));
+
+        lblGastoNegocio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblGastoNegocio.setForeground(new java.awt.Color(255, 255, 255));
+        lblGastoNegocio.setText("Gasto de Negocio:");
+        PanelMostrar.add(lblGastoNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, -1, -1));
+        lblGastoNegocio.setVisible(false);
+        comboGastosNegocio.setVisible(false);
+
+        comboGastosNegocio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        PanelMostrar.add(comboGastosNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, 130, -1));
 
         getContentPane().add(PanelMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 580));
 
@@ -1094,13 +1119,31 @@ public class PantallaGestor extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelOpciones.setVisible(false);
         panelBuscar.setVisible(true);
+        lblGastoNegocio.setVisible(true);
+        comboGastosNegocio.setVisible(true);
+        btnRegresarPanel.setVisible(true);
+        btnRegresarPanel.setEnabled(true);
     }//GEN-LAST:event_lblFacturaNegocioMouseClicked
 
     private void lblFacturaPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaPersonalMouseClicked
         // TODO add your handling code here:
         panelOpciones.setVisible(false);
         panelBuscar.setVisible(true);
+        lblGastoNegocio.setVisible(false);
+        comboGastosNegocio.setVisible(false);
+        btnRegresarPanel.setVisible(true);
+        btnRegresarPanel.setEnabled(true);
     }//GEN-LAST:event_lblFacturaPersonalMouseClicked
+
+    private void btnRegresarPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarPanelMouseClicked
+        // TODO add your handling code here:
+        btnRegresarPanel.setVisible(false);
+        btnRegresarPanel.setEnabled(false);
+        panelOpciones.setVisible(true);
+        panelBuscar.setVisible(false);
+        lblGastoNegocio.setVisible(false);
+        comboGastosNegocio.setVisible(false);
+    }//GEN-LAST:event_btnRegresarPanelMouseClicked
 
     public String direccionAbsoluta(String dir)
     {
@@ -1199,11 +1242,13 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnOtros;
     private javax.swing.JButton btnProveedor;
+    private javax.swing.JButton btnRegresarPanel;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSalud;
     private javax.swing.JButton btnVestimenta;
     private javax.swing.JButton btnVivienda;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> comboGastosNegocio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1231,6 +1276,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JLabel lblFactura;
     private javax.swing.JLabel lblFacturaNegocio;
     private javax.swing.JLabel lblFacturaPersonal;
+    private javax.swing.JLabel lblGastoNegocio;
     private javax.swing.JLabel lblImagenPanel;
     private javax.swing.JLabel lblIva;
     private javax.swing.JLabel lblNombre;
