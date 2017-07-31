@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
+import javax.swing.JTable;
 
 /**
  *
@@ -21,12 +22,35 @@ public class PresentarFactura extends javax.swing.JFrame {
      * Creates new form PresentarFactura
      */
     private int x, y;
-    public PresentarFactura() {
+    String strCliente, strProveedor, strAnio;
+    JTable tabla;
+    Object []fila;
+    public PresentarFactura(String cliente, Object []row) {
         initComponents();
         this.setLocationRelativeTo(null);
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/infopago.png"));
         setIconImage(retValue);
+        this.strCliente=cliente;
+        this.fila=row;
         setVisible(true);
+        
+        txtNumeroFactura.setText((String) fila[1]);
+        txtFecha.setText((String)fila[2]);
+        txtProveedor.setText((String) fila[0]);
+        txtIva.setText((String) fila[3]);
+        txtNombreCliente.setText(strCliente);
+        lblVestimenta.setText((String)fila[5]);
+        lblAlimentacion.setText((String)fila[6]);
+        lblSalud.setText((String)fila[7]);
+        lblEducacion.setText((String)fila[8]);
+        lblVivienda.setText((String)fila[9]);
+        lblOtros.setText((String)fila[10]);
+                
+    }
+
+    private PresentarFactura() {
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
@@ -85,12 +109,12 @@ public class PresentarFactura extends javax.swing.JFrame {
         btnExportarExcel = new javax.swing.JButton();
         btnExportarPDF = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblOtros = new javax.swing.JLabel();
+        lblAlimentacion = new javax.swing.JLabel();
+        lblVestimenta = new javax.swing.JLabel();
+        lblSalud = new javax.swing.JLabel();
+        lblEducacion = new javax.swing.JLabel();
+        lblVivienda = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -370,41 +394,41 @@ public class PresentarFactura extends javax.swing.JFrame {
         });
         jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 640, 120, -1));
 
-        jLabel5.setBackground(new java.awt.Color(36, 46, 68));
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("$ 0.00");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 550, -1, -1));
+        lblOtros.setBackground(new java.awt.Color(36, 46, 68));
+        lblOtros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblOtros.setForeground(new java.awt.Color(255, 255, 255));
+        lblOtros.setText("$ 0.00");
+        jPanel1.add(lblOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 550, -1, -1));
 
-        jLabel6.setBackground(new java.awt.Color(36, 46, 68));
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("$ 0.00");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 550, -1, -1));
+        lblAlimentacion.setBackground(new java.awt.Color(36, 46, 68));
+        lblAlimentacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblAlimentacion.setForeground(new java.awt.Color(255, 255, 255));
+        lblAlimentacion.setText("$ 0.00");
+        jPanel1.add(lblAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 550, -1, -1));
 
-        jLabel7.setBackground(new java.awt.Color(36, 46, 68));
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("$ 0.00");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 550, -1, -1));
+        lblVestimenta.setBackground(new java.awt.Color(36, 46, 68));
+        lblVestimenta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblVestimenta.setForeground(new java.awt.Color(255, 255, 255));
+        lblVestimenta.setText("$ 0.00");
+        jPanel1.add(lblVestimenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 550, -1, -1));
 
-        jLabel8.setBackground(new java.awt.Color(36, 46, 68));
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("$ 0.00");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 550, -1, -1));
+        lblSalud.setBackground(new java.awt.Color(36, 46, 68));
+        lblSalud.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblSalud.setForeground(new java.awt.Color(255, 255, 255));
+        lblSalud.setText("$ 0.00");
+        jPanel1.add(lblSalud, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 550, -1, -1));
 
-        jLabel9.setBackground(new java.awt.Color(36, 46, 68));
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("$ 0.00");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 550, -1, -1));
+        lblEducacion.setBackground(new java.awt.Color(36, 46, 68));
+        lblEducacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblEducacion.setForeground(new java.awt.Color(255, 255, 255));
+        lblEducacion.setText("$ 0.00");
+        jPanel1.add(lblEducacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 550, -1, -1));
 
-        jLabel10.setBackground(new java.awt.Color(36, 46, 68));
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("$ 0.00");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 550, -1, -1));
+        lblVivienda.setBackground(new java.awt.Color(36, 46, 68));
+        lblVivienda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblVivienda.setForeground(new java.awt.Color(255, 255, 255));
+        lblVivienda.setText("$ 0.00");
+        jPanel1.add(lblVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 550, -1, -1));
 
         jButton5.setBackground(new java.awt.Color(107, 116, 147));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Restaurant_32px.png"))); // NOI18N
@@ -559,7 +583,6 @@ public class PresentarFactura extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -573,11 +596,6 @@ public class PresentarFactura extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -594,6 +612,12 @@ public class PresentarFactura extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblAlimentacion;
+    private javax.swing.JLabel lblEducacion;
+    private javax.swing.JLabel lblOtros;
+    private javax.swing.JLabel lblSalud;
+    private javax.swing.JLabel lblVestimenta;
+    private javax.swing.JLabel lblVivienda;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCiudad;
     private javax.swing.JTextField txtDireccion;

@@ -891,10 +891,7 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         // TODO add your handling code here:
-        //while(modelo.getRowCount()>0)modelo.removeRow(0);
         
-        //txtTotalSinIva.setText("");
-        //txtTotalFactura.setText("");
         this.borrarGUI();
         
         JFileChooser fc=new JFileChooser();

@@ -73,6 +73,7 @@ public class Reportes extends javax.swing.JFrame {
         choiceAnio = new java.awt.Choice();
         choiceClientes = new java.awt.Choice();
         choiceProveedores = new java.awt.Choice();
+        btnVerFactura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -127,7 +128,7 @@ public class Reportes extends javax.swing.JFrame {
         });
         jPanel2.add(btnExportarPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 40, 40));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 390));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 410));
 
         jTableReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,7 +143,7 @@ public class Reportes extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableReportes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 830, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 830, 230));
 
         lblTitulo.setBackground(new java.awt.Color(12, 15, 22));
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -176,7 +177,7 @@ public class Reportes extends javax.swing.JFrame {
                 choiceAnioItemStateChanged(evt);
             }
         });
-        jPanel1.add(choiceAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 170, 20));
+        jPanel1.add(choiceAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 170, 20));
 
         choiceClientes.setEnabled(false);
         choiceClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -189,7 +190,7 @@ public class Reportes extends javax.swing.JFrame {
                 choiceClientesItemStateChanged(evt);
             }
         });
-        jPanel1.add(choiceClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 170, -1));
+        jPanel1.add(choiceClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 170, -1));
 
         choiceProveedores.setEnabled(false);
         choiceProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -202,9 +203,19 @@ public class Reportes extends javax.swing.JFrame {
                 choiceProveedoresItemStateChanged(evt);
             }
         });
-        jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, 170, 20));
+        jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 170, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 390));
+        btnVerFactura.setBackground(new java.awt.Color(36, 46, 68));
+        btnVerFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/View Details_32px_1.png"))); // NOI18N
+        btnVerFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVerFacturaMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnVerFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, -1, -1));
+        btnVerFactura.setEnabled(false);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -232,10 +243,8 @@ public class Reportes extends javax.swing.JFrame {
 
     private void btnCerrarReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarReporteMouseClicked
         // TODO add your handling code here:
-        PresentarFactura fac = new PresentarFactura();
-        this.dispose();
-        fac.setVisible(true);
-        //System.exit(0);
+
+        System.exit(0);
     }//GEN-LAST:event_btnCerrarReporteMouseClicked
 
     private void choiceAnioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceAnioItemStateChanged
@@ -311,6 +320,7 @@ public class Reportes extends javax.swing.JFrame {
 //<<<<<<< HEAD
     private void choiceClientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceClientesItemStateChanged
         // TODO add your handling code here:
+        
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         choiceAnio.removeAll();
@@ -365,6 +375,8 @@ public class Reportes extends javax.swing.JFrame {
 
     private void choiceAnioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choiceAnioMouseClicked
         // TODO add your handling code here:
+        btnVerFactura.setEnabled(true);
+        System.out.println("Ver reporte");
         this.choiceProveedores.removeAll();
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
@@ -413,7 +425,7 @@ public class Reportes extends javax.swing.JFrame {
 
     private void choiceClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choiceClientesMouseClicked
         // TODO add your handling code here:
-                Operaciones operaciones = new Operaciones(this.direccionBdd);
+        Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         choiceAnio.removeAll();
         choiceAnio.setEnabled(true);
@@ -423,6 +435,20 @@ public class Reportes extends javax.swing.JFrame {
         operaciones.totalFacturasPorClientePorAnio((DefaultTableModel)jTableReportes.getModel(), choiceClientes.getSelectedItem());
 
     }//GEN-LAST:event_choiceClientesMouseClicked
+
+    private void btnVerFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerFacturaMouseClicked
+        // TODO add your handling code here:
+        
+        Object [] fila=new Object[jTableReportes.getColumnCount()];// = { jTableReportes.getValueAt(jTableReportes.getSelectedRow(), 0)}; 
+        
+        for(int i=0;i<jTableReportes.getColumnCount();i++)
+        {
+            fila[i]=jTableReportes.getValueAt(jTableReportes.getSelectedRow(), i);
+        }
+        this.dispose();
+        PresentarFactura fac = new PresentarFactura(choiceClientes.getSelectedItem(), fila);
+        fac.setVisible(true);
+    }//GEN-LAST:event_btnVerFacturaMouseClicked
 //>>>>>>> dd692cae39c941a19e38c3b6a26817e570811323
 
     /**
@@ -466,6 +492,7 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton btnExportarPdf;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnReporte;
+    private javax.swing.JButton btnVerFactura;
     private java.awt.Choice choiceAnio;
     private java.awt.Choice choiceClientes;
     private java.awt.Choice choiceProveedores;
