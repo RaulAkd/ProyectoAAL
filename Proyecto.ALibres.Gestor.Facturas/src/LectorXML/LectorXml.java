@@ -8,6 +8,7 @@ package LectorXML;
 import Operaciones.Operaciones;
 import Pojos.Cliente;
 import Pojos.Factura;
+import Pojos.FacturaNegocio;
 import Pojos.Producto;
 import Pojos.Proveedor;
 import java.io.File;
@@ -20,6 +21,7 @@ import org.w3c.dom.NodeList;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +31,7 @@ public class LectorXml {
     private Proveedor proveedor = new Proveedor();
     private Cliente cliente = new Cliente();
     private Factura factura = new Factura();
+    private FacturaNegocio facturaNegocio = new FacturaNegocio();
     private String direccionArchivo;
     private static final Logger log = Logger.getLogger(LectorXml.class.getName());
 
@@ -36,8 +39,9 @@ public class LectorXml {
         this.direccionArchivo = direccionArchivo;
     }
     
-    public void leerFacturaXml(){
-        
+    public void leerFacturaXml(int tipoFacturaIngresar){
+        //tipoFacturaIngresar = 1       tipo personal
+        //tipoFacturaIngresar = 2       tipo negocio
         log.log(Level.FINE, "Si llega aqui");
         
         try {
@@ -73,10 +77,18 @@ public class LectorXml {
                 this.cliente.setNombres(eElement1.getElementsByTagName("razonSocialComprador").item(0).getTextContent());
                 this.cliente.setRucCi(eElement1.getElementsByTagName("identificacionComprador").item(0).getTextContent());
                 
-                this.factura.setCodigo(eElement.getElementsByTagName("secuencial").item(0).getTextContent());
-                this.factura.setFecha(eElement1.getElementsByTagName("fechaEmision").item(0).getTextContent());
-                this.factura.setTotalSinIva(Double.parseDouble(eElement1.getElementsByTagName("totalSinImpuestos").item(0).getTextContent()));
-                this.factura.setTotalConIva(Double.parseDouble(eElement1.getElementsByTagName("importeTotal").item(0).getTextContent()));
+                if(tipoFacturaIngresar == 1){
+                    this.factura.setCodigo(eElement.getElementsByTagName("secuencial").item(0).getTextContent());
+                    this.factura.setFecha(eElement1.getElementsByTagName("fechaEmision").item(0).getTextContent());
+                    this.factura.setTotalSinIva(Double.parseDouble(eElement1.getElementsByTagName("totalSinImpuestos").item(0).getTextContent()));
+                    this.factura.setTotalConIva(Double.parseDouble(eElement1.getElementsByTagName("importeTotal").item(0).getTextContent()));
+                }
+                if(tipoFacturaIngresar == 2){
+                    this.facturaNegocio.setCodigo(eElement.getElementsByTagName("secuencial").item(0).getTextContent());
+                    this.facturaNegocio.setFecha(eElement1.getElementsByTagName("fechaEmision").item(0).getTextContent());
+                    this.facturaNegocio.setTotalSinIva(Double.parseDouble(eElement1.getElementsByTagName("totalSinImpuestos").item(0).getTextContent()));
+                    this.facturaNegocio.setTotalConIva(Double.parseDouble(eElement1.getElementsByTagName("importeTotal").item(0).getTextContent()));
+                }
                 //Nombre
                 //Comprador += ",'" + eElement1.getElementsByTagName("razonSocialComprador").item(0).getTextContent() + "'";
                 //Direccion
@@ -99,7 +111,12 @@ public class LectorXml {
                     //Valor Total de Productos
                     producto.setValorTotal(Double.parseDouble(eElement2.getElementsByTagName("baseImponible").item(temp).getTextContent()));
                     //Codigo de Factura
-                    this.factura.setProducto(producto);
+                    if(tipoFacturaIngresar == 1){
+                        this.factura.setProducto(producto);
+                    }
+                    if(tipoFacturaIngresar == 2){
+                        this.facturaNegocio.setProducto(producto);
+                    }
                 }
                 
             } catch (NullPointerException e) {
@@ -108,22 +125,38 @@ public class LectorXml {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.factura.setRucCliente(this.cliente.getRucCi());
-        this.factura.setRucProveedor(this.proveedor.getRuc());
-        //
-        this.factura.calcularIva();
-        //
-        this.factura.clasificar();
+        
+        if(tipoFacturaIngresar == 1){
+            this.factura.setRucCliente(this.cliente.getRucCi());
+            this.factura.setRucProveedor(this.proveedor.getRuc());
+            //
+            this.factura.calcularIva();
+            //
+            this.factura.clasificar();
+        }
+        if(tipoFacturaIngresar == 2){
+            this.facturaNegocio.setRucCliente(this.cliente.getRucCi());
+            this.facturaNegocio.setRucProveedor(this.proveedor.getRuc());
+            //
+            this.facturaNegocio.calcularIva();
+            //
+            //this.facturaNegocio.clasificar();
+        }
+        //JOptionPane.showMessageDialog(null, this.facturaNegocio.getListaProductos().size());
         System.out.println(this.proveedor);
         System.out.println(this.cliente);
         System.err.println(this.factura);
         System.err.println(this.factura.listaToString());
+        System.err.println(this.facturaNegocio.listaToString());
         
-        /*Operaciones operaciones = new Operaciones();
-        operaciones.conectar();
-        operaciones.guardarFactura(this.factura);
-        operaciones.guardarCliente(this.cliente);
-        operaciones.guardarProveedor(this.proveedor);*/
+    }
+
+    public FacturaNegocio getFacturaNegocio() {
+        return facturaNegocio;
+    }
+
+    public void setFacturaNegocio(FacturaNegocio facturaNegocio) {
+        this.facturaNegocio = facturaNegocio;
     }
 
     public Proveedor getProveedor() {

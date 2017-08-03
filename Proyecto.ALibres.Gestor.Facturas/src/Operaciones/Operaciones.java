@@ -53,6 +53,31 @@ public class Operaciones extends Conexion{
         return retorno;
     }
     
+    public boolean existeFacturaNegocio(String codigoFactura, String rucCiCliente, String RucProveedor){
+        boolean retorno = true;
+        ResultSet resultado = null;
+        String sql = "SELECT * FROM FACTURA_NEGOCIO_DATOS";
+        try{
+            resultado = consultar(sql);
+            if(resultado != null){
+                //int numeroColumna = resultado.getMetaData().getColumnCount();
+
+                while(resultado.next()){
+                    if((resultado.getObject(1).toString().compareTo(codigoFactura) == 0)
+                            &&(resultado.getObject(2).toString().compareTo(rucCiCliente) == 0)
+                            &&(resultado.getObject(3).toString().compareTo(RucProveedor) == 0)){
+                        retorno = false;
+                    }
+                }
+            }
+            resultado.close();
+        }
+        catch(SQLException e){
+            
+        }
+        return retorno;
+    }
+    
     public boolean insertar(String sql){
         boolean valor = true;
         conectar();
@@ -564,5 +589,46 @@ public class Operaciones extends Conexion{
          }
      }
     }
+    
+    public ArrayList<String> leerNombreDeGastosDeNegocioGuardadados(){
+    ArrayList<String> listaGastosNombres = new ArrayList<String>();
+    ResultSet resultado = null;
+        String sql = "SELECT NOMBRE_GASTO_EXTRA FROM GASTOS_DE_NEGOCIO";
+        try {
+            resultado = consultar(sql);
+            if(resultado != null){
+                while(resultado.next()){
+                        //choiceClientes.addItem((String) resultado.getObject(1));
+                        listaGastosNombres.add((String)resultado.getObject(1));
+                }
+            }
+        }catch(SQLException e){
+        }
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+        return listaGastosNombres;
+    }
+    /*public void crearNuevoGastoNegocio(String idCliente, String nombreGastoExtra, String fecha){
+        fecha = fecha.substring(6);
+        //JOptionPane.showMessageDialog(null, fecha);
+        //JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS....");
+        insertar("INSERT INTO GASTOS (ID_CLIENTE, TOTAL_ALIMENTACION_CLIENTE, TOTAL_VESTIMENTA_CLIENTE, "
+                + "TOTAL_VIVIENDA_CLIENTE, TOTAL_SALUD_CLIENTE, TOTAL_EDUCACION_CLIENTE, "
+                + "TOTAL_OTROS_CLIENTE, ANIO_GASTOS, TOTAL_FACTURAS) VALUES('" + idCliente + "','" + 
+                "0,00','0,00','0,00','0,00','0,00','0,00','" + fecha + "','0')");
+    }*/
     
 }

@@ -233,7 +233,7 @@ public class IPrincipal extends javax.swing.JFrame {
             {
                 xmlNuevo = new ConvertirXML(direccion);
                 LectorXml leerXml = new LectorXml(xmlNuevo.getDireccion());
-                leerXml.leerFacturaXml();
+                leerXml.leerFacturaXml(1);
                 txtNombre.setText(leerXml.getCliente().getNombres());
                 txtNumFactura.setText(leerXml.getFactura().getCodigo());
                 txtRuc.setText(leerXml.getCliente().getRucCi());

@@ -8,6 +8,7 @@ package InterfazGrafica;
 import LectorXML.ConvertirXML;
 import LectorXML.LectorXml;
 import Operaciones.Operaciones;
+import Pojos.Gasto;
 import Pojos.Producto;
 import java.awt.Color;
 import java.awt.Image;
@@ -18,6 +19,7 @@ import javax.swing.JFileChooser;
 import java.io.*;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -40,6 +42,10 @@ public class PantallaGestor extends javax.swing.JFrame {
     String nombreUsuario;
     String direccionProyecto="";
     String direccionBase="src\\ArchivosLecturaAuxiliar\\Bdd.s3db";
+    int tipoFacturaIngresar = 1;
+    ArrayList<Gasto> listaGastosTemporal = new ArrayList<Gasto>();
+    //tipoFacturaIngresar = 1       tipo personal
+    //tipoFacturaIngresar = 2       tipo negocio
     //Operaciones operaciones = new Operaciones();
     
     /*
@@ -117,6 +123,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         txtNombreCliente = new javax.swing.JTextField();
         txtRuCliente = new javax.swing.JTextField();
+        btnIngresarGasto = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnCliente = new javax.swing.JButton();
         btnProveedor = new javax.swing.JButton();
@@ -335,6 +342,14 @@ public class PantallaGestor extends javax.swing.JFrame {
         panelCliente.setVisible(false);
 
         jPanel2.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, -1, -1));
+
+        btnIngresarGasto.setText("Gastos Nuevos");
+        btnIngresarGasto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIngresarGastoMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnIngresarGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
 
         PanelMostrar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 590));
 
@@ -721,7 +736,6 @@ public class PantallaGestor extends javax.swing.JFrame {
         lblGastoNegocio.setVisible(false);
         comboGastosNegocio.setVisible(false);
 
-        comboGastosNegocio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         PanelMostrar.add(comboGastosNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, 130, -1));
 
         getContentPane().add(PanelMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 580));
@@ -902,6 +916,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         //String direccion;
         //Abrimos la ventana, guardamos la opcion seleccionada por el usuario
         int seleccion=fc.showOpenDialog(PanelMostrar);
+        
+        //tipoFacturaIngresar = 1       tipo personal
+        //tipoFacturaIngresar = 2       tipo negocio
  
         //Si el usuario, pincha en aceptar
         if(seleccion==JFileChooser.APPROVE_OPTION)
@@ -913,12 +930,6 @@ public class PantallaGestor extends javax.swing.JFrame {
             direccion=fichero.getAbsolutePath();
             direccion=direccion.replace("\\", "//");
             
-            //nuevaDireccion=direccionAbsoluta(this.direccion);
-            //nuevaDireccion+="\\\\ArchivosGestorFacturas\\\\BaseDeDatos";
-            //File carpeta = new File(nuevaDireccion);
-            //carpeta.mkdirs();
-            //System.out.println("La direccion:"+direccion);
-            //txtDireccion.setText(direccion);
             try(FileReader fr=new FileReader(fichero))
             {
                 String cadena="";
@@ -938,14 +949,22 @@ public class PantallaGestor extends javax.swing.JFrame {
             {
                 this.xmlNuevo = new ConvertirXML(direccion);
                 this.leerXml = new LectorXml(xmlNuevo.getDireccion());
-                leerXml.leerFacturaXml();
+                //tipoFacturaIngresar = 1       tipo personal
+                //tipoFacturaIngresar = 2       tipo negocio
+                leerXml.leerFacturaXml(this.tipoFacturaIngresar);
                 //comprobar si existe la factura
                 Operaciones operaciones = new Operaciones(this.direccionBase);
                 operaciones.conectar();
-                if(operaciones.existeFactura(leerXml.getFactura().getCodigo(),
+                if((operaciones.existeFactura(leerXml.getFactura().getCodigo(),
                         leerXml.getCliente().getRucCi(),
-                        leerXml.getProveedor().getRuc())){ 
-                    
+                        leerXml.getProveedor().getRuc())) &&
+                        (operaciones.existeFacturaNegocio(leerXml.getFactura().getCodigo(),
+                        leerXml.getCliente().getRucCi(),
+                        leerXml.getProveedor().getRuc()))){ 
+                    //leerGastosGuardados
+                    if(tipoFacturaIngresar == 2){
+                        leerGastosDeNegocioGuardados();
+                    }
                     //cargar datos proveedor
                     txtNombreProveedor.setText(leerXml.getProveedor().getNombre());
                     txtRucProveedor.setText(leerXml.getProveedor().getRuc());
@@ -960,15 +979,27 @@ public class PantallaGestor extends javax.swing.JFrame {
                     txtTotalFactura.setText(Double.toString(leerXml.getFactura().getTotalConIva()));
                     txtIva.setText(Double.toString(leerXml.getFactura().getIva()));
                     this.ingresarValoresGastos();
-
+                    //JOptionPane.showMessageDialog(null, leerXml.getFactura().getListaProductos().size());
                     String entrada[] = new String[2];
-                    for(Producto prod :  leerXml.getFactura().getListaProductos()){
-                        entrada[0] = prod.getNombre();
-                        entrada[1] = prod.getTipo();
-                        modelo.addRow(entrada);
+                    if(tipoFacturaIngresar == 1){
+                        for(Producto prod :  leerXml.getFactura().getListaProductos()){
+                            //JOptionPane.showMessageDialog(null, prod);
+                            entrada[0] = prod.getNombre();
+                            entrada[1] = prod.getTipo();
+                            modelo.addRow(entrada);
+                        }
+                    }
+                    if(tipoFacturaIngresar == 2){
+                        for(Producto prod :  leerXml.getFacturaNegocio().getListaProductos()){
+                            //JOptionPane.showMessageDialog(null, prod);
+                            entrada[0] = prod.getNombre();
+                            entrada[1] = prod.getTipo();
+                            modelo.addRow(entrada);
+                        }
                     }
                     this.desbloquearBotonesGastos();
                 }
+                
                 else{
                     JOptionPane.showMessageDialog(null, "LA FACTURA YA HA SIDO INGRESADA ANTERIORMENTE");
                 }
@@ -977,8 +1008,6 @@ public class PantallaGestor extends javax.swing.JFrame {
             {
                 Logger.getLogger(IPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            
         }
     }//GEN-LAST:event_btnBuscarMouseClicked
 
@@ -996,6 +1025,16 @@ public class PantallaGestor extends javax.swing.JFrame {
         txtTotalEducacion.setText(df.format(leerXml.getFactura().getListaGastos().get(3).getTotalSinIva()));
         txtTotalVivienda.setText(df.format(leerXml.getFactura().getListaGastos().get(4).getTotalSinIva()));
         txtTotalOtros.setText(df.format(leerXml.getFactura().getListaGastos().get(5).getTotalSinIva()));
+    }
+    
+    public void leerGastosDeNegocioGuardados(){
+        Operaciones operaciones = new Operaciones(this.direccionBase);
+        operaciones.conectar();
+        for(String nombreGasto : operaciones.leerNombreDeGastosDeNegocioGuardadados()){
+            JOptionPane.showMessageDialog(null, nombreGasto);
+            this.comboGastosNegocio.addItem(nombreGasto);
+            this.listaGastosTemporal.add(new Gasto(nombreGasto));
+        }
     }
     
     private void btnAlimentacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlimentacionMouseClicked
@@ -1114,6 +1153,9 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void lblFacturaNegocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaNegocioMouseClicked
         // TODO add your handling code here:
+        //tipoFacturaIngresar = 1       tipo personal
+        //tipoFacturaIngresar = 2       tipo negocio
+        this.tipoFacturaIngresar = 2;
         panelOpciones.setVisible(false);
         panelBuscar.setVisible(true);
         lblGastoNegocio.setVisible(true);
@@ -1124,6 +1166,9 @@ public class PantallaGestor extends javax.swing.JFrame {
 
     private void lblFacturaPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaPersonalMouseClicked
         // TODO add your handling code here:
+        //tipoFacturaIngresar = 1       tipo personal
+        //tipoFacturaIngresar = 2       tipo negocio
+        this.tipoFacturaIngresar = 1;
         panelOpciones.setVisible(false);
         panelBuscar.setVisible(true);
         lblGastoNegocio.setVisible(false);
@@ -1141,6 +1186,15 @@ public class PantallaGestor extends javax.swing.JFrame {
         lblGastoNegocio.setVisible(false);
         comboGastosNegocio.setVisible(false);
     }//GEN-LAST:event_btnRegresarPanelMouseClicked
+
+    private void btnIngresarGastoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarGastoMouseClicked
+        // TODO add your handling code here:
+        String nombreNuevoGasto = JOptionPane.showInputDialog("Ingrese nuevo gasto");
+        //this.listaGastosTemporal.add(e)
+        Gasto gastoNuevo = new Gasto(nombreNuevoGasto);
+        this.listaGastosTemporal.add(gastoNuevo);
+        this.comboGastosNegocio.addItem(gastoNuevo.getTipo());
+    }//GEN-LAST:event_btnIngresarGastoMouseClicked
 
     public String direccionAbsoluta(String dir)
     {
@@ -1236,6 +1290,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JButton btnEducacion;
     private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnIngresarGasto;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnOtros;
     private javax.swing.JButton btnProveedor;
