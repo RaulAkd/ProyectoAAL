@@ -274,6 +274,22 @@ public class Operaciones extends Conexion{
         }
         return existe;
     }
+    
+    public String existeProductoTipoDeGasto(String nombreProducto){
+        String existe = null;
+        ResultSet resultado = null;
+        try {
+            resultado = consultar("SELECT TIPO_GASTO FROM PRODUCTO WHERE NOMBRE_PRODUCTO = '" + nombreProducto+"'");
+            if(resultado.next()){
+                JOptionPane.showMessageDialog(null, "SI EXISTE PRODUCTO");
+                existe = (String)resultado.getObject(1);
+            }
+            resultado.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return existe;
+    }
   
     public void totalPersonas(DefaultTableModel tableModel){
         ResultSet resultado = null;

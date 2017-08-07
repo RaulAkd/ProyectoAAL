@@ -1029,16 +1029,35 @@ public class PantallaGestor extends javax.swing.JFrame {
                         leerXml.getCliente().getRucCi(),
                         leerXml.getProveedor().getRuc()))){ 
                     //leerGastosGuardados y proveedor nuevo
+                    String entrada[] = new String[2];
                     if(tipoFacturaIngresar == 2){
-                        leerGastosDeNegocioGuardados();
-                        this.llenarComboBoxGastos();
                         //nuevo proveedor, ingreso de tipo de gasto
                         if(operaciones.existeProveedor(leerXml.getProveedor().getRuc())){
                             String gastoProveedorNuevo = JOptionPane.showInputDialog(null, 
                                     "Ingrese el tipo de gasto de : " + leerXml.getProveedor().getNombre(),
                                     "Proveedor Nuevo", JOptionPane.QUESTION_MESSAGE);
                             leerXml.getProveedor().setTipoGasto(gastoProveedorNuevo);
+                            //this.listaGastosTemporal.add(new Gasto((gastoProveedorNuevo)));
+                            this.leerXml.getFacturaNegocio().getListaGastos().add(new Gasto((gastoProveedorNuevo)));
+                            //this.leerXml.getFacturaNegocio().actualizarValores();
+                            this.listaGastosTemporal.add(this.leerXml.getFacturaNegocio().getListaGastos().get(0));
                         }
+                        for(Producto prod :  leerXml.getFacturaNegocio().getListaProductos()){
+                            //JOptionPane.showMessageDialog(null, prod);
+                            entrada[0] = prod.getNombre();
+                            if(operaciones.existeProductoTipoDeGasto(prod.getNombre()) == null){
+                                //JOptionPane.showMessageDialog(null, "ingresa tipo de gasto de proveedor");
+                                prod.setTipo(leerXml.getProveedor().getTipoGasto());
+                            }
+                            else{
+                                prod.setTipo(operaciones.existeProductoTipoDeGasto(prod.getNombre()));
+                            }
+                            entrada[1] = prod.getTipo();
+                            modeloFacturaNegocio.addRow(entrada);
+                        }
+                        this.leerXml.getFacturaNegocio().actualizarValores();
+                        leerGastosDeNegocioGuardados();
+                        this.llenarComboBoxGastos();
                     }else{
                         String gastoProveedorNuevo = "";
                         if(operaciones.existeProveedor(leerXml.getProveedor().getRuc())){
@@ -1053,7 +1072,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                         }
                         leerXml.getProveedor().setTipoGasto(gastoProveedorNuevo);
                     }
-                    JOptionPane.showMessageDialog(null, leerXml.getProveedor());
+                    //JOptionPane.showMessageDialog(null, leerXml.getProveedor());
                     //cargar datos proveedor
                     txtNombreProveedor.setText(leerXml.getProveedor().getNombre());
                     txtRucProveedor.setText(leerXml.getProveedor().getRuc());
@@ -1069,7 +1088,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                     txtIva.setText(Double.toString(leerXml.getFactura().getIva()));
                     this.ingresarValoresGastos();
                     //JOptionPane.showMessageDialog(null, leerXml.getFactura().getListaProductos().size());
-                    String entrada[] = new String[2];
+                    
                     if(tipoFacturaIngresar == 1){
                         for(Producto prod :  leerXml.getFactura().getListaProductos()){
                             //JOptionPane.showMessageDialog(null, prod);
@@ -1078,14 +1097,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                             modelo.addRow(entrada);
                         }
                     }
-                    if(tipoFacturaIngresar == 2){
-                        for(Producto prod :  leerXml.getFacturaNegocio().getListaProductos()){
-                            //JOptionPane.showMessageDialog(null, prod);
-                            entrada[0] = prod.getNombre();
-                            entrada[1] = prod.getTipo();
-                            modeloFacturaNegocio.addRow(entrada);
-                        }
-                    }
+                    
                     this.desbloquearBotonesGastos();
                 }
                 else{
@@ -1119,11 +1131,12 @@ public class PantallaGestor extends javax.swing.JFrame {
         //String[] DATA = { "Dato 1", "Dato 2", "Dato 3", "Dato 4"};
         String[] DATA = new String[this.listaGastosTemporal.size()];
         String[] entrada = new String[2];
-        int val = 0;
+        //int val = 0;
         int i = 0;
         for(Gasto gasto : this.listaGastosTemporal){
             entrada[0] = gasto.getTipo();
-            entrada[1] = String.valueOf(val);
+            //entrada[1] = String.valueOf(val);
+            entrada[1] = String.valueOf(gasto.getTotalSinIva());
             modeloGastosNegocio.addRow(entrada);
             DATA[i] = gasto.getTipo();
             i++;
