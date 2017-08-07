@@ -13,6 +13,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,6 +50,10 @@ public class FacturaNegocio {
     
     public void calcularIva(){
         this.iva = this.totalConIva - this.totalSinIva;
+    }
+    
+    public void setGasto(Gasto gasto){
+        this.listaGastos.add(gasto);
     }
 
     public DecimalFormat getDf() {
@@ -184,6 +189,8 @@ public class FacturaNegocio {
         Matcher matEducacion;
         Matcher matVivienda;
         Matcher matOtros;
+        
+        
         for(Producto prod :  this.listaProductos){
             matVestimenta = patVestimenta.matcher(prod.getNombre());
             matAlimentacion = patAlimentacion.matcher(prod.getNombre());
@@ -228,9 +235,20 @@ public class FacturaNegocio {
         
         for(Gasto gasto : this.listaGastos){
             gasto.reiniciarGasto();
+            //JOptionPane.showMessageDialog(null,"gasto reiniciado : " + gasto.getTipo());
         }
-        
         for(Producto prod :  this.listaProductos){
+            //JOptionPane.showMessageDialog(null,"producto " + prod.toString());
+            if(prod.getTipo() != null){
+                for(Gasto gasto : this.listaGastos){
+                    //JOptionPane.showMessageDialog(null,"gasto " + gasto.getTipo());
+                    if(prod.getTipo().compareToIgnoreCase(gasto.getTipo()) == 0){
+                        gasto.sumarGasto(prod.getValorTotal());
+                    }
+                }
+            }
+        }
+        /*for(Producto prod :  this.listaProductos){
             if(prod.getTipo().compareToIgnoreCase("vestimenta") == 0){
                 this.listaGastos.get(0).sumarGasto(prod.getValorTotal());
             }
@@ -254,7 +272,7 @@ public class FacturaNegocio {
             else{
                 this.listaGastos.get(5).sumarGasto(prod.getValorTotal());
             }
-        }
+        }*/
     }
     
     public String listaToString(){

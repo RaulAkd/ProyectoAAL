@@ -13,6 +13,8 @@ import Pojos.Producto;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileReader;
 import javax.swing.JFileChooser;
@@ -22,6 +24,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -34,7 +38,12 @@ import javax.swing.table.TableColumn;
 public class PantallaGestor extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
+    DefaultTableModel modeloFacturaNegocio;
+    DefaultTableModel modeloGastosNegocio;
+    JComboBox comboBoxTipoGasto;
+    
     int indexSeleccion;
+    int indexSeleccionProductoNegocio;
     ConvertirXML xmlNuevo;
     LectorXml leerXml;
     String direccion;
@@ -70,7 +79,22 @@ public class PantallaGestor extends javax.swing.JFrame {
         modelo.addColumn("Tipo de Gasto");
         this.jTableProductos.setModel(modelo);
         
+        modeloFacturaNegocio = new DefaultTableModel();
+        modeloFacturaNegocio.addColumn("Nombre de Producto");
+        modeloFacturaNegocio.addColumn("Tipo de Gasto");
+        this.jTableProductosFacturaNegocio.setModel(modeloFacturaNegocio);
+        //this.jTableProductosFacturaNegocio.getColumn("Tipo de Gasto").
+        /*String[] DATA = { "Dato 1", "Dato 2", "Dato 3", "Dato 4" };
+        JComboBox comboBox = new JComboBox(DATA);
+        DefaultCellEditor defaultCellEditor=new DefaultCellEditor(comboBox);
+        this.jTableProductosFacturaNegocio.getColumnModel().getColumn(1).setCellEditor(defaultCellEditor);*/
+        modeloGastosNegocio = new DefaultTableModel();
+        modeloGastosNegocio.addColumn("Gasto");
+        modeloGastosNegocio.addColumn("Total");
+        this.jTableGastosFacturaNegocio.setModel(modeloGastosNegocio);
+        
         indexSeleccion = -1;
+        indexSeleccionProductoNegocio = -1;
     }
 
     /**
@@ -160,8 +184,10 @@ public class PantallaGestor extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtTotalSinIva = new javax.swing.JTextField();
         txtTotalFactura = new javax.swing.JTextField();
-        lblGastoNegocio = new javax.swing.JLabel();
-        comboGastosNegocio = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableProductosFacturaNegocio = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableGastosFacturaNegocio = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(36, 46, 68));
@@ -384,6 +410,11 @@ public class PantallaGestor extends javax.swing.JFrame {
                 btnFacturaMouseClicked(evt);
             }
         });
+        btnFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturaActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 283, 40, 40));
 
         btnVolver.setBackground(new java.awt.Color(12, 15, 22));
@@ -436,7 +467,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableProductos);
 
-        PanelMostrar.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 520, 180));
+        PanelMostrar.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 520, 60));
 
         btnSalir.setBackground(new java.awt.Color(36, 46, 68));
         btnSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -729,14 +760,54 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         PanelMostrar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 570, 40));
 
-        lblGastoNegocio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblGastoNegocio.setForeground(new java.awt.Color(255, 255, 255));
-        lblGastoNegocio.setText("Gasto de Negocio:");
-        PanelMostrar.add(lblGastoNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, -1, -1));
-        lblGastoNegocio.setVisible(false);
-        comboGastosNegocio.setVisible(false);
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
 
-        PanelMostrar.add(comboGastosNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, 130, -1));
+        jTableProductosFacturaNegocio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTableProductosFacturaNegocio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableProductosFacturaNegocioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTableProductosFacturaNegocioMouseEntered(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableProductosFacturaNegocio);
+
+        PanelMostrar.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 520, 80));
+
+        jScrollPane3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane3MouseClicked(evt);
+            }
+        });
+
+        jTableGastosFacturaNegocio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTableGastosFacturaNegocio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableGastosFacturaNegocioMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTableGastosFacturaNegocio);
+
+        PanelMostrar.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, 520, 80));
 
         getContentPane().add(PanelMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 580));
 
@@ -910,26 +981,21 @@ public class PantallaGestor extends javax.swing.JFrame {
         
         JFileChooser fc=new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.XML", "xml");
- 
         //Le indicamos el filtro
         fc.setFileFilter(filtro);
         //String direccion;
         //Abrimos la ventana, guardamos la opcion seleccionada por el usuario
-        int seleccion=fc.showOpenDialog(PanelMostrar);
-        
+        int seleccion=fc.showOpenDialog(PanelMostrar);        
         //tipoFacturaIngresar = 1       tipo personal
         //tipoFacturaIngresar = 2       tipo negocio
  
         //Si el usuario, pincha en aceptar
         if(seleccion==JFileChooser.APPROVE_OPTION)
         {
-            
             //Seleccionamos el fichero
-            File fichero=fc.getSelectedFile();
-            
+            File fichero=fc.getSelectedFile();   
             direccion=fichero.getAbsolutePath();
             direccion=direccion.replace("\\", "//");
-            
             try(FileReader fr=new FileReader(fichero))
             {
                 String cadena="";
@@ -955,16 +1021,39 @@ public class PantallaGestor extends javax.swing.JFrame {
                 //comprobar si existe la factura
                 Operaciones operaciones = new Operaciones(this.direccionBase);
                 operaciones.conectar();
+                
                 if((operaciones.existeFactura(leerXml.getFactura().getCodigo(),
                         leerXml.getCliente().getRucCi(),
                         leerXml.getProveedor().getRuc())) &&
                         (operaciones.existeFacturaNegocio(leerXml.getFactura().getCodigo(),
                         leerXml.getCliente().getRucCi(),
                         leerXml.getProveedor().getRuc()))){ 
-                    //leerGastosGuardados
+                    //leerGastosGuardados y proveedor nuevo
                     if(tipoFacturaIngresar == 2){
                         leerGastosDeNegocioGuardados();
+                        this.llenarComboBoxGastos();
+                        //nuevo proveedor, ingreso de tipo de gasto
+                        if(operaciones.existeProveedor(leerXml.getProveedor().getRuc())){
+                            String gastoProveedorNuevo = JOptionPane.showInputDialog(null, 
+                                    "Ingrese el tipo de gasto de : " + leerXml.getProveedor().getNombre(),
+                                    "Proveedor Nuevo", JOptionPane.QUESTION_MESSAGE);
+                            leerXml.getProveedor().setTipoGasto(gastoProveedorNuevo);
+                        }
+                    }else{
+                        String gastoProveedorNuevo = "";
+                        if(operaciones.existeProveedor(leerXml.getProveedor().getRuc())){
+                            int opcionTipoProveedor = JOptionPane.showOptionDialog(
+                            null, "Seleccione el tipo de gasto", "Nuevo Proveedor", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, 
+                            new Object[] {"Vestimenta", "Alimentacion", "Salud", "Educacion", "Vivienda"}, "Vestimenta");
+                            if(opcionTipoProveedor == 0) gastoProveedorNuevo = "vestimenta";
+                            if(opcionTipoProveedor == 1) gastoProveedorNuevo = "alimentacion";
+                            if(opcionTipoProveedor == 2) gastoProveedorNuevo = "salud";
+                            if(opcionTipoProveedor == 3) gastoProveedorNuevo = "educacion";
+                            if(opcionTipoProveedor == 4) gastoProveedorNuevo = "vivienda";
+                        }
+                        leerXml.getProveedor().setTipoGasto(gastoProveedorNuevo);
                     }
+                    JOptionPane.showMessageDialog(null, leerXml.getProveedor());
                     //cargar datos proveedor
                     txtNombreProveedor.setText(leerXml.getProveedor().getNombre());
                     txtRucProveedor.setText(leerXml.getProveedor().getRuc());
@@ -994,12 +1083,11 @@ public class PantallaGestor extends javax.swing.JFrame {
                             //JOptionPane.showMessageDialog(null, prod);
                             entrada[0] = prod.getNombre();
                             entrada[1] = prod.getTipo();
-                            modelo.addRow(entrada);
+                            modeloFacturaNegocio.addRow(entrada);
                         }
                     }
                     this.desbloquearBotonesGastos();
                 }
-                
                 else{
                     JOptionPane.showMessageDialog(null, "LA FACTURA YA HA SIDO INGRESADA ANTERIORMENTE");
                 }
@@ -1027,15 +1115,90 @@ public class PantallaGestor extends javax.swing.JFrame {
         txtTotalOtros.setText(df.format(leerXml.getFactura().getListaGastos().get(5).getTotalSinIva()));
     }
     
+    public void llenarComboBoxGastos(){
+        //String[] DATA = { "Dato 1", "Dato 2", "Dato 3", "Dato 4"};
+        String[] DATA = new String[this.listaGastosTemporal.size()];
+        String[] entrada = new String[2];
+        int val = 0;
+        int i = 0;
+        for(Gasto gasto : this.listaGastosTemporal){
+            entrada[0] = gasto.getTipo();
+            entrada[1] = String.valueOf(val);
+            modeloGastosNegocio.addRow(entrada);
+            DATA[i] = gasto.getTipo();
+            i++;
+        }
+        comboBoxTipoGasto = new JComboBox(DATA);
+        
+        DefaultCellEditor defaultCellEditor=new DefaultCellEditor(comboBoxTipoGasto);
+        this.jTableProductosFacturaNegocio.getColumnModel().getColumn(1).setCellEditor(defaultCellEditor);
+        this.comboBoxTipoGasto.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                int seleccion = jTableProductosFacturaNegocio.getEditingRow();
+                if(seleccion != -1){
+                    //JOptionPane.showMessageDialog(null, "Fila en edicion "+seleccion);
+                    //JOptionPane.showMessageDialog(null, "Fila "+seleccion+
+                            //"columna "+ 1 + comboBoxTipoGasto.getSelectedItem());
+                    cambioTipoGastoProductoFacturaNegocio(seleccion, comboBoxTipoGasto.getSelectedItem().toString());
+                }
+                //JOptionPane.showMessageDialog(null, "Fila en edicion "+jTableProductosFacturaNegocio.getEditingRow());
+                //JOptionPane.showMessageDialog(null, "Fila getSelectedRow "+jTableProductosFacturaNegocio.getSelectedRow());
+            }
+        });
+    }
+    
     public void leerGastosDeNegocioGuardados(){
         Operaciones operaciones = new Operaciones(this.direccionBase);
         operaciones.conectar();
         for(String nombreGasto : operaciones.leerNombreDeGastosDeNegocioGuardadados()){
-            JOptionPane.showMessageDialog(null, nombreGasto);
-            this.comboGastosNegocio.addItem(nombreGasto);
+            //JOptionPane.showMessageDialog(null, nombreGasto);
+            //this.comboGastosNegocio.addItem(nombreGasto);
             this.listaGastosTemporal.add(new Gasto(nombreGasto));
+            this.leerXml.getFacturaNegocio().setGasto(new Gasto(nombreGasto));
         }
+        
     }
+    
+    public void cambioTipoGastoProductoFacturaNegocio(int seleccionTablaProductos, String tipoGastoNegocio){
+        this.leerXml.getFacturaNegocio().getListaProductos().get(seleccionTablaProductos).setTipo(tipoGastoNegocio);
+        this.leerXml.getFacturaNegocio().actualizarValores();
+        while(modeloGastosNegocio.getRowCount()>0)modeloGastosNegocio.removeRow(0);
+        String[] entrada = new String[2];
+        //int val = 0;
+        for(Gasto gasto : this.leerXml.getFacturaNegocio().getListaGastos()){
+            entrada[0] = gasto.getTipo();
+            entrada[1] = String.valueOf(gasto.getTotalSinIva());
+            modeloGastosNegocio.addRow(entrada);
+        }
+        /*Gasto gastoSumar;
+        int i = 0;
+        for(Gasto gasto : this.leerXml.getFacturaNegocio().getListaGastos()){
+            if(gasto.getTipo().compareToIgnoreCase(tipoGastoNegocio) == 0){
+                modeloGastosNegocio.setValueAt(gasto.getTotalSinIva(), i, 1);
+            }
+            else{
+                i++;
+            }
+        }*/
+    }
+    
+    /*public void ingresarValoresGastosFacturaNegocioEnModelo(){
+        modeloGastosNegocio.setValueAt("alimentacion", this.indexSeleccion, 1);
+        
+    }*/
+    
+    /*public void ingresarValoresGastos(){
+        DecimalFormat df = new DecimalFormat("#.##");
+        txtTotalAlimentacion.setText(df.format(leerXml.getFactura().getListaGastos().get(1).getTotalSinIva()));
+        //txtTotalAlimentacion.setText(Double.toString(leerXml.getFactura().getListaGastos().get(1).getTotalSinIva()));
+        txtTotalVestimenta.setText(df.format(leerXml.getFactura().getListaGastos().get(0).getTotalSinIva()));
+        txtTotalSalud.setText(df.format(leerXml.getFactura().getListaGastos().get(2).getTotalSinIva()));
+        txtTotalEducacion.setText(df.format(leerXml.getFactura().getListaGastos().get(3).getTotalSinIva()));
+        txtTotalVivienda.setText(df.format(leerXml.getFactura().getListaGastos().get(4).getTotalSinIva()));
+        txtTotalOtros.setText(df.format(leerXml.getFactura().getListaGastos().get(5).getTotalSinIva()));
+    }*/
     
     private void btnAlimentacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlimentacionMouseClicked
         // TODO add your handling code here:
@@ -1158,8 +1321,8 @@ public class PantallaGestor extends javax.swing.JFrame {
         this.tipoFacturaIngresar = 2;
         panelOpciones.setVisible(false);
         panelBuscar.setVisible(true);
-        lblGastoNegocio.setVisible(true);
-        comboGastosNegocio.setVisible(true);
+        //lblGastoNegocio.setVisible(true);
+        //comboGastosNegocio.setVisible(true);
         btnRegresarPanel.setVisible(true);
         btnRegresarPanel.setEnabled(true);
     }//GEN-LAST:event_lblFacturaNegocioMouseClicked
@@ -1171,8 +1334,8 @@ public class PantallaGestor extends javax.swing.JFrame {
         this.tipoFacturaIngresar = 1;
         panelOpciones.setVisible(false);
         panelBuscar.setVisible(true);
-        lblGastoNegocio.setVisible(false);
-        comboGastosNegocio.setVisible(false);
+        //lblGastoNegocio.setVisible(false);
+        //comboGastosNegocio.setVisible(false);
         btnRegresarPanel.setVisible(true);
         btnRegresarPanel.setEnabled(true);
     }//GEN-LAST:event_lblFacturaPersonalMouseClicked
@@ -1183,8 +1346,8 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnRegresarPanel.setEnabled(false);
         panelOpciones.setVisible(true);
         panelBuscar.setVisible(false);
-        lblGastoNegocio.setVisible(false);
-        comboGastosNegocio.setVisible(false);
+        //lblGastoNegocio.setVisible(false);
+        //comboGastosNegocio.setVisible(false);
     }//GEN-LAST:event_btnRegresarPanelMouseClicked
 
     private void btnIngresarGastoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarGastoMouseClicked
@@ -1193,8 +1356,36 @@ public class PantallaGestor extends javax.swing.JFrame {
         //this.listaGastosTemporal.add(e)
         Gasto gastoNuevo = new Gasto(nombreNuevoGasto);
         this.listaGastosTemporal.add(gastoNuevo);
-        this.comboGastosNegocio.addItem(gastoNuevo.getTipo());
+        //this.comboGastosNegocio.addItem(gastoNuevo.getTipo());
+        this.llenarComboBoxGastos();
     }//GEN-LAST:event_btnIngresarGastoMouseClicked
+
+    private void jTableProductosFacturaNegocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductosFacturaNegocioMouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, this.jTableProductosFacturaNegocio.getSelectedRow());
+        //this.indexSeleccionProductoNegocio = this.jTableProductosFacturaNegocio.getSelectedRow();
+        //this.indexSeleccion = this.jTableProductos.getSelectedRow();
+    }//GEN-LAST:event_jTableProductosFacturaNegocioMouseClicked
+
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane2MouseClicked
+
+    private void jTableGastosFacturaNegocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableGastosFacturaNegocioMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableGastosFacturaNegocioMouseClicked
+
+    private void jScrollPane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane3MouseClicked
+
+    private void jTableProductosFacturaNegocioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductosFacturaNegocioMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableProductosFacturaNegocioMouseEntered
+
+    private void btnFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFacturaActionPerformed
 
     public String direccionAbsoluta(String dir)
     {
@@ -1300,7 +1491,6 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JButton btnVestimenta;
     private javax.swing.JButton btnVivienda;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> comboGastosNegocio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1314,6 +1504,8 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -1321,14 +1513,15 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JTable jTableGastosFacturaNegocio;
     private javax.swing.JTable jTableProductos;
+    private javax.swing.JTable jTableProductosFacturaNegocio;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblFactura;
     private javax.swing.JLabel lblFacturaNegocio;
     private javax.swing.JLabel lblFacturaPersonal;
-    private javax.swing.JLabel lblGastoNegocio;
     private javax.swing.JLabel lblImagenPanel;
     private javax.swing.JLabel lblIva;
     private javax.swing.JLabel lblNombre;

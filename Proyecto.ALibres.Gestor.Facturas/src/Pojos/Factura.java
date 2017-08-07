@@ -256,6 +256,10 @@ public class Factura {
         }
     }
     
+    public void clasificarGastosNegocio(){
+        
+    }
+    
     public void actualizarValores(){
         
         for(Gasto gasto : this.listaGastos){

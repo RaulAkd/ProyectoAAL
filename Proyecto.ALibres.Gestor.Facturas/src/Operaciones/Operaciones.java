@@ -256,6 +256,24 @@ public class Operaciones extends Conexion{
             //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public Boolean existeProveedor(String ruc){
+        Boolean existe = true;
+        ResultSet resultado = null;
+        try {
+            resultado = consultar("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE\n" +
+                    "RUC_PROVEEDOR = '" + ruc+/* 
+                    "' AND NOMBRE_PROVEEDOR = '" + proveedor.getNombre()+*/"'");
+            if(resultado.next()){
+                JOptionPane.showMessageDialog(null, "PROVEEDOR YA SE ENCUENTRA REGISTRADO");
+                existe = false;
+            }
+            resultado.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return existe;
+    }
   
     public void totalPersonas(DefaultTableModel tableModel){
         ResultSet resultado = null;
