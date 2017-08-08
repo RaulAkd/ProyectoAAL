@@ -245,11 +245,12 @@ public class Operaciones extends Conexion{
             }
             else{
             //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
-            insertar("INSERT INTO PROVEEDOR (RUC_PROVEEDOR, NOMBRE_PROVEEDOR, CIUDAD_PROVEEDOR, DIRECCION_PROVEEDOR) VALUES('" + 
+            insertar("INSERT INTO PROVEEDOR (RUC_PROVEEDOR, NOMBRE_PROVEEDOR, CIUDAD_PROVEEDOR, DIRECCION_PROVEEDOR, TIPO_GASTO) VALUES('" + 
                     proveedor.getRuc() + "','" + 
                     proveedor.getNombre() + "','" + 
                     proveedor.getCiudad() + "','" + 
-                    proveedor.getDireccion() +"')");
+                    proveedor.getDireccion() +  "','" + 
+                    proveedor.getCiudad() +"')");
             }
             resultado.close();
         } catch (SQLException ex) {
@@ -654,6 +655,33 @@ public class Operaciones extends Conexion{
          }
      }
         return listaGastosNombres;
+    }
+    
+    public void guardarProducto(Proveedor proveedor){
+        //JOptionPane.showMessageDialog(null, "llego a metodo proveedor....");
+        ResultSet resultado = null;
+        
+        try {
+            resultado = consultar("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE\n" +
+                    "RUC_PROVEEDOR = '" + proveedor.getRuc() +/* 
+                    "' AND NOMBRE_PROVEEDOR = '" + proveedor.getNombre()+*/"'");
+            //if(resultado != null){
+            if(resultado.next()){
+                JOptionPane.showMessageDialog(null, "PROVEEDOR YA SE ENCUENTRA REGISTRADO");
+            }
+            else{
+            //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
+            insertar("INSERT INTO PROVEEDOR (RUC_PROVEEDOR, NOMBRE_PROVEEDOR, CIUDAD_PROVEEDOR, DIRECCION_PROVEEDOR, TIPO_GASTO) VALUES('" + 
+                    proveedor.getRuc() + "','" + 
+                    proveedor.getNombre() + "','" + 
+                    proveedor.getCiudad() + "','" + 
+                    proveedor.getDireccion() +  "','" + 
+                    proveedor.getCiudad() +"')");
+            }
+            resultado.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /*public void crearNuevoGastoNegocio(String idCliente, String nombreGastoExtra, String fecha){
         fecha = fecha.substring(6);
