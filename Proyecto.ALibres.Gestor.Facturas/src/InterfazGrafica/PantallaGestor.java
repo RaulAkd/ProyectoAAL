@@ -1391,6 +1391,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         panelBotones.setVisible(true);
     }//GEN-LAST:event_lblFacturaPersonalMouseClicked
 
+    //
     private void btnRegresarPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarPanelMouseClicked
         // TODO add your handling code here:
         btnRegresarPanel.setVisible(false);
