@@ -8,6 +8,7 @@ package Operaciones;
 import Pojos.Cliente;
 import Pojos.Factura;
 import Pojos.Gasto;
+import Pojos.Producto;
 import Pojos.Proveedor;
 import java.awt.Choice;
 import java.sql.ResultSet;
@@ -657,31 +658,55 @@ public class Operaciones extends Conexion{
         return listaGastosNombres;
     }
     
-    public void guardarProducto(Proveedor proveedor){
-        //JOptionPane.showMessageDialog(null, "llego a metodo proveedor....");
-        ResultSet resultado = null;
-        
-        try {
-            resultado = consultar("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE\n" +
-                    "RUC_PROVEEDOR = '" + proveedor.getRuc() +/* 
-                    "' AND NOMBRE_PROVEEDOR = '" + proveedor.getNombre()+*/"'");
-            //if(resultado != null){
-            if(resultado.next()){
-                JOptionPane.showMessageDialog(null, "PROVEEDOR YA SE ENCUENTRA REGISTRADO");
+    public void guardarProductosFacturaPersonal(ArrayList<Producto> listaProductos, String codigoFactura){
+        for(Producto prod : listaProductos){
+            ResultSet resultado = null;
+            try {
+                resultado = consultar("SELECT ID_PRODUCTO FROM PRODUCTO WHERE\n" +
+                        "NOMBRE_PRODUCTO = '" + prod.getNombre() + "'");
+                //if(resultado != null){
+                if(resultado.next()){
+                    JOptionPane.showMessageDialog(null, "PRODUCTO YA SE ENCUENTRA REGISTRADO");
+                    //funcion para ingresar en tabla contiene 
+                    this.guardarEnContieneFacturaPersonal((String)resultado.getObject(1), codigoFactura, prod.getCantidad());
+                }
+                else{
+                //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
+                insertar("INSERT INTO PROVEEDOR (RUC_PROVEEDOR, NOMBRE_PROVEEDOR, CIUDAD_PROVEEDOR, DIRECCION_PROVEEDOR, TIPO_GASTO) VALUES('" + 
+                        proveedor.getRuc() + "','" + 
+                        proveedor.getNombre() + "','" + 
+                        proveedor.getCiudad() + "','" + 
+                        proveedor.getDireccion() +  "','" + 
+                        proveedor.getCiudad() +"')");
+                }
+                resultado.close();
+            } catch (SQLException ex) {
+                //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
             }
-            else{
-            //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
-            insertar("INSERT INTO PROVEEDOR (RUC_PROVEEDOR, NOMBRE_PROVEEDOR, CIUDAD_PROVEEDOR, DIRECCION_PROVEEDOR, TIPO_GASTO) VALUES('" + 
-                    proveedor.getRuc() + "','" + 
-                    proveedor.getNombre() + "','" + 
-                    proveedor.getCiudad() + "','" + 
-                    proveedor.getDireccion() +  "','" + 
-                    proveedor.getCiudad() +"')");
-            }
-            resultado.close();
-        } catch (SQLException ex) {
-            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void guardarEnContieneFacturaPersonal(String idProducto, String codigoFactura, double cantidad){
+            ResultSet resultado = null;
+            try {
+                resultado = consultar("SELECT ID_FACTURA FROM FACTURA WHERE\n" +
+                        "CODIGO_FACTURA = '" + codigoFactura + "'");
+                //if(resultado != null){
+                if(resultado.next()){
+                    //JOptionPane.showMessageDialog(null, "PRODUCTO YA SE ENCUENTRA REGISTRADO");
+                    insertar("INSERT INTO CONTIENE (ID_FACTURA, ID_PRODUCTO, CANTIDAD) VALUES ('" + 
+                        (String)resultado.getObject(1) + "','" + 
+                        idProducto + "','" + 
+                        String.valueOf(cantidad) +"')");
+                    
+                    resultado.close();
+                }
+                else{
+                //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
+                }
+            } catch (SQLException ex) {
+                //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     /*public void crearNuevoGastoNegocio(String idCliente, String nombreGastoExtra, String fecha){
         fecha = fecha.substring(6);

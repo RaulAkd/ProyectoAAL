@@ -154,23 +154,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnFactura = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         btnRegresarPanel = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableProductos = new javax.swing.JTable();
         btnSalir = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
-        btnAlimentacion = new javax.swing.JButton();
-        btnVestimenta = new javax.swing.JButton();
-        btnSalud = new javax.swing.JButton();
-        btnEducacion = new javax.swing.JButton();
-        btnVivienda = new javax.swing.JButton();
-        btnOtros = new javax.swing.JButton();
-        txtTotalAlimentacion = new javax.swing.JTextField();
-        txtTotalVestimenta = new javax.swing.JTextField();
-        txtTotalSalud = new javax.swing.JTextField();
-        txtTotalEducacion = new javax.swing.JTextField();
-        txtTotalVivienda = new javax.swing.JTextField();
-        txtTotalOtros = new javax.swing.JTextField();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         panelOpciones = new javax.swing.JPanel();
         lblFacturaNegocio = new javax.swing.JLabel();
@@ -184,6 +170,24 @@ public class PantallaGestor extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtTotalSinIva = new javax.swing.JTextField();
         txtTotalFactura = new javax.swing.JTextField();
+        panelBotones = new javax.swing.JPanel();
+        btnAlimentacion = new javax.swing.JButton();
+        txtTotalAlimentacion = new javax.swing.JTextField();
+        txtTotalVestimenta = new javax.swing.JTextField();
+        btnVestimenta = new javax.swing.JButton();
+        btnSalud = new javax.swing.JButton();
+        txtTotalSalud = new javax.swing.JTextField();
+        btnEducacion = new javax.swing.JButton();
+        txtTotalEducacion = new javax.swing.JTextField();
+        btnVivienda = new javax.swing.JButton();
+        txtTotalVivienda = new javax.swing.JTextField();
+        btnOtros = new javax.swing.JButton();
+        txtTotalOtros = new javax.swing.JTextField();
+        panelTablas = new javax.swing.JLayeredPane();
+        capaTabla1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableProductos = new javax.swing.JTable();
+        capaTabla2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableProductosFacturaNegocio = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -446,29 +450,6 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         PanelMostrar.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 40, 590));
 
-        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jScrollPane1MouseClicked(evt);
-            }
-        });
-
-        jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jTableProductos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableProductosMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTableProductos);
-
-        PanelMostrar.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 520, 60));
-
         btnSalir.setBackground(new java.awt.Color(36, 46, 68));
         btnSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(204, 204, 204));
@@ -528,128 +509,6 @@ public class PantallaGestor extends javax.swing.JFrame {
             }
         });
         PanelMostrar.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, -1, -1));
-
-        btnAlimentacion.setBackground(new java.awt.Color(107, 116, 147));
-        btnAlimentacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Restaurant_32px.png"))); // NOI18N
-        btnAlimentacion.setEnabled(false);
-        btnAlimentacion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAlimentacionMouseClicked(evt);
-            }
-        });
-        PanelMostrar.add(btnAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, -1, -1));
-
-        btnVestimenta.setBackground(new java.awt.Color(107, 116, 147));
-        btnVestimenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Clothes_32px.png"))); // NOI18N
-        btnVestimenta.setEnabled(false);
-        btnVestimenta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnVestimentaMouseClicked(evt);
-            }
-        });
-        PanelMostrar.add(btnVestimenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, -1, -1));
-
-        btnSalud.setBackground(new java.awt.Color(107, 116, 147));
-        btnSalud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Doctors Bag_32px.png"))); // NOI18N
-        btnSalud.setEnabled(false);
-        btnSalud.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSaludMouseClicked(evt);
-            }
-        });
-        PanelMostrar.add(btnSalud, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
-
-        btnEducacion.setBackground(new java.awt.Color(107, 116, 147));
-        btnEducacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Literature_32px.png"))); // NOI18N
-        btnEducacion.setEnabled(false);
-        btnEducacion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEducacionMouseClicked(evt);
-            }
-        });
-        PanelMostrar.add(btnEducacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
-
-        btnVivienda.setBackground(new java.awt.Color(107, 116, 147));
-        btnVivienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Home_32px.png"))); // NOI18N
-        btnVivienda.setEnabled(false);
-        btnVivienda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnViviendaMouseClicked(evt);
-            }
-        });
-        btnVivienda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViviendaActionPerformed(evt);
-            }
-        });
-        PanelMostrar.add(btnVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 360, -1, -1));
-
-        btnOtros.setBackground(new java.awt.Color(107, 116, 147));
-        btnOtros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ok_32px.png"))); // NOI18N
-        btnOtros.setEnabled(false);
-        btnOtros.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnOtrosMouseClicked(evt);
-            }
-        });
-        PanelMostrar.add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, -1, -1));
-
-        txtTotalAlimentacion.setBackground(new java.awt.Color(36, 46, 68));
-        txtTotalAlimentacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTotalAlimentacion.setForeground(new java.awt.Color(255, 255, 255));
-        txtTotalAlimentacion.setText("$ 0.00");
-        txtTotalAlimentacion.setBorder(null);
-        PanelMostrar.add(txtTotalAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 50, -1));
-
-        txtTotalVestimenta.setBackground(new java.awt.Color(36, 46, 68));
-        txtTotalVestimenta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTotalVestimenta.setForeground(new java.awt.Color(255, 255, 255));
-        txtTotalVestimenta.setText("$ 0.00");
-        txtTotalVestimenta.setBorder(null);
-        txtTotalVestimenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalVestimentaActionPerformed(evt);
-            }
-        });
-        PanelMostrar.add(txtTotalVestimenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 410, -1, -1));
-
-        txtTotalSalud.setBackground(new java.awt.Color(36, 46, 68));
-        txtTotalSalud.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTotalSalud.setForeground(new java.awt.Color(255, 255, 255));
-        txtTotalSalud.setText("$ 0.00");
-        txtTotalSalud.setBorder(null);
-        txtTotalSalud.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalSaludActionPerformed(evt);
-            }
-        });
-        PanelMostrar.add(txtTotalSalud, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
-
-        txtTotalEducacion.setBackground(new java.awt.Color(36, 46, 68));
-        txtTotalEducacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTotalEducacion.setForeground(new java.awt.Color(255, 255, 255));
-        txtTotalEducacion.setText("$ 0.00");
-        txtTotalEducacion.setBorder(null);
-        PanelMostrar.add(txtTotalEducacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 410, -1, -1));
-
-        txtTotalVivienda.setBackground(new java.awt.Color(36, 46, 68));
-        txtTotalVivienda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTotalVivienda.setForeground(new java.awt.Color(255, 255, 255));
-        txtTotalVivienda.setText("$ 0.00");
-        txtTotalVivienda.setBorder(null);
-        PanelMostrar.add(txtTotalVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 410, -1, -1));
-
-        txtTotalOtros.setBackground(new java.awt.Color(36, 46, 68));
-        txtTotalOtros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTotalOtros.setForeground(new java.awt.Color(255, 255, 255));
-        txtTotalOtros.setText("$ 0.00");
-        txtTotalOtros.setBorder(null);
-        txtTotalOtros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalOtrosActionPerformed(evt);
-            }
-        });
-        PanelMostrar.add(txtTotalOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, -1, -1));
 
         jLayeredPane2.setBackground(new java.awt.Color(255, 255, 255));
         jLayeredPane2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -760,6 +619,176 @@ public class PantallaGestor extends javax.swing.JFrame {
 
         PanelMostrar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 570, 40));
 
+        panelBotones.setBackground(new java.awt.Color(36, 46, 68));
+        panelBotones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnAlimentacion.setBackground(new java.awt.Color(107, 116, 147));
+        btnAlimentacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Restaurant_32px.png"))); // NOI18N
+        btnAlimentacion.setEnabled(false);
+        btnAlimentacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAlimentacionMouseClicked(evt);
+            }
+        });
+        btnAlimentacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlimentacionActionPerformed(evt);
+            }
+        });
+        panelBotones.add(btnAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtTotalAlimentacion.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalAlimentacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalAlimentacion.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalAlimentacion.setText("$ 0.00");
+        txtTotalAlimentacion.setBorder(null);
+        panelBotones.add(txtTotalAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 50, -1));
+
+        txtTotalVestimenta.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalVestimenta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalVestimenta.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalVestimenta.setText("$ 0.00");
+        txtTotalVestimenta.setBorder(null);
+        txtTotalVestimenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalVestimentaActionPerformed(evt);
+            }
+        });
+        panelBotones.add(txtTotalVestimenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
+
+        btnVestimenta.setBackground(new java.awt.Color(107, 116, 147));
+        btnVestimenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Clothes_32px.png"))); // NOI18N
+        btnVestimenta.setEnabled(false);
+        btnVestimenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVestimentaMouseClicked(evt);
+            }
+        });
+        panelBotones.add(btnVestimenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
+
+        btnSalud.setBackground(new java.awt.Color(107, 116, 147));
+        btnSalud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Doctors Bag_32px.png"))); // NOI18N
+        btnSalud.setEnabled(false);
+        btnSalud.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSaludMouseClicked(evt);
+            }
+        });
+        panelBotones.add(btnSalud, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
+
+        txtTotalSalud.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalSalud.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalSalud.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalSalud.setText("$ 0.00");
+        txtTotalSalud.setBorder(null);
+        txtTotalSalud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalSaludActionPerformed(evt);
+            }
+        });
+        panelBotones.add(txtTotalSalud, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
+
+        btnEducacion.setBackground(new java.awt.Color(107, 116, 147));
+        btnEducacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Literature_32px.png"))); // NOI18N
+        btnEducacion.setEnabled(false);
+        btnEducacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEducacionMouseClicked(evt);
+            }
+        });
+        panelBotones.add(btnEducacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, -1, -1));
+
+        txtTotalEducacion.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalEducacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalEducacion.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalEducacion.setText("$ 0.00");
+        txtTotalEducacion.setBorder(null);
+        panelBotones.add(txtTotalEducacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, -1, -1));
+
+        btnVivienda.setBackground(new java.awt.Color(107, 116, 147));
+        btnVivienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Home_32px.png"))); // NOI18N
+        btnVivienda.setEnabled(false);
+        btnVivienda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnViviendaMouseClicked(evt);
+            }
+        });
+        btnVivienda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViviendaActionPerformed(evt);
+            }
+        });
+        panelBotones.add(btnVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, -1, -1));
+
+        txtTotalVivienda.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalVivienda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalVivienda.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalVivienda.setText("$ 0.00");
+        txtTotalVivienda.setBorder(null);
+        panelBotones.add(txtTotalVivienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, -1, -1));
+
+        btnOtros.setBackground(new java.awt.Color(107, 116, 147));
+        btnOtros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ok_32px.png"))); // NOI18N
+        btnOtros.setEnabled(false);
+        btnOtros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOtrosMouseClicked(evt);
+            }
+        });
+        panelBotones.add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+
+        txtTotalOtros.setBackground(new java.awt.Color(36, 46, 68));
+        txtTotalOtros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTotalOtros.setForeground(new java.awt.Color(255, 255, 255));
+        txtTotalOtros.setText("$ 0.00");
+        txtTotalOtros.setBorder(null);
+        txtTotalOtros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalOtrosActionPerformed(evt);
+            }
+        });
+        panelBotones.add(txtTotalOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, -1));
+
+        PanelMostrar.add(panelBotones, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 540, 90));
+        panelBotones.setVisible(false);
+
+        panelTablas.setPreferredSize(new java.awt.Dimension(300, 100));
+        panelTablas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        capaTabla1.setBackground(new java.awt.Color(36, 46, 68));
+        capaTabla1.setPreferredSize(new java.awt.Dimension(280, 230));
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(450, 230));
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
+
+        jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTableProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableProductosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableProductos);
+
+        capaTabla1.add(jScrollPane1);
+
+        panelTablas.add(capaTabla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 540, 270));
+        capaTabla1.setVisible(false);
+
+        capaTabla2.setBackground(new java.awt.Color(36, 46, 68));
+        capaTabla2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(452, 200));
         jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jScrollPane2MouseClicked(evt);
@@ -784,8 +813,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTableProductosFacturaNegocio);
 
-        PanelMostrar.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 520, 80));
+        capaTabla2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 450, 130));
 
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(452, 200));
         jScrollPane3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jScrollPane3MouseClicked(evt);
@@ -807,9 +837,14 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTableGastosFacturaNegocio);
 
-        PanelMostrar.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, 520, 80));
+        capaTabla2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 140));
 
-        getContentPane().add(PanelMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 580));
+        panelTablas.add(capaTabla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 500, 500));
+        capaTabla2.setVisible(false);
+
+        PanelMostrar.add(panelTablas, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 600, 500));
+
+        getContentPane().add(PanelMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1325,6 +1360,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         //comboGastosNegocio.setVisible(true);
         btnRegresarPanel.setVisible(true);
         btnRegresarPanel.setEnabled(true);
+        capaTabla2.setVisible(true);
     }//GEN-LAST:event_lblFacturaNegocioMouseClicked
 
     private void lblFacturaPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaPersonalMouseClicked
@@ -1338,6 +1374,8 @@ public class PantallaGestor extends javax.swing.JFrame {
         //comboGastosNegocio.setVisible(false);
         btnRegresarPanel.setVisible(true);
         btnRegresarPanel.setEnabled(true);
+        capaTabla1.setVisible(true);
+        panelBotones.setVisible(true);
     }//GEN-LAST:event_lblFacturaPersonalMouseClicked
 
     private void btnRegresarPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarPanelMouseClicked
@@ -1346,6 +1384,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnRegresarPanel.setEnabled(false);
         panelOpciones.setVisible(true);
         panelBuscar.setVisible(false);
+        panelBotones.setVisible(false);
+        capaTabla1.setVisible(false);
+        capaTabla2.setVisible(false);
         //lblGastoNegocio.setVisible(false);
         //comboGastosNegocio.setVisible(false);
     }//GEN-LAST:event_btnRegresarPanelMouseClicked
@@ -1386,6 +1427,10 @@ public class PantallaGestor extends javax.swing.JFrame {
     private void btnFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFacturaActionPerformed
+
+    private void btnAlimentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlimentacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAlimentacionActionPerformed
 
     public String direccionAbsoluta(String dir)
     {
@@ -1491,6 +1536,8 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JButton btnVestimenta;
     private javax.swing.JButton btnVivienda;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JPanel capaTabla1;
+    private javax.swing.JPanel capaTabla2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1529,10 +1576,12 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JLabel lblRegresar;
     private javax.swing.JLabel lblReporte;
     private javax.swing.JLabel lblRuc;
+    private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelCliente;
     private javax.swing.JPanel panelFactura;
     private javax.swing.JPanel panelOpciones;
+    private javax.swing.JLayeredPane panelTablas;
     private javax.swing.JSeparator separador1;
     private javax.swing.JSeparator separador2;
     private javax.swing.JSeparator separador3;
