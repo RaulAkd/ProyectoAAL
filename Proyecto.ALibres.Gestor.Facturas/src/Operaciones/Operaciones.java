@@ -8,7 +8,6 @@ package Operaciones;
 import Pojos.Cliente;
 import Pojos.Factura;
 import Pojos.Gasto;
-import Pojos.Producto;
 import Pojos.Proveedor;
 import java.awt.Choice;
 import java.sql.ResultSet;
@@ -246,12 +245,11 @@ public class Operaciones extends Conexion{
             }
             else{
             //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
-            insertar("INSERT INTO PROVEEDOR (RUC_PROVEEDOR, NOMBRE_PROVEEDOR, CIUDAD_PROVEEDOR, DIRECCION_PROVEEDOR, TIPO_GASTO) VALUES('" + 
+            insertar("INSERT INTO PROVEEDOR (RUC_PROVEEDOR, NOMBRE_PROVEEDOR, CIUDAD_PROVEEDOR, DIRECCION_PROVEEDOR) VALUES('" + 
                     proveedor.getRuc() + "','" + 
                     proveedor.getNombre() + "','" + 
                     proveedor.getCiudad() + "','" + 
-                    proveedor.getDireccion() +  "','" + 
-                    proveedor.getCiudad() +"')");
+                    proveedor.getDireccion() +"')");
             }
             resultado.close();
         } catch (SQLException ex) {
@@ -656,59 +654,6 @@ public class Operaciones extends Conexion{
          }
      }
         return listaGastosNombres;
-    }
-    
-    public void guardarProductosFacturaPersonal(ArrayList<Producto> listaProductos, String codigoFactura){
-        for(Producto prod : listaProductos){
-            ResultSet resultado = null;
-            try {
-                resultado = consultar("SELECT ID_PRODUCTO FROM PRODUCTO WHERE\n" +
-                        "NOMBRE_PRODUCTO = '" + prod.getNombre() + "'");
-                
-                if(resultado.next()){
-                    JOptionPane.showMessageDialog(null, "PRODUCTO YA SE ENCUENTRA REGISTRADO");
-                    //funcion para ingresar en tabla contiene 
-                    this.guardarEnContieneFacturaPersonal((String)resultado.getObject(1), codigoFactura, prod.getCantidad());
-                }
-                else{
-                //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
-                    insertar("INSERT INTO PRODUCTO (CODIGO_PRODUCTO, NOMBRE_PRODUCTO, TIPO_GASTO) VALUES ('" + 
-                        prod.getCodigo() + "','" + 
-                        prod.getNombre() + "','" + 
-                        prod.getTipo() +"')");
-                    ResultSet resultadoIdProducto = null;
-                    resultadoIdProducto = consultar("SELECT ID_PRODUCTO FROM PRODUCTO WHERE\n" +
-                        "NOMBRE_PRODUCTO = '" + prod.getNombre() + "'");
-                    this.guardarEnContieneFacturaPersonal((String)resultadoIdProducto.getObject(1), codigoFactura, prod.getCantidad());
-                }
-                resultado.close();
-            } catch (SQLException ex) {
-                //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-    
-    public void guardarEnContieneFacturaPersonal(String idProducto, String codigoFactura, double cantidad){
-            ResultSet resultado = null;
-            try {
-                resultado = consultar("SELECT ID_FACTURA FROM FACTURA WHERE\n" +
-                        "CODIGO_FACTURA = '" + codigoFactura + "'");
-                //if(resultado != null){
-                if(resultado.next()){
-                    //JOptionPane.showMessageDialog(null, "PRODUCTO YA SE ENCUENTRA REGISTRADO");
-                    insertar("INSERT INTO CONTIENE (ID_FACTURA, ID_PRODUCTO, CANTIDAD) VALUES ('" + 
-                        (String)resultado.getObject(1) + "','" + 
-                        idProducto + "','" + 
-                        String.valueOf(cantidad) +"')");
-                    
-                    resultado.close();
-                }
-                else{
-                //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
-                }
-            } catch (SQLException ex) {
-                //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
-            }
     }
     /*public void crearNuevoGastoNegocio(String idCliente, String nombreGastoExtra, String fecha){
         fecha = fecha.substring(6);
