@@ -7,6 +7,7 @@ package Operaciones;
 //import Objetos.Persona;
 import Pojos.Cliente;
 import Pojos.Factura;
+import Pojos.FacturaNegocio;
 import Pojos.Gasto;
 import Pojos.Producto;
 import Pojos.Proveedor;
@@ -39,8 +40,8 @@ public class Operaciones extends Conexion{
                 //int numeroColumna = resultado.getMetaData().getColumnCount();
 
                 while(resultado.next()){
-                    if((resultado.getObject(1).toString().compareTo(codigoFactura) == 0)
-                            &&(resultado.getObject(2).toString().compareTo(rucCiCliente) == 0)
+                    if((resultado.getObject(1).toString().compareTo(rucCiCliente) == 0)
+                            &&(resultado.getObject(2).toString().compareTo(codigoFactura) == 0)
                             &&(resultado.getObject(3).toString().compareTo(RucProveedor) == 0)){
                         retorno = false;
                     }
@@ -61,11 +62,10 @@ public class Operaciones extends Conexion{
         try{
             resultado = consultar(sql);
             if(resultado != null){
-                //int numeroColumna = resultado.getMetaData().getColumnCount();
-
+                
                 while(resultado.next()){
-                    if((resultado.getObject(1).toString().compareTo(codigoFactura) == 0)
-                            &&(resultado.getObject(2).toString().compareTo(rucCiCliente) == 0)
+                    if((resultado.getObject(1).toString().compareTo(rucCiCliente) == 0)
+                            &&(resultado.getObject(2).toString().compareTo(codigoFactura) == 0)
                             &&(resultado.getObject(3).toString().compareTo(RucProveedor) == 0)){
                         retorno = false;
                     }
@@ -151,6 +151,54 @@ public class Operaciones extends Conexion{
                     factura.getListaGastos().get(5).getTotalSinIva() +"')");
         //JOptionPane.showMessageDialog(null, "factura guardada....");
         sumarGastos(idCliente, factura.getListaGastos(), factura.getFecha());
+    }
+    
+    public void guardarFacturaNegocio(FacturaNegocio factura){
+        ResultSet resultadoIdcliente = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE RUC_CI_CLIENTE = '"+factura.getRucCliente()+"'");
+        ResultSet resultadoIdProveedor = consultar("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE RUC_PROVEEDOR = '"+factura.getRucProveedor()+"'");
+        String idCliente = "", idProveedor = "";
+        try {
+            while(resultadoIdcliente.next()){
+                idCliente = resultadoIdcliente.getObject(1).toString();
+            }
+            while(resultadoIdProveedor.next()){
+                idProveedor = resultadoIdProveedor.getObject(1).toString();
+            }
+            resultadoIdcliente.close();
+            resultadoIdProveedor.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        insertar("INSERT INTO FACTURA_NEGOCIO (ID_PROVEEDOR, ID_CLIENTE, CODIGO_FACTURA, FECHA, IVA, "
+                + "TOTAL_SIN_IVA, TOTAL_CON_IVA) VALUES('" + 
+                    idProveedor + "','" +
+                    idCliente + "','" +
+                    factura.getCodigo() + "','" + 
+                    factura.getFecha() + "','" + 
+                    factura.getIva() + "','" + 
+                    factura.getTotalSinIva() + "','" + 
+                    factura.getTotalConIva() +"')");
+        //JOptionPane.showMessageDialog(null, "factura guardada....");
+        guardarGastosFacturaNegocio(factura.getListaGastos(), factura.getCodigo());
+    }
+    
+    public void guardarGastosFacturaNegocio(ArrayList<Gasto> gastosFNegocio, String codigoFactura){
+        ResultSet resultadoIdFactura = consultar("SELECT ID_FACTURA2 FROM FACTURA_NEGOCIO WHERE CODIGO_FACTURA = '"+codigoFactura+"'");
+        String idFactura = "";
+        try {
+            while(resultadoIdFactura.next()){
+                idFactura = resultadoIdFactura.getObject(1).toString();
+            }
+            resultadoIdFactura.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for(Gasto gasto : gastosFNegocio){
+            insertar("INSERT INTO GASTOS_DE_NEGOCIO_FACTURA (ID_FACTURA2, NOMBRE_GASTO_EXTRA_FACTURA, TOTAL_GASTO_EXTRA_FACTURA) VALUES('" + 
+                        idFactura + "','" +
+                        gasto.getTipo() + "','" + 
+                        gasto.getTotalSinIva() +"')");
+        }
     }
     
     public void guardarCliente(Cliente cliente, String fecha){
@@ -719,14 +767,66 @@ public class Operaciones extends Conexion{
                 //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
-    /*public void crearNuevoGastoNegocio(String idCliente, String nombreGastoExtra, String fecha){
-        fecha = fecha.substring(6);
-        //JOptionPane.showMessageDialog(null, fecha);
-        //JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS....");
-        insertar("INSERT INTO GASTOS (ID_CLIENTE, TOTAL_ALIMENTACION_CLIENTE, TOTAL_VESTIMENTA_CLIENTE, "
-                + "TOTAL_VIVIENDA_CLIENTE, TOTAL_SALUD_CLIENTE, TOTAL_EDUCACION_CLIENTE, "
-                + "TOTAL_OTROS_CLIENTE, ANIO_GASTOS, TOTAL_FACTURAS) VALUES('" + idCliente + "','" + 
-                "0,00','0,00','0,00','0,00','0,00','0,00','" + fecha + "','0')");
-    }*/
+    public void guardarProductosFacturaNegocio(ArrayList<Producto> listaProductos, String codigoFactura){
+        for(Producto prod : listaProductos){
+            ResultSet resultado = null;
+            try {
+                resultado = consultar("SELECT ID_PRODUCTO FROM PRODUCTO WHERE\n" +
+                        "NOMBRE_PRODUCTO = '" + prod.getNombre() + "'");
+                
+                if(resultado.next()){
+                    JOptionPane.showMessageDialog(null, "PRODUCTO YA SE ENCUENTRA REGISTRADO");
+                    String IdProd = String.valueOf(resultado.getObject(1));
+                    resultado.close();
+                    //funcion para ingresar en tabla contiene 
+                    this.guardarEnContieneFacturaNegocio(IdProd, codigoFactura, prod.getCantidad());
+                }
+                else{
+                JOptionPane.showMessageDialog(null, "no existe producto, se creara uno nuevo "
+                + prod.getCodigo() +" "+ prod.getNombre() +" "+  prod.getTipo());
+                    insertar("INSERT INTO PRODUCTO (CODIGO_PRODUCTO, NOMBRE_PRODUCTO, TIPO_GASTO) VALUES ('" + 
+                        prod.getCodigo() + "','" + 
+                        prod.getNombre() + "','" + 
+                        prod.getTipo() +"')");
+                    ResultSet resultadoIdProducto = null;
+                    resultadoIdProducto = consultar("SELECT ID_PRODUCTO FROM PRODUCTO WHERE\n" +
+                        "NOMBRE_PRODUCTO = '" + prod.getNombre() + "'");
+                    String IdProd = String.valueOf(resultadoIdProducto.getObject(1));
+                    resultadoIdProducto.close();
+             ///////////////////
+             //JOptionPane.showMessageDialog(null, resultado);
+                    this.guardarEnContieneFacturaNegocio(IdProd, codigoFactura, prod.getCantidad());
+                }
+//                resultado.close();
+            } catch (SQLException ex) {
+                //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     
+    public void guardarEnContieneFacturaNegocio(String idProducto, String codigoFactura, double cantidad){
+        JOptionPane.showMessageDialog(null, "llega para guardar en tabla CONTIENE_PROD "
+                + idProducto +" "+ codigoFactura +" "+  cantidad);
+            ResultSet resultado = null;
+            try {
+                resultado = consultar("SELECT ID_FACTURA2 FROM FACTURA_NEGOCIO WHERE\n" +
+                        "CODIGO_FACTURA = '" + codigoFactura + "'");
+                //if(resultado != null){
+                if(resultado.next()){
+                    JOptionPane.showMessageDialog(null, "se guardara en tabla CONTIENE_PROD "
+                    + String.valueOf(resultado.getObject(1)) +" "+ idProducto +" "+  String.valueOf(cantidad));
+                    String IdFactura = String.valueOf(resultado.getObject(1));
+                    resultado.close();
+                    insertar("INSERT INTO CONTIENE_PROD (ID_FACTURA2, ID_PRODUCTO, CANTIDAD) VALUES ('" + 
+                        IdFactura + "','" + 
+                        idProducto + "','" + 
+                        String.valueOf(cantidad) +"')");
+                }
+                else{
+                //JOptionPane.showMessageDialog(null, "no existe proveedor, se creara uno nuevo");
+                }
+            } catch (SQLException ex) {
+                //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 }

@@ -1060,7 +1060,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                 if((operaciones.existeFactura(leerXml.getFactura().getCodigo(),
                         leerXml.getCliente().getRucCi(),
                         leerXml.getProveedor().getRuc())) &&
-                        (operaciones.existeFacturaNegocio(leerXml.getFactura().getCodigo(),
+                        (operaciones.existeFacturaNegocio(leerXml.getFacturaNegocio().getCodigo(),
                         leerXml.getCliente().getRucCi(),
                         leerXml.getProveedor().getRuc()))){ 
                     //leerGastosGuardados y proveedor nuevo
@@ -1310,13 +1310,14 @@ public class PantallaGestor extends javax.swing.JFrame {
         Operaciones operaciones = new Operaciones(this.direccionBase);
         operaciones.conectar();
         //JOptionPane.showMessageDialog(null, "guardando cliente....");
-        operaciones.guardarCliente(this.leerXml.getCliente(), this.leerXml.getFactura().getFecha());
+        
         //JOptionPane.showMessageDialog(null, "guardando proveedor....");
         operaciones.guardarProveedor(this.leerXml.getProveedor());
         
         //tipoFacturaIngresar = 1       tipo personal
         //tipoFacturaIngresar = 2       tipo negocio
         if(tipoFacturaIngresar == 1){
+            operaciones.guardarCliente(this.leerXml.getCliente(), this.leerXml.getFactura().getFecha());
             //JOptionPane.showMessageDialog(null, "guardando factura....");
             operaciones.guardarFactura(this.leerXml.getFactura());
             operaciones.guardarProductosFacturaPersonal(this.leerXml.getFactura().getListaProductos(),
@@ -1324,8 +1325,10 @@ public class PantallaGestor extends javax.swing.JFrame {
         }
         if(tipoFacturaIngresar == 2){
             //JOptionPane.showMessageDialog(null, "guardando factura....");
-            operaciones.guardarFactura(this.leerXml.getFactura());
-            
+            operaciones.guardarCliente(this.leerXml.getCliente(), this.leerXml.getFacturaNegocio().getFecha());
+            operaciones.guardarFacturaNegocio(this.leerXml.getFacturaNegocio());
+            operaciones.guardarProductosFacturaNegocio(this.leerXml.getFacturaNegocio().getListaProductos(),
+                    this.leerXml.getFacturaNegocio().getCodigo());
         }
         JOptionPane.showMessageDialog(null, "....Factura ingresada exitosamente");
         //while(modelo.getRowCount()>0)modelo.removeRow(0);
