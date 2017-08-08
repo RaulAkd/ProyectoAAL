@@ -179,10 +179,10 @@ public class Operaciones extends Conexion{
                     factura.getTotalSinIva() + "','" + 
                     factura.getTotalConIva() +"')");
         //JOptionPane.showMessageDialog(null, "factura guardada....");
-        guardarGastosFacturaNegocio(factura.getListaGastos(), factura.getCodigo());
+        guardarGastosFacturaNegocio(factura.getListaGastos(), factura.getCodigo(), factura.getFecha());
     }
     
-    public void guardarGastosFacturaNegocio(ArrayList<Gasto> gastosFNegocio, String codigoFactura){
+    public void guardarGastosFacturaNegocio(ArrayList<Gasto> gastosFNegocio, String codigoFactura, String fecha){
         ResultSet resultadoIdFactura = consultar("SELECT ID_FACTURA2 FROM FACTURA_NEGOCIO WHERE CODIGO_FACTURA = '"+codigoFactura+"'");
         String idFactura = "";
         try {
@@ -190,14 +190,31 @@ public class Operaciones extends Conexion{
                 idFactura = resultadoIdFactura.getObject(1).toString();
             }
             resultadoIdFactura.close();
+            for(Gasto gasto : gastosFNegocio){
+                insertar("INSERT INTO GASTOS_DE_NEGOCIO_FACTURA (ID_FACTURA2, NOMBRE_GASTO_EXTRA_FACTURA, TOTAL_GASTO_EXTRA_FACTURA) VALUES('" + 
+                            idFactura + "','" +
+                            gasto.getTipo() + "','" + 
+                            gasto.getTotalSinIva() +"')");
+                ResultSet resultadoExisteGasto = consultar("SELECT * FROM GASTOS_DE_NEGOCIO"
+                        + " WHERE NOMBRE_GASTO_EXTRA = '" + gasto.getTipo() + "'");
+                if(resultadoExisteGasto.next()){
+                    JOptionPane.showMessageDialog(null, "...GASTO YA SE ENCUENTRA REGISTRADO");
+                    double sumaGasto =Double.parseDouble(resultadoExisteGasto.getObject(4).toString().replace(",", ".")) 
+                            + gasto.getTotalSinIva();
+                            //ResultSet resulActualizacion = null
+                    
+                    consultar("UPDATE GASTOS SET TOTAL_GASTO_EXTRA = '" + sumaGasto + "' WHERE ID_GASTO_EXTRA = '"
+                            + resultadoExisteGasto.getObject(1).toString() + "'");
+                    resultadoExisteGasto.close();
+                }else{
+                    fecha = fecha.substring(6);
+                    insertar("INSERT INTO GASTOS_DE_NEGOCIO (ID_CLIENTE, NOMBRE_GASTO_EXTRA, TOTAL_GASTO_EXTRA, "
+                + "ANIO_GASTO_EXTRA) VALUES('null', '" + gasto.getTipo() + "','" + 
+                gasto.getTotalSinIva() + "','" + fecha + "')");
+                }
+            }
         } catch (SQLException ex) {
             //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for(Gasto gasto : gastosFNegocio){
-            insertar("INSERT INTO GASTOS_DE_NEGOCIO_FACTURA (ID_FACTURA2, NOMBRE_GASTO_EXTRA_FACTURA, TOTAL_GASTO_EXTRA_FACTURA) VALUES('" + 
-                        idFactura + "','" +
-                        gasto.getTipo() + "','" + 
-                        gasto.getTotalSinIva() +"')");
         }
     }
     
@@ -304,10 +321,8 @@ public class Operaciones extends Conexion{
     }
     
     public void guardarGastos(String idCliente, String fecha){
-        JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS...." + idCliente + fecha);
+        //JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS...." + idCliente + fecha);
         fecha = fecha.substring(6);
-        //JOptionPane.showMessageDialog(null, fecha);
-        //JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS....");
         insertar("INSERT INTO GASTOS (ID_CLIENTE, TOTAL_ALIMENTACION_CLIENTE, TOTAL_VESTIMENTA_CLIENTE, "
                 + "TOTAL_VIVIENDA_CLIENTE, TOTAL_SALUD_CLIENTE, TOTAL_EDUCACION_CLIENTE, "
                 + "TOTAL_OTROS_CLIENTE, ANIO_GASTOS, TOTAL_FACTURAS) VALUES('" + idCliente + "','" + 
