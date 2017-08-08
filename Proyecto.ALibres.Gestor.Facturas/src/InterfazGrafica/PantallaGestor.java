@@ -813,7 +813,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTableProductosFacturaNegocio);
 
-        capaTabla2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 450, 130));
+        capaTabla2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 450, 130));
 
         jScrollPane3.setPreferredSize(new java.awt.Dimension(452, 200));
         jScrollPane3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -837,7 +837,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTableGastosFacturaNegocio);
 
-        capaTabla2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 140));
+        capaTabla2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 140));
 
         panelTablas.add(capaTabla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 500, 500));
         capaTabla2.setVisible(false);
@@ -1060,7 +1060,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                 if((operaciones.existeFactura(leerXml.getFactura().getCodigo(),
                         leerXml.getCliente().getRucCi(),
                         leerXml.getProveedor().getRuc())) &&
-                        (operaciones.existeFacturaNegocio(leerXml.getFactura().getCodigo(),
+                        (operaciones.existeFacturaNegocio(leerXml.getFacturaNegocio().getCodigo(),
                         leerXml.getCliente().getRucCi(),
                         leerXml.getProveedor().getRuc()))){ 
                     //leerGastosGuardados y proveedor nuevo
@@ -1310,12 +1310,26 @@ public class PantallaGestor extends javax.swing.JFrame {
         Operaciones operaciones = new Operaciones(this.direccionBase);
         operaciones.conectar();
         //JOptionPane.showMessageDialog(null, "guardando cliente....");
-        operaciones.guardarCliente(this.leerXml.getCliente(), this.leerXml.getFactura().getFecha());
+        
         //JOptionPane.showMessageDialog(null, "guardando proveedor....");
         operaciones.guardarProveedor(this.leerXml.getProveedor());
-        //JOptionPane.showMessageDialog(null, "guardando factura....");
-        operaciones.guardarFactura(this.leerXml.getFactura());
         
+        //tipoFacturaIngresar = 1       tipo personal
+        //tipoFacturaIngresar = 2       tipo negocio
+        if(tipoFacturaIngresar == 1){
+            operaciones.guardarCliente(this.leerXml.getCliente(), this.leerXml.getFactura().getFecha());
+            //JOptionPane.showMessageDialog(null, "guardando factura....");
+            operaciones.guardarFactura(this.leerXml.getFactura());
+            operaciones.guardarProductosFacturaPersonal(this.leerXml.getFactura().getListaProductos(),
+                    this.leerXml.getFactura().getCodigo());
+        }
+        if(tipoFacturaIngresar == 2){
+            //JOptionPane.showMessageDialog(null, "guardando factura....");
+            operaciones.guardarCliente(this.leerXml.getCliente(), this.leerXml.getFacturaNegocio().getFecha());
+            operaciones.guardarFacturaNegocio(this.leerXml.getFacturaNegocio());
+            operaciones.guardarProductosFacturaNegocio(this.leerXml.getFacturaNegocio().getListaProductos(),
+                    this.leerXml.getFacturaNegocio().getCodigo());
+        }
         JOptionPane.showMessageDialog(null, "....Factura ingresada exitosamente");
         //while(modelo.getRowCount()>0)modelo.removeRow(0);
         
