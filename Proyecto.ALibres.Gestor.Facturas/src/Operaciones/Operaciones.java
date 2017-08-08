@@ -206,7 +206,7 @@ public class Operaciones extends Conexion{
         ResultSet resultado = null;
         try {
             resultado = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE\n" +
-                    "RUC_CI_CLIENTE = '"+ cliente.getRucCi()/* + 
+                                    "RUC_CI_CLIENTE = '"+ cliente.getRucCi()/* + 
                     "' AND NOMBRES_CLIENTE = '"+cliente.getNombres()*/+"'");
             //if(resultado != null){
             if(resultado.next()){
@@ -227,6 +227,39 @@ public class Operaciones extends Conexion{
                     Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 guardarGastos(idCliente, fecha);
+            }
+            resultado.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void guardarClienteFNegocios(Cliente cliente, String fecha){
+        //JOptionPane.showMessageDialog(null, "llego a metodo guardar cliente....");
+        ResultSet resultado = null;
+        try {
+            resultado = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE\n" +
+                    "RUC_CI_CLIENTE = '"+ cliente.getRucCi()/* + 
+                    "' AND NOMBRES_CLIENTE = '"+cliente.getNombres()*/+"'");
+            //if(resultado != null){
+            if(resultado.next()){
+                JOptionPane.showMessageDialog(null, "...CLIENTE YA SE ENCUENTRA REGISTRADO");
+            }
+            else{
+                //JOptionPane.showMessageDialog(null, "no existe cliente, se ingresara uno nuevo....");
+                insertar("INSERT INTO CLIENTE (RUC_CI_CLIENTE, NOMBRES_CLIENTE) VALUES('"+cliente.getRucCi()
+                        +"','"+cliente.getNombres()+"')");
+                ResultSet resultadoIdcliente = consultar("SELECT ID_CLIENTE FROM CLIENTE WHERE RUC_CI_CLIENTE = '"+cliente.getRucCi()+/*"' AND NOMBRES_CLIENTE = '"+cliente.getNombres()+*/"'");
+                String idCliente = "";
+                try {
+                    while(resultadoIdcliente.next()){
+                        idCliente = resultadoIdcliente.getObject(1).toString();
+                  //      JOptionPane.showMessageDialog(null, "id de cliente nuevo...." + idCliente);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                ////guardarGastos(idCliente, fecha);
             }
             resultado.close();
         } catch (SQLException ex) {
@@ -271,6 +304,7 @@ public class Operaciones extends Conexion{
     }
     
     public void guardarGastos(String idCliente, String fecha){
+        JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS...." + idCliente + fecha);
         fecha = fecha.substring(6);
         //JOptionPane.showMessageDialog(null, fecha);
         //JOptionPane.showMessageDialog(null, "llego a metodo guardar GASTOS....");

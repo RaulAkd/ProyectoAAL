@@ -813,7 +813,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTableProductosFacturaNegocio);
 
-        capaTabla2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 450, 130));
+        capaTabla2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 450, 130));
 
         jScrollPane3.setPreferredSize(new java.awt.Dimension(452, 200));
         jScrollPane3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -837,7 +837,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTableGastosFacturaNegocio);
 
-        capaTabla2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 140));
+        capaTabla2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 140));
 
         panelTablas.add(capaTabla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 500, 500));
         capaTabla2.setVisible(false);
