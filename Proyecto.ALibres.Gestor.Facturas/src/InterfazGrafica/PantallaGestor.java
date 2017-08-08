@@ -1313,9 +1313,20 @@ public class PantallaGestor extends javax.swing.JFrame {
         operaciones.guardarCliente(this.leerXml.getCliente(), this.leerXml.getFactura().getFecha());
         //JOptionPane.showMessageDialog(null, "guardando proveedor....");
         operaciones.guardarProveedor(this.leerXml.getProveedor());
-        //JOptionPane.showMessageDialog(null, "guardando factura....");
-        operaciones.guardarFactura(this.leerXml.getFactura());
         
+        //tipoFacturaIngresar = 1       tipo personal
+        //tipoFacturaIngresar = 2       tipo negocio
+        if(tipoFacturaIngresar == 1){
+            //JOptionPane.showMessageDialog(null, "guardando factura....");
+            operaciones.guardarFactura(this.leerXml.getFactura());
+            operaciones.guardarProductosFacturaPersonal(this.leerXml.getFactura().getListaProductos(),
+                    this.leerXml.getFactura().getCodigo());
+        }
+        if(tipoFacturaIngresar == 2){
+            //JOptionPane.showMessageDialog(null, "guardando factura....");
+            operaciones.guardarFactura(this.leerXml.getFactura());
+            
+        }
         JOptionPane.showMessageDialog(null, "....Factura ingresada exitosamente");
         //while(modelo.getRowCount()>0)modelo.removeRow(0);
         
