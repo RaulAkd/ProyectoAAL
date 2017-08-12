@@ -1097,15 +1097,35 @@ public class PantallaGestor extends javax.swing.JFrame {
                         String gastoProveedorNuevo = "";
                         if(operaciones.existeProveedor(leerXml.getProveedor().getRuc())){
                             int opcionTipoProveedor = JOptionPane.showOptionDialog(
-                            null, "Seleccione el tipo de gasto", "Nuevo Proveedor", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, 
+                            null, "Seleccione el tipo de gasto de : "+leerXml.getProveedor().getNombre(), "Nuevo Proveedor", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, 
                             new Object[] {"Vestimenta", "Alimentacion", "Salud", "Educacion", "Vivienda"}, "Vestimenta");
                             if(opcionTipoProveedor == 0) gastoProveedorNuevo = "vestimenta";
                             if(opcionTipoProveedor == 1) gastoProveedorNuevo = "alimentacion";
                             if(opcionTipoProveedor == 2) gastoProveedorNuevo = "salud";
                             if(opcionTipoProveedor == 3) gastoProveedorNuevo = "educacion";
                             if(opcionTipoProveedor == 4) gastoProveedorNuevo = "vivienda";
+                            
+                            leerXml.getProveedor().setTipoGasto(gastoProveedorNuevo);
                         }
-                        leerXml.getProveedor().setTipoGasto(gastoProveedorNuevo);
+                        //leerXml.getProveedor().setTipoGasto(gastoProveedorNuevo);
+                        this.ingresarValoresGastos();
+                        for(Producto prod :  leerXml.getFactura().getListaProductos()){
+                            //JOptionPane.showMessageDialog(null, prod);
+                            entrada[0] = prod.getNombre();
+                            //entrada[1] = prod.getTipo();
+                            if(operaciones.existeProductoTipoDeGasto(prod.getNombre()) == null){
+                                //JOptionPane.showMessageDialog(null, "ingresa tipo de gasto de proveedor");
+                                prod.setTipo(leerXml.getProveedor().getTipoGasto());
+                            }
+                            else{
+                                prod.setTipo(operaciones.existeProductoTipoDeGasto(prod.getNombre()));
+                            }
+                            entrada[1] = prod.getTipo();
+                            modelo.addRow(entrada);
+                        }
+                        this.leerXml.getFactura().actualizarValores();
+                        this.ingresarValoresGastos();
+                        //this.desbloquearBotonesGastos();
                     }
                     //JOptionPane.showMessageDialog(null, leerXml.getProveedor());
                     //cargar datos proveedor
@@ -1121,19 +1141,19 @@ public class PantallaGestor extends javax.swing.JFrame {
                     txtTotalSinIva.setText(Double.toString(leerXml.getFactura().getTotalSinIva()));
                     txtTotalFactura.setText(Double.toString(leerXml.getFactura().getTotalConIva()));
                     txtIva.setText(Double.toString(leerXml.getFactura().getIva()));
-                    this.ingresarValoresGastos();
+                    //this.ingresarValoresGastos();
                     //JOptionPane.showMessageDialog(null, leerXml.getFactura().getListaProductos().size());
                     
-                    if(tipoFacturaIngresar == 1){
+                    /*if(tipoFacturaIngresar == 1){
                         for(Producto prod :  leerXml.getFactura().getListaProductos()){
                             //JOptionPane.showMessageDialog(null, prod);
                             entrada[0] = prod.getNombre();
                             entrada[1] = prod.getTipo();
                             modelo.addRow(entrada);
                         }
-                    }
+                    }*/
                     
-                    this.desbloquearBotonesGastos();
+                    //this.desbloquearBotonesGastos();
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "LA FACTURA YA HA SIDO INGRESADA ANTERIORMENTE");
@@ -1254,11 +1274,13 @@ public class PantallaGestor extends javax.swing.JFrame {
         this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("alimentacion");
         this.leerXml.getFactura().actualizarValores();
         this.ingresarValoresGastos();
+        this.desbloquearBotonesGastos(false);
     }//GEN-LAST:event_btnAlimentacionMouseClicked
 
     private void jTableProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductosMouseClicked
         // TODO add your handling code here:
         this.indexSeleccion = this.jTableProductos.getSelectedRow();
+        this.desbloquearBotonesGastos(true);
         //JOptionPane.showMessageDialog(null, this.indexSeleccion);
     }//GEN-LAST:event_jTableProductosMouseClicked
 
@@ -1268,6 +1290,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("vestimenta");
         this.leerXml.getFactura().actualizarValores();
         this.ingresarValoresGastos();
+        this.desbloquearBotonesGastos(false);
     }//GEN-LAST:event_btnVestimentaMouseClicked
 
     private void btnSaludMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaludMouseClicked
@@ -1276,6 +1299,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("salud");
         this.leerXml.getFactura().actualizarValores();
         this.ingresarValoresGastos();
+        this.desbloquearBotonesGastos(false);
     }//GEN-LAST:event_btnSaludMouseClicked
 
     private void btnEducacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEducacionMouseClicked
@@ -1284,6 +1308,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("educacion");
         this.leerXml.getFactura().actualizarValores();
         this.ingresarValoresGastos();
+        this.desbloquearBotonesGastos(false);
     }//GEN-LAST:event_btnEducacionMouseClicked
 
     private void btnViviendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViviendaMouseClicked
@@ -1292,6 +1317,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("vivienda");
         this.leerXml.getFactura().actualizarValores();
         this.ingresarValoresGastos();
+        this.desbloquearBotonesGastos(false);
     }//GEN-LAST:event_btnViviendaMouseClicked
 
     private void btnOtrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOtrosMouseClicked
@@ -1300,6 +1326,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         this.leerXml.getFactura().getListaProductos().get(this.indexSeleccion).setTipo("otros");
         this.leerXml.getFactura().actualizarValores();
         this.ingresarValoresGastos();
+        this.desbloquearBotonesGastos(false);
     }//GEN-LAST:event_btnOtrosMouseClicked
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
@@ -1500,14 +1527,14 @@ public class PantallaGestor extends javax.swing.JFrame {
         txtTotalOtros.setText("");
     }
     
-    public void desbloquearBotonesGastos(){
-        btnAlimentacion.setEnabled(true);
-        btnEducacion.setEnabled(true);
-        btnGuardar.setEnabled(true);
-        btnVestimenta.setEnabled(true);
-        btnSalud.setEnabled(true);
-        btnVivienda.setEnabled(true);
-        btnOtros.setEnabled(true);
+    public void desbloquearBotonesGastos(Boolean opcion){
+        btnAlimentacion.setEnabled(opcion);
+        btnEducacion.setEnabled(opcion);
+        btnGuardar.setEnabled(opcion);
+        btnVestimenta.setEnabled(opcion);
+        btnSalud.setEnabled(opcion);
+        btnVivienda.setEnabled(opcion);
+        btnOtros.setEnabled(opcion);
     }
     /**
      * @param args the command line arguments

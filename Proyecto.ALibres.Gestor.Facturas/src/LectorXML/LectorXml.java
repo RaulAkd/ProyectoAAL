@@ -132,7 +132,7 @@ public class LectorXml {
             //
             this.factura.calcularIva();
             //
-            this.factura.clasificar();
+            //this.factura.clasificar();
         }
         if(tipoFacturaIngresar == 2){
             this.facturaNegocio.setRucCliente(this.cliente.getRucCi());
