@@ -97,15 +97,7 @@ public class Factura {
     public String getFecha() {
         return fecha;
     }
-/*
-    public Date getFechaDate() {
-        return fechaDate;
-    }
-
-    public void setFechaDate(Date fechaDate) {
-        this.fechaDate = fechaDate;
-    }
-*/
+    
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }

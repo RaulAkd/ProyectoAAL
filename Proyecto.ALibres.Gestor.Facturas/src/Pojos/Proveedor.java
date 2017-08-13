@@ -14,9 +14,26 @@ public class Proveedor {
     private String ruc;
     private String direccion;
     private String ciudad;
-    private String tipoGasto;
+    private String tipoGastoPersonal;
+    private String tipoGastoNegocio;
 
     public Proveedor() {
+    }
+
+    public String getTipoGastoPersonal() {
+        return tipoGastoPersonal;
+    }
+
+    public void setTipoGastoPersonal(String tipoGastoPersonal) {
+        this.tipoGastoPersonal = tipoGastoPersonal;
+    }
+
+    public String getTipoGastoNegocio() {
+        return tipoGastoNegocio;
+    }
+
+    public void setTipoGastoNegocio(String tipoGastoNegocio) {
+        this.tipoGastoNegocio = tipoGastoNegocio;
     }
     
     public Proveedor(String nombre, String ruc, String direccion, String ciudad) {
@@ -34,13 +51,13 @@ public class Proveedor {
         this.nombre = nombre;
     }
 
-    public String getTipoGasto() {
+    /*public String getTipoGasto() {
         return tipoGasto;
     }
 
     public void setTipoGasto(String tipoGasto) {
         this.tipoGasto = tipoGasto;
-    }
+    }*/
 
     public String getRuc() {
         return ruc;
@@ -68,7 +85,9 @@ public class Proveedor {
 
     @Override
     public String toString() {
-        return "Proveedor{" + "nombre=" + nombre + ", ruc=" + ruc + ", direccion=" + direccion + ", ciudad=" + ciudad + ", tipoGasto=" + tipoGasto + '}';
+        return "Proveedor{" + "nombre=" + nombre + ", ruc=" + ruc + ", direccion=" + direccion + ", ciudad=" + ciudad + ", tipoGastoPersonal=" + tipoGastoPersonal + ", tipoGastoNegocio=" + tipoGastoNegocio + '}';
     }
+
+    
     
 }
