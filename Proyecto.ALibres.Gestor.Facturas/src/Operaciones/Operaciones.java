@@ -145,11 +145,11 @@ public class Operaciones extends Conexion{
                     factura.getIva() + "','" + 
                     factura.getTotalSinIva() + "','" + 
                     factura.getTotalConIva() + "','" + 
-                    factura.getListaGastos().get(0).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(1).getTotalSinIva() + "','" + 
+                    factura.getListaGastos().get(0).getTotalSinIva() + "','" + 
+                    factura.getListaGastos().get(4).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(2).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(3).getTotalSinIva() + "','" + 
-                    factura.getListaGastos().get(4).getTotalSinIva() + "','" + 
                     factura.getListaGastos().get(5).getTotalSinIva() +"')");
         //JOptionPane.showMessageDialog(null, "factura guardada....");
         sumarGastos(idCliente, factura.getListaGastos(), factura.getFecha());
@@ -750,7 +750,10 @@ public class Operaciones extends Conexion{
     }
     
     public void totalFacturasPorClienteProveedorAnio(DefaultTableModel tableModel, String anio, String nombreCliente,
-            String nombreProveedor) throws SQLException{
+            String nombreProveedor, DefaultTableModel tableTotales) throws SQLException{
+        Double ivaTotal = 0.0, total = 0.0, vestimenta = 0.0, alimentacion = 0.0, salud = 0.0;
+        Double educacion = 0.0, vivienda = 0.0, otros = 0.0;
+        int numeroFacturas = 0;
         ResultSet resultado = null;
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
@@ -773,13 +776,35 @@ public class Operaciones extends Conexion{
                     tableModel.addColumn(resultado.getMetaData().getColumnName(j));
                 }
                 while(resultado.next()){
+                    numeroFacturas++;
                     Object []objetos = new Object[numeroColumna];
                     for(int i = 1;i <= numeroColumna;i++){
                         objetos[i-1] = resultado.getObject(i);
+                        if(i==4)    ivaTotal = ivaTotal + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
+                        if(i==5)    total = total + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
+                        if(i==6)    vestimenta = vestimenta + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
+                        if(i==7)    alimentacion = alimentacion + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
+                        if(i==8)    salud = salud + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
+                        if(i==9)    educacion = educacion + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
+                        if(i==10)   vivienda = vivienda + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
+                        if(i==11)   otros = otros + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
                     }
                     tableModel.addRow(objetos);
                 }
             }
+            /*tableTotales.addColumn("Proveedor");
+            tableTotales.addColumn("numeroFacturas");
+            tableTotales.addColumn("ivaTotal");
+            tableTotales.addColumn("total");
+            tableTotales.addColumn("vestimenta");
+            tableTotales.addColumn("alimentacion");
+            tableTotales.addColumn("salud");
+            tableTotales.addColumn("educacion");
+            tableTotales.addColumn("vivienda");
+            tableTotales.addColumn("otros");*/
+            Object []objetosTotales = {nombreProveedor,numeroFacturas,ivaTotal,total,vestimenta,alimentacion,salud,educacion,vivienda,otros};
+            //String[] DATA = {nombreProveedor,(String)numeroFacturas, "Dato 3", "Dato 4"};
+            tableTotales.addRow(objetosTotales);
         }catch(SQLException e){
         }
 
@@ -805,10 +830,10 @@ public class Operaciones extends Conexion{
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
         String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
-                            "C.TOTAL_CON_IVA AS 'TOTAL', C.TOTAL_VESTIMENTA_CLIENTE AS 'TOTAL VESTIMENTA', \n" +
-                            "C.TOTAL_ALIMENTACION_CLIENTE AS 'TOTAL ALIMENTACION', C.TOTAL_SALUD_CLIENTE AS 'TOTAL SALUD', \n" +
-                            "C.TOTAL_EDUCACION_CLIENTE AS 'TOTAL EDUCACION', C.TOTAL_VIVIENDA_CLIENTE AS 'TOTAL VIVIENDA', \n" +
-                            "C.TOTAL_OTROS_CLIENTE AS 'TOTAL OTROS' FROM PROVEEDOR P INNER JOIN FACTURA C \n" +
+                            "C.TOTAL_CON_IVA AS 'TOTAL', C.TOTAL_VESTIMENTA_CLIENTE AS 'VESTIMENTA', \n" +
+                            "C.TOTAL_ALIMENTACION_CLIENTE AS 'ALIMENTACION', C.TOTAL_SALUD_CLIENTE AS 'SALUD', \n" +
+                            "C.TOTAL_EDUCACION_CLIENTE AS 'EDUCACION', C.TOTAL_VIVIENDA_CLIENTE AS 'VIVIENDA', \n" +
+                            "C.TOTAL_OTROS_CLIENTE AS 'OTROS' FROM PROVEEDOR P INNER JOIN FACTURA C \n" +
                             "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
                             "INNER JOIN CLIENTE CLI \n" +
                             "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
@@ -920,8 +945,8 @@ public class Operaciones extends Conexion{
     }
     
     public void guardarEnContieneFacturaPersonal(String idProducto, String codigoFactura, double cantidad){
-        JOptionPane.showMessageDialog(null, "llega para guardar en tabla CONTIENE "
-                + idProducto +" "+ codigoFactura +" "+  cantidad);
+        //JOptionPane.showMessageDialog(null, "llega para guardar en tabla CONTIENE "
+                //+ idProducto +" "+ codigoFactura +" "+  cantidad);
             ResultSet resultado = null;
             try {
                 resultado = consultar("SELECT ID_FACTURA FROM FACTURA WHERE\n" +

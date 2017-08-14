@@ -32,6 +32,7 @@ public class Reportes extends javax.swing.JFrame {
      * Creates new form Reportes
      */
     DefaultTableModel modelo;
+    DefaultTableModel modeloReporte3;
     int indexSeleccion;
     String direccionBdd;
     
@@ -46,7 +47,18 @@ public class Reportes extends javax.swing.JFrame {
         modelo = new DefaultTableModel();
         modelo.addColumn("Lista");
         this.jTableReportes.setModel(modelo);
-        
+        modeloReporte3 = new DefaultTableModel();
+        this.jTableTotalesReporte3.setModel(modeloReporte3);
+        modeloReporte3.addColumn("Proveedor");
+            modeloReporte3.addColumn("numeroFacturas");
+            modeloReporte3.addColumn("ivaTotal");
+            modeloReporte3.addColumn("total");
+            modeloReporte3.addColumn("vestimenta");
+            modeloReporte3.addColumn("alimentacion");
+            modeloReporte3.addColumn("salud");
+            modeloReporte3.addColumn("educacion");
+            modeloReporte3.addColumn("vivienda");
+            modeloReporte3.addColumn("otros");
         indexSeleccion = -1;
         
     }
@@ -74,6 +86,8 @@ public class Reportes extends javax.swing.JFrame {
         choiceClientes = new java.awt.Choice();
         choiceProveedores = new java.awt.Choice();
         btnVerFactura = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableTotalesReporte3 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -143,7 +157,7 @@ public class Reportes extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableReportes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 830, 230));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 1020, 230));
 
         lblTitulo.setBackground(new java.awt.Color(12, 15, 22));
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -164,7 +178,7 @@ public class Reportes extends javax.swing.JFrame {
                 btnCerrarReporteMouseExited(evt);
             }
         });
-        jPanel1.add(btnCerrarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 20, 30, 30));
+        jPanel1.add(btnCerrarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 20, 30, 30));
 
         choiceAnio.setEnabled(false);
         choiceAnio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,10 +226,25 @@ public class Reportes extends javax.swing.JFrame {
                 btnVerFacturaMouseClicked(evt);
             }
         });
-        jPanel1.add(btnVerFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, -1, -1));
+        jPanel1.add(btnVerFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 50, -1, -1));
         btnVerFactura.setEnabled(false);
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 420));
+        jTableTotalesReporte3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTableTotalesReporte3);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 1020, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -397,11 +426,22 @@ public class Reportes extends javax.swing.JFrame {
 
     private void choiceProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choiceProveedoresMouseClicked
         // TODO add your handling code here:
+        /*modeloReporte3.addColumn("Proveedor");
+            modeloReporte3.addColumn("numeroFacturas");
+            modeloReporte3.addColumn("ivaTotal");
+            modeloReporte3.addColumn("total");
+            modeloReporte3.addColumn("vestimenta");
+            modeloReporte3.addColumn("alimentacion");
+            modeloReporte3.addColumn("salud");
+            modeloReporte3.addColumn("educacion");
+            modeloReporte3.addColumn("vivienda");
+            modeloReporte3.addColumn("otros");*/
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         try {
             operaciones.totalFacturasPorClienteProveedorAnio((DefaultTableModel)jTableReportes.getModel(),
-                    choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem(), choiceProveedores.getSelectedItem());
+                    choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem(), choiceProveedores.getSelectedItem(),
+                    (DefaultTableModel)jTableTotalesReporte3.getModel());
             /*operaciones.totalFacturasPorClienteYAnio((DefaultTableModel)jTableReportes.getModel(),
                     choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem());*/
         } catch (SQLException ex) {
@@ -411,11 +451,24 @@ public class Reportes extends javax.swing.JFrame {
 
     private void choiceProveedoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceProveedoresItemStateChanged
         // TODO add your handling code here:
+        while(modeloReporte3.getRowCount()>0)modeloReporte3.removeRow(0);
+        
+        /*modeloReporte3.addColumn("Proveedor");
+            modeloReporte3.addColumn("numeroFacturas");
+            modeloReporte3.addColumn("ivaTotal");
+            modeloReporte3.addColumn("total");
+            modeloReporte3.addColumn("vestimenta");
+            modeloReporte3.addColumn("alimentacion");
+            modeloReporte3.addColumn("salud");
+            modeloReporte3.addColumn("educacion");
+            modeloReporte3.addColumn("vivienda");
+            modeloReporte3.addColumn("otros");*/
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         try {
             operaciones.totalFacturasPorClienteProveedorAnio((DefaultTableModel)jTableReportes.getModel(),
-                    choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem(), choiceProveedores.getSelectedItem());
+                    choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem(), choiceProveedores.getSelectedItem(),
+                    (DefaultTableModel)jTableTotalesReporte3.getModel());
             /*operaciones.totalFacturasPorClienteYAnio((DefaultTableModel)jTableReportes.getModel(),
                     choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem());*/
         } catch (SQLException ex) {
@@ -499,7 +552,9 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableReportes;
+    private javax.swing.JTable jTableTotalesReporte3;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }
