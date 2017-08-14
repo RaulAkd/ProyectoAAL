@@ -418,6 +418,45 @@ public class Operaciones extends Conexion{
         return existe;
     }
     
+    public Proveedor consultarProveedor(String nombreProv){
+        //Boolean existe = true;
+        ResultSet resultado = null;
+        Proveedor prov = new Proveedor();
+        try {
+            resultado = consultar("SELECT * FROM PROVEEDOR WHERE\n" +
+                    " NOMBRE_PROVEEDOR = '" + nombreProv+/* 
+                    "' AND NOMBRE_PROVEEDOR = '" + proveedor.getNombre()+*/"'");
+            if(resultado.next()){
+                prov.setId((String)resultado.getObject(1).toString());
+                prov.setRuc((String)resultado.getObject(2));
+                prov.setDireccion((String)resultado.getObject(5));
+            }
+            resultado.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return prov;
+    }
+    
+    public Cliente consultarCliente(String nombreCliente){
+        //Boolean existe = true;
+        ResultSet resultado = null;
+        Cliente clie = new Cliente();
+        try {
+            resultado = consultar("SELECT * FROM CLIENTE WHERE\n" +
+                    " NOMBRES_CLIENTE = '" + nombreCliente+/* 
+                    "' AND NOMBRE_PROVEEDOR = '" + proveedor.getNombre()+*/"'");
+            if(resultado.next()){
+                clie.setId((String)resultado.getObject(1).toString());
+                clie.setRucCi((String)resultado.getObject(2));
+            }
+            resultado.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return clie;
+    }
+    
     public Boolean tieneGastoPersonalProveedor(String ruc){
         Boolean existe = true;
         ResultSet resultado = null;
@@ -792,16 +831,6 @@ public class Operaciones extends Conexion{
                     tableModel.addRow(objetos);
                 }
             }
-            /*tableTotales.addColumn("Proveedor");
-            tableTotales.addColumn("numeroFacturas");
-            tableTotales.addColumn("ivaTotal");
-            tableTotales.addColumn("total");
-            tableTotales.addColumn("vestimenta");
-            tableTotales.addColumn("alimentacion");
-            tableTotales.addColumn("salud");
-            tableTotales.addColumn("educacion");
-            tableTotales.addColumn("vivienda");
-            tableTotales.addColumn("otros");*/
             Object []objetosTotales = {nombreProveedor,numeroFacturas,ivaTotal,total,vestimenta,alimentacion,salud,educacion,vivienda,otros};
             //String[] DATA = {nombreProveedor,(String)numeroFacturas, "Dato 3", "Dato 4"};
             tableTotales.addRow(objetosTotales);
@@ -839,6 +868,52 @@ public class Operaciones extends Conexion{
                             "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
                             "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND C.FECHA LIKE '%" + anio + "'";
         
+        try {
+            resultado = consultar(sql);
+            if(resultado != null){
+                int numeroColumna = resultado.getMetaData().getColumnCount();
+                for(int j = 1;j <= numeroColumna;j++){
+                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+                }
+                while(resultado.next()){
+                    Object []objetos = new Object[numeroColumna];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                    }
+                    tableModel.addRow(objetos);
+                }
+            }
+        }catch(SQLException e){
+        }
+
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
+    public void consultarProductos(DefaultTableModel tableModel, String codigoFactura) throws SQLException{
+        ResultSet resultado = null;
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        String sql = "SELECT P.CODIGO_PRODUCTO AS 'CODIGO', P.NOMBRE_PRODUCTO AS 'NOMBRE',"
+                            + "C.CANTIDAD AS 'CANTIDAD', P.PRECIO_UNITARIO AS 'P UNIT', P.TIPO_GASTO AS 'GASTO' \n" +
+                            "FROM PRODUCTO P INNER JOIN CONTIENE C \n" +
+                            "ON P.ID_PRODUCTO = C.ID_PRODUCTO \n" +
+                            "INNER JOIN FACTURA F \n" +
+                            "ON C.ID_FACTURA = F.ID_FACTURA \n" +
+                            "WHERE F.CODIGO_FACTURA = '" + codigoFactura + "'";
         try {
             resultado = consultar(sql);
             if(resultado != null){

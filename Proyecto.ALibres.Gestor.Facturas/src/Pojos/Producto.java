@@ -16,6 +16,15 @@ public class Producto {
     private double cantidad;
     private double precioUnitario;
     private double valorTotal;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTipo() {
         return tipo;

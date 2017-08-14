@@ -12,6 +12,17 @@ package Pojos;
 public class Cliente {
     private String rucCi;
     private String nombres;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    
 
     public String getRucCi() {
         return rucCi;

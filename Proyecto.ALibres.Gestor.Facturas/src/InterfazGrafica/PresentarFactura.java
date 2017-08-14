@@ -5,12 +5,20 @@
  */
 package InterfazGrafica;
 
+import Operaciones.Operaciones;
+import Pojos.Cliente;
+import Pojos.Proveedor;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,6 +33,9 @@ public class PresentarFactura extends javax.swing.JFrame {
     String strCliente, strProveedor, strAnio;
     JTable tabla;
     Object []fila;
+    String direccionBase;
+    DecimalFormat formateador = new DecimalFormat("###.##");
+
     public PresentarFactura(String cliente, Object []row) {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -33,19 +44,33 @@ public class PresentarFactura extends javax.swing.JFrame {
         this.strCliente=cliente;
         this.fila=row;
         setVisible(true);
+        direccionBase="src\\ArchivosLecturaAuxiliar";
+        direccionBase+="\\\\Bdd.s3db";
         
+        Operaciones operaciones = new Operaciones(this.direccionBase);
+        operaciones.conectar();
+        Proveedor aux = operaciones.consultarProveedor((String) fila[0]);
+        Cliente auxCliente = operaciones.consultarCliente(strCliente);
+        txtCedula.setText(auxCliente.getRucCi());
+        txtRuc.setText(aux.getRuc());
+        txtDireccion.setText(aux.getDireccion());
         txtNumeroFactura.setText((String) fila[1]);
         txtFecha.setText((String)fila[2]);
         txtProveedor.setText((String) fila[0]);
-        txtIva.setText((String) fila[3]);
+        txtTotalFactura.setText(formateador.format(fila[4]));
+        txtIva.setText(formateador.format(fila[3]));
         txtNombreCliente.setText(strCliente);
-        lblVestimenta.setText((String)fila[5]);
-        lblAlimentacion.setText((String)fila[6]);
-        lblSalud.setText((String)fila[7]);
-        lblEducacion.setText((String)fila[8]);
-        lblVivienda.setText((String)fila[9]);
-        lblOtros.setText((String)fila[10]);
-                
+        lblVestimenta.setText(formateador.format(fila[5]));
+        lblAlimentacion.setText(formateador.format(fila[6]));
+        lblSalud.setText(formateador.format(fila[7]));
+        lblEducacion.setText(formateador.format(fila[8]));
+        lblVivienda.setText(formateador.format(fila[9]));
+        lblOtros.setText(formateador.format(fila[10]));
+        try {
+            operaciones.consultarProductos((DefaultTableModel)jTable1.getModel(), (String) fila[1]);
+        } catch (SQLException ex) {
+            //Logger.getLogger(PresentarFactura.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private PresentarFactura() {

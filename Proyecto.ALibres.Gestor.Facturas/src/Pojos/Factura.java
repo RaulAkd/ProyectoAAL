@@ -29,6 +29,15 @@ public class Factura {
     private String rucCliente;
     private String rucProveedor;
     //private Date fechaDate;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public DecimalFormat getDf() {
         return df;
