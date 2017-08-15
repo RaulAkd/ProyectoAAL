@@ -245,7 +245,7 @@ public class FacturaNegocio {
         
         for(Gasto gasto : this.listaGastos){
             gasto.reiniciarGasto();
-            JOptionPane.showMessageDialog(null,"gasto reiniciado : " + gasto.getTipo());
+            //JOptionPane.showMessageDialog(null,"gasto reiniciado : " + gasto.getTipo());
         }
         for(Producto prod :  this.listaProductos){
             //JOptionPane.showMessageDialog(null,"producto " + prod.toString());
