@@ -21,7 +21,9 @@ Repositorio del Proyecto: [Capturador de facturas XML](https://github.com/RaulAk
 
 Instalador de la Aplicación: [Instalador](https://github.com/RaulAkd/ProyectoAAL/blob/master/InstaladorGrupo2.exe)
 
-Documentación de la aplicación: [Manual de usuario](https://github.com/RaulAkd/ProyectoAAL/blob/master/Documentacion/Manual%20del%20Usuario.doc)
+Documentación de la aplicación: 
+* [Manual de instalación](https://github.com/RaulAkd/ProyectoAAL/blob/master/Documentacion/Manual%20de%20Instalacion.pdf)
+* [Manual de usuario](https://github.com/RaulAkd/ProyectoAAL/blob/master/Documentacion/Manual%20del%20Usuario.doc)
 
 ![](http://net-informations.com/q/faq/img/xml.png)
 
