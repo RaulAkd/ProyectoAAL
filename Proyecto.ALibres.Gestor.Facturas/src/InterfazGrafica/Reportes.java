@@ -498,7 +498,7 @@ public class Reportes extends javax.swing.JFrame {
         {
             fila[i]=jTableReportes.getValueAt(jTableReportes.getSelectedRow(), i);
         }
-        this.dispose();
+        //this.dispose();
         PresentarFactura fac = new PresentarFactura(choiceClientes.getSelectedItem(), fila);
         fac.setVisible(true);
     }//GEN-LAST:event_btnVerFacturaMouseClicked

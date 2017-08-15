@@ -173,6 +173,11 @@ public class PresentarFactura extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(12, 15, 22));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Back_64px.png"))); // NOI18N
         jButton1.setBorder(null);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -558,6 +563,15 @@ public class PresentarFactura extends javax.swing.JFrame {
         Point point = MouseInfo.getPointerInfo().getLocation();
         setLocation(point.x - x, point.y - y);
     }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        //String direccionBase="src\\ArchivosLecturaAuxiliar";
+        //direccionBase+="\\\\Bdd.s3db";
+        //Reportes reportes=new Reportes(direccionBase);
+        this.dispose();
+        //reportes.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
                           
 
 

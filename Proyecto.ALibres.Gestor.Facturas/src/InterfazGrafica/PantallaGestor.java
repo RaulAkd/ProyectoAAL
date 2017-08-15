@@ -53,6 +53,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     String direccionBase="src\\ArchivosLecturaAuxiliar\\Bdd.s3db";
     int tipoFacturaIngresar = 1;
     ArrayList<Gasto> listaGastosTemporal = new ArrayList<Gasto>();
+    boolean facturaNegocio=false;
     //tipoFacturaIngresar = 1       tipo personal
     //tipoFacturaIngresar = 2       tipo negocio
     //Operaciones operaciones = new Operaciones();
@@ -1347,9 +1348,19 @@ public class PantallaGestor extends javax.swing.JFrame {
         //String direccionBase=this.direccionProyecto+"\\\\Bdd.s3db";
         String direccionBase="src\\ArchivosLecturaAuxiliar";
         direccionBase+="\\\\Bdd.s3db";
-        Reportes reporte = new Reportes(direccionBase);
-        this.dispose();
-        reporte.setVisible(true);
+        if(facturaNegocio==true)
+        {
+            ReportesFacturaNegocio reporteN = new ReportesFacturaNegocio(direccionBase);
+            this.dispose();
+            reporteN.setVisible(true);
+        }
+        
+        else
+        {
+            Reportes reporte = new Reportes(direccionBase);
+            this.dispose();
+            reporte.setVisible(true);
+        }                
     }//GEN-LAST:event_lblReporteMouseClicked
 
     private void txtTotalSinIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalSinIvaActionPerformed
@@ -1384,6 +1395,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         // TODO add your handling code here:
         //tipoFacturaIngresar = 1       tipo personal
         //tipoFacturaIngresar = 2       tipo negocio
+        this.facturaNegocio=true;
         this.tipoFacturaIngresar = 2;
         panelOpciones.setVisible(false);
         panelBuscar.setVisible(true);
@@ -1398,6 +1410,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         // TODO add your handling code here:
         //tipoFacturaIngresar = 1       tipo personal
         //tipoFacturaIngresar = 2       tipo negocio
+        this.facturaNegocio=false;
         this.tipoFacturaIngresar = 1;
         panelOpciones.setVisible(false);
         panelBuscar.setVisible(true);
