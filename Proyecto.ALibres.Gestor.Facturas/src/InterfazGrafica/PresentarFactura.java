@@ -54,7 +54,9 @@ public class PresentarFactura extends javax.swing.JFrame {
         setVisible(true);
         direccionBase="src\\ArchivosLecturaAuxiliar";
         direccionBase+="\\\\Bdd.s3db";
+        double totalSinIva, total, iva;
         
+        panelFactura.setVisible(false);
         Operaciones operaciones = new Operaciones(this.direccionBase);
         operaciones.conectar();
         Proveedor aux = operaciones.consultarProveedor((String) fila[0]);
@@ -67,6 +69,13 @@ public class PresentarFactura extends javax.swing.JFrame {
         txtProveedor.setText((String) fila[0]);
         txtTotalFactura.setText(formateador.format(fila[4]));
         txtIva.setText(formateador.format(fila[3]));
+        
+        total=Double.parseDouble(fila[4].toString());
+        
+        iva=Double.parseDouble(fila[3].toString());
+        totalSinIva=total-iva;       
+        txtTotalSinIva.setText(Double.toString(totalSinIva));
+        
         txtNombreCliente.setText(strCliente);
         lblVestimenta.setText(formateador.format(fila[5]));
         lblAlimentacion.setText(formateador.format(fila[6]));
@@ -76,6 +85,7 @@ public class PresentarFactura extends javax.swing.JFrame {
         lblOtros.setText(formateador.format(fila[10]));
         try {
             operaciones.consultarProductos((DefaultTableModel)jTable1.getModel(), (String) fila[1]);
+            
         } catch (SQLException ex) {
             //Logger.getLogger(PresentarFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -97,6 +107,67 @@ public class PresentarFactura extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFrame1 = new javax.swing.JFrame();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        txtNumeroFactura1 = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        txtFecha1 = new javax.swing.JTextField();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        jSeparator12 = new javax.swing.JSeparator();
+        jSeparator13 = new javax.swing.JSeparator();
+        jSeparator14 = new javax.swing.JSeparator();
+        txtProveedor1 = new javax.swing.JTextField();
+        txtRuc1 = new javax.swing.JTextField();
+        txtCiudad1 = new javax.swing.JTextField();
+        txtDireccion1 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jSeparator15 = new javax.swing.JSeparator();
+        jSeparator16 = new javax.swing.JSeparator();
+        txtNombreCliente1 = new javax.swing.JTextField();
+        txtCedula1 = new javax.swing.JTextField();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtTotalSinIva1 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtIva1 = new javax.swing.JTextField();
+        txtTotalFactura1 = new javax.swing.JTextField();
+        btnExportarExcel1 = new javax.swing.JButton();
+        btnExportarPDF1 = new javax.swing.JButton();
+        btnSalir1 = new javax.swing.JButton();
+        lblOtros1 = new javax.swing.JLabel();
+        lblAlimentacion1 = new javax.swing.JLabel();
+        lblVestimenta1 = new javax.swing.JLabel();
+        lblSalud1 = new javax.swing.JLabel();
+        lblEducacion1 = new javax.swing.JLabel();
+        lblVivienda1 = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
+        panelFactura1 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaFactura1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -158,11 +229,376 @@ public class PresentarFactura extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaFactura = new javax.swing.JTable();
 
+        jFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jFrame1.setUndecorated(true);
+        jFrame1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel7.setBackground(new java.awt.Color(36, 46, 68));
+        jPanel7.setMaximumSize(new java.awt.Dimension(850, 820));
+        jPanel7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel7MouseDragged(evt);
+            }
+        });
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel7MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jPanel7MouseReleased(evt);
+            }
+        });
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel8.setBackground(new java.awt.Color(12, 15, 22));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton2.setBackground(new java.awt.Color(12, 15, 22));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Back_64px.png"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 50, 60));
+
+        jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 820));
+
+        jLabel5.setFont(new java.awt.Font("Microsoft Tai Le", 0, 36)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Visor Facturas");
+        jPanel7.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+
+        jPanel9.setBackground(new java.awt.Color(109, 115, 130));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setText("No:");
+        jPanel9.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtNumeroFactura1.setBackground(new java.awt.Color(109, 115, 130));
+        txtNumeroFactura1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNumeroFactura1.setForeground(new java.awt.Color(255, 255, 255));
+        txtNumeroFactura1.setBorder(null);
+        jPanel9.add(txtNumeroFactura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 220, 20));
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Fecha:");
+        jPanel9.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        txtFecha1.setBackground(new java.awt.Color(109, 115, 130));
+        txtFecha1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtFecha1.setForeground(new java.awt.Color(255, 255, 255));
+        txtFecha1.setBorder(null);
+        jPanel9.add(txtFecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 230, 20));
+        jPanel9.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 220, -1));
+        jPanel9.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 220, -1));
+
+        jPanel7.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 310, 80));
+
+        jPanel10.setBackground(new java.awt.Color(109, 115, 130));
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Move by Trolley_52px.png"))); // NOI18N
+        jPanel10.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Proveedor:");
+        jPanel10.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setText("Ruc: ");
+        jPanel10.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, -1, -1));
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("Ciudad:");
+        jPanel10.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, -1, -1));
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("Direccion:");
+        jPanel10.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
+        jPanel10.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 470, 10));
+        jPanel10.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 190, -1));
+        jPanel10.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, 220, -1));
+        jPanel10.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 470, -1));
+
+        txtProveedor1.setBackground(new java.awt.Color(109, 115, 130));
+        txtProveedor1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtProveedor1.setForeground(new java.awt.Color(255, 255, 255));
+        txtProveedor1.setToolTipText("");
+        txtProveedor1.setBorder(null);
+        txtProveedor1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProveedor1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(txtProveedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 470, 20));
+
+        txtRuc1.setBackground(new java.awt.Color(109, 115, 130));
+        txtRuc1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtRuc1.setForeground(new java.awt.Color(255, 255, 255));
+        txtRuc1.setBorder(null);
+        jPanel10.add(txtRuc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 190, 20));
+
+        txtCiudad1.setBackground(new java.awt.Color(109, 115, 130));
+        txtCiudad1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtCiudad1.setForeground(new java.awt.Color(255, 255, 255));
+        txtCiudad1.setBorder(null);
+        jPanel10.add(txtCiudad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, 220, 20));
+
+        txtDireccion1.setBackground(new java.awt.Color(109, 115, 130));
+        txtDireccion1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtDireccion1.setForeground(new java.awt.Color(255, 255, 255));
+        txtDireccion1.setBorder(null);
+        jPanel10.add(txtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 470, 20));
+
+        jPanel7.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 730, 110));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
+        jPanel7.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 730, 130));
+
+        jPanel11.setBackground(new java.awt.Color(109, 115, 130));
+        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Gender Neutral User_52px_4.png"))); // NOI18N
+        jPanel11.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setText("Nombre:");
+        jPanel11.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("Ruc-CI:");
+        jPanel11.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
+        jPanel11.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 470, -1));
+        jPanel11.add(jSeparator16, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 470, 10));
+
+        txtNombreCliente1.setBackground(new java.awt.Color(109, 115, 130));
+        txtNombreCliente1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNombreCliente1.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombreCliente1.setBorder(null);
+        jPanel11.add(txtNombreCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 470, 20));
+
+        txtCedula1.setBackground(new java.awt.Color(109, 115, 130));
+        txtCedula1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtCedula1.setForeground(new java.awt.Color(255, 255, 255));
+        txtCedula1.setBorder(null);
+        jPanel11.add(txtCedula1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 470, 20));
+
+        jPanel7.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 730, 80));
+
+        jPanel12.setBackground(new java.awt.Color(26, 29, 40));
+        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(109, 115, 130));
+        jLabel6.setText("Total sin IVA: ");
+        jPanel12.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(109, 115, 130));
+        jLabel7.setText("Total Factura:");
+        jPanel12.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, -1, -1));
+
+        txtTotalSinIva1.setBackground(new java.awt.Color(26, 29, 40));
+        txtTotalSinIva1.setForeground(new java.awt.Color(109, 115, 130));
+        txtTotalSinIva1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel12.add(txtTotalSinIva1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 80, 20));
+
+        jLabel8.setBackground(new java.awt.Color(109, 115, 130));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(109, 115, 130));
+        jLabel8.setText("IVA:");
+        jPanel12.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, -1, -1));
+
+        txtIva1.setBackground(new java.awt.Color(26, 29, 40));
+        txtIva1.setForeground(new java.awt.Color(109, 115, 130));
+        txtIva1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel12.add(txtIva1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 80, 20));
+
+        txtTotalFactura1.setBackground(new java.awt.Color(26, 29, 40));
+        txtTotalFactura1.setForeground(new java.awt.Color(109, 115, 130));
+        txtTotalFactura1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel12.add(txtTotalFactura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 80, -1));
+
+        jPanel7.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 800, 40));
+
+        btnExportarExcel1.setBackground(new java.awt.Color(36, 46, 68));
+        btnExportarExcel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExportarExcel1.setForeground(new java.awt.Color(204, 204, 204));
+        btnExportarExcel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Microsoft Excel_32px_4.png"))); // NOI18N
+        btnExportarExcel1.setText("Exportar");
+        btnExportarExcel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExportarExcel1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnExportarExcel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnExportarExcel1MouseExited(evt);
+            }
+        });
+        jPanel7.add(btnExportarExcel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 640, 130, 40));
+
+        btnExportarPDF1.setBackground(new java.awt.Color(36, 46, 68));
+        btnExportarPDF1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExportarPDF1.setForeground(new java.awt.Color(204, 204, 204));
+        btnExportarPDF1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PDF 2_32px.png"))); // NOI18N
+        btnExportarPDF1.setText("Exportar");
+        btnExportarPDF1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExportarPDF1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnExportarPDF1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnExportarPDF1MouseExited(evt);
+            }
+        });
+        btnExportarPDF1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarPDF1ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnExportarPDF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 640, -1, -1));
+
+        btnSalir1.setBackground(new java.awt.Color(36, 46, 68));
+        btnSalir1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnSalir1.setForeground(new java.awt.Color(204, 204, 204));
+        btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cancel_32px.png"))); // NOI18N
+        btnSalir1.setText(" Salir");
+        btnSalir1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSalir1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalir1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalir1MouseExited(evt);
+            }
+        });
+        btnSalir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalir1ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnSalir1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 640, 120, -1));
+
+        lblOtros1.setBackground(new java.awt.Color(36, 46, 68));
+        lblOtros1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblOtros1.setForeground(new java.awt.Color(255, 255, 255));
+        lblOtros1.setText("$ 0.00");
+        jPanel7.add(lblOtros1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 550, -1, -1));
+
+        lblAlimentacion1.setBackground(new java.awt.Color(36, 46, 68));
+        lblAlimentacion1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblAlimentacion1.setForeground(new java.awt.Color(255, 255, 255));
+        lblAlimentacion1.setText("$ 0.00");
+        jPanel7.add(lblAlimentacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 550, -1, -1));
+
+        lblVestimenta1.setBackground(new java.awt.Color(36, 46, 68));
+        lblVestimenta1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblVestimenta1.setForeground(new java.awt.Color(255, 255, 255));
+        lblVestimenta1.setText("$ 0.00");
+        jPanel7.add(lblVestimenta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 550, -1, -1));
+
+        lblSalud1.setBackground(new java.awt.Color(36, 46, 68));
+        lblSalud1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblSalud1.setForeground(new java.awt.Color(255, 255, 255));
+        lblSalud1.setText("$ 0.00");
+        jPanel7.add(lblSalud1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 550, -1, -1));
+
+        lblEducacion1.setBackground(new java.awt.Color(36, 46, 68));
+        lblEducacion1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblEducacion1.setForeground(new java.awt.Color(255, 255, 255));
+        lblEducacion1.setText("$ 0.00");
+        jPanel7.add(lblEducacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 550, -1, -1));
+
+        lblVivienda1.setBackground(new java.awt.Color(36, 46, 68));
+        lblVivienda1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblVivienda1.setForeground(new java.awt.Color(255, 255, 255));
+        lblVivienda1.setText("$ 0.00");
+        jPanel7.add(lblVivienda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 550, -1, -1));
+
+        jButton11.setBackground(new java.awt.Color(107, 116, 147));
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Restaurant_32px.png"))); // NOI18N
+        jPanel7.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 500, -1, -1));
+
+        jButton12.setBackground(new java.awt.Color(107, 116, 147));
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Clothes_32px.png"))); // NOI18N
+        jPanel7.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, -1, -1));
+
+        jButton13.setBackground(new java.awt.Color(107, 116, 147));
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Literature_32px.png"))); // NOI18N
+        jPanel7.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 500, -1, -1));
+
+        jButton14.setBackground(new java.awt.Color(107, 116, 147));
+        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Home_32px.png"))); // NOI18N
+        jPanel7.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 500, -1, -1));
+
+        jButton15.setBackground(new java.awt.Color(107, 116, 147));
+        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Doctors Bag_32px.png"))); // NOI18N
+        jPanel7.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 500, -1, -1));
+
+        jButton16.setBackground(new java.awt.Color(107, 116, 147));
+        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ok_32px.png"))); // NOI18N
+        jPanel7.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 500, -1, -1));
+
+        tablaFactura1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(tablaFactura1);
+
+        panelFactura1.add(jScrollPane4);
+
+        jPanel7.add(panelFactura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 10, 450));
+
+        jFrame1.getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, 710));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(850, 950));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(750, 710));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 46, 68));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1000, 820));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1000, 1000));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 820));
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel1MouseDragged(evt);
@@ -194,7 +630,7 @@ public class PresentarFactura extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 50, 60));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 50, 50));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 820));
 
@@ -513,7 +949,7 @@ public class PresentarFactura extends javax.swing.JFrame {
 
         panelFactura.add(jScrollPane2);
 
-        jPanel1.add(panelFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 460, 450));
+        jPanel1.add(panelFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 10, 450));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, 710));
 
@@ -971,6 +1407,7 @@ public class PresentarFactura extends javax.swing.JFrame {
         fila[4]="";
         modeloF.addRow(fila);
 
+        //System.out.println("num column:");
         if (this.tablaFactura.getRowCount()==0) {
         JOptionPane.showMessageDialog (null, "No hay datos en la tabla para exportar.","BCO",
         JOptionPane.INFORMATION_MESSAGE);
@@ -1008,6 +1445,74 @@ public class PresentarFactura extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnExportarPDFMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtProveedor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProveedor1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProveedor1ActionPerformed
+
+    private void btnExportarExcel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarExcel1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExportarExcel1MouseClicked
+
+    private void btnExportarExcel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarExcel1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExportarExcel1MouseEntered
+
+    private void btnExportarExcel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarExcel1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExportarExcel1MouseExited
+
+    private void btnExportarPDF1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarPDF1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExportarPDF1MouseClicked
+
+    private void btnExportarPDF1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarPDF1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExportarPDF1MouseEntered
+
+    private void btnExportarPDF1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarPDF1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExportarPDF1MouseExited
+
+    private void btnExportarPDF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPDF1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExportarPDF1ActionPerformed
+
+    private void btnSalir1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalir1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalir1MouseClicked
+
+    private void btnSalir1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalir1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalir1MouseEntered
+
+    private void btnSalir1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalir1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalir1MouseExited
+
+    private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalir1ActionPerformed
+
+    private void jPanel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel7MouseDragged
+
+    private void jPanel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel7MousePressed
+
+    private void jPanel7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel7MouseReleased
                           
 
 
@@ -1048,15 +1553,26 @@ public class PresentarFactura extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExportarExcel;
+    private javax.swing.JButton btnExportarExcel1;
     private javax.swing.JButton btnExportarPDF;
+    private javax.swing.JButton btnExportarPDF1;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnSalir1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1069,17 +1585,46 @@ public class PresentarFactura extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator14;
+    private javax.swing.JSeparator jSeparator15;
+    private javax.swing.JSeparator jSeparator16;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1087,25 +1632,46 @@ public class PresentarFactura extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblAlimentacion;
+    private javax.swing.JLabel lblAlimentacion1;
     private javax.swing.JLabel lblEducacion;
+    private javax.swing.JLabel lblEducacion1;
     private javax.swing.JLabel lblOtros;
+    private javax.swing.JLabel lblOtros1;
     private javax.swing.JLabel lblSalud;
+    private javax.swing.JLabel lblSalud1;
     private javax.swing.JLabel lblVestimenta;
+    private javax.swing.JLabel lblVestimenta1;
     private javax.swing.JLabel lblVivienda;
+    private javax.swing.JLabel lblVivienda1;
     private javax.swing.JPanel panelFactura;
+    private javax.swing.JPanel panelFactura1;
     private javax.swing.JTable tablaFactura;
+    private javax.swing.JTable tablaFactura1;
     private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtCedula1;
     private javax.swing.JTextField txtCiudad;
+    private javax.swing.JTextField txtCiudad1;
     private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtDireccion1;
     private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtFecha1;
     private javax.swing.JTextField txtIva;
+    private javax.swing.JTextField txtIva1;
     private javax.swing.JTextField txtNombreCliente;
+    private javax.swing.JTextField txtNombreCliente1;
     private javax.swing.JTextField txtNumeroFactura;
+    private javax.swing.JTextField txtNumeroFactura1;
     private javax.swing.JTextField txtProveedor;
+    private javax.swing.JTextField txtProveedor1;
     private javax.swing.JTextField txtRuc;
+    private javax.swing.JTextField txtRuc1;
     private javax.swing.JTextField txtTotalFactura;
+    private javax.swing.JTextField txtTotalFactura1;
     private javax.swing.JTextField txtTotalSinIva;
+    private javax.swing.JTextField txtTotalSinIva1;
     // End of variables declaration//GEN-END:variables
 }
