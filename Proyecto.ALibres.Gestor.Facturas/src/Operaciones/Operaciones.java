@@ -1024,33 +1024,21 @@ public class Operaciones extends Conexion{
     }
     
     public String consultarTotalGastoFacturaNegocio(String codigoFactura, String nombreGasto){
+        JOptionPane.showMessageDialog(null, "codigo"+codigoFactura+"nombregasto"+nombreGasto);
         ResultSet resultado = null;
         String total = "";
         String sql = "SELECT G.TOTAL_GASTO_EXTRA_FACTURA FROM GASTOS_DE_NEGOCIO_FACTURA G INNER JOIN FACTURA_NEGOCIO F "
-                + "ON G.ID_FACTURA2 = F.ID_FACTURA2"
+                + " ON G.ID_FACTURA2 = F.ID_FACTURA2"
                 + " WHERE F.ID_FACTURA2 = '"+codigoFactura+"' AND G.NOMBRE_GASTO_EXTRA_FACTURA = '"+nombreGasto+"'";
         try {
             resultado = consultar(sql);
-            if(resultado != null){
-                total = (String) resultado.getObject(1);
-            }
+            JOptionPane.showMessageDialog(null,sql); 
+                if(resultado != null){
+                    JOptionPane.showMessageDialog(null, (String)resultado.getObject(1));
+                    total = (String) resultado.getObject(1);
+                }
         }catch(Exception e){
         }
-         finally
-     {
-         try
-         {
-             consulta.close();
-             conexion.close();
-             if(resultado != null){
-                resultado.close();
-             }
-         }
-         catch (Exception e)
-         {
-             e.printStackTrace();
-         }
-     }
          return total;
     }
     
@@ -1078,8 +1066,6 @@ public class Operaciones extends Conexion{
                 int numeroColumnaGastos = 0;
                 while(resultadoNombreGastos.next()){
                     numeroColumnaGastos++;
-                }
-                for(int j = 1;j <= numeroColumnaGastos;j++){
                     tableModel.addColumn(resultadoNombreGastos.getObject(1));
                 }
                 resultadoNombreGastos.close();
@@ -1088,15 +1074,17 @@ public class Operaciones extends Conexion{
                     for(int i = 1;i <= numeroColumna;i++){
                         objetos[i-1] = resultado.getObject(i);
                     }
-                    for(int i = numeroColumna+1 ;i <= numeroColumnaGastos;i++){
-                        objetos[i-1] = consultarTotalGastoFacturaNegocio((String) resultado.getObject(2), tableModel.getColumnName(i));
+                    for(int i = numeroColumna+1 ;i <= numeroColumnaGastos+numeroColumna;i++){
+                        //JOptionPane.showMessageDialog(null,"sdf");
+                        //JOptionPane.showMessageDialog(null, tableModel.getColumnName(i-1));
+                        objetos[i-1] = consultarTotalGastoFacturaNegocio((String) resultado.getObject(2), tableModel.getColumnName(i-1));
                     }
                     tableModel.addRow(objetos);
                 }
             }
         }catch(SQLException e){
         }
-
+/*
         finally
      {
          try
@@ -1111,7 +1099,7 @@ public class Operaciones extends Conexion{
          {
              e.printStackTrace();
          }
-     }
+     }*/
     }
     
     public void consultarProductos(DefaultTableModel tableModel, String codigoFactura) throws SQLException{
