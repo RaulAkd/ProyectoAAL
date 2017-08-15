@@ -7,7 +7,7 @@
 
 ## GRUPO 2
 
-## PROYECTO: CAPTURADOR DE FACTURAS XML
+## PROYECTO: SISTEMA DE GESTIÓN DE FACTURAS
 
 
 ## Integrantes:
@@ -16,8 +16,12 @@
 * Santacruz Cristian
 * Uyaguari Noemi
 
-
+## Enlaces:
 Repositorio del Proyecto: [Capturador de facturas XML](https://github.com/RaulAkd/ProyectoAAL)
+
+Instalador de la Aplicación: [Instalador](https://github.com/RaulAkd/ProyectoAAL/blob/master/InstaladorGrupo2.exe)
+
+Documentación de la aplicación: [Manual de usuario](https://github.com/RaulAkd/ProyectoAAL/blob/master/Documentacion/Manual%20del%20Usuario.doc)
 
 ![](http://net-informations.com/q/faq/img/xml.png)
 
