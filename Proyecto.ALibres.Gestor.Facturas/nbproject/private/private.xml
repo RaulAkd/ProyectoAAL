@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Andres/Documents/LibresSP3/Proyecto.ALibres.Gestor.Facturas/src/Pojos/Gasto.java</file>
-            <file>file:/C:/Users/Andres/Documents/LibresSP3/Proyecto.ALibres.Gestor.Facturas/src/Operaciones/Operaciones.java</file>
-            <file>file:/C:/Users/Andres/Documents/LibresSP3/Proyecto.ALibres.Gestor.Facturas/src/Pojos/FacturaNegocio.java</file>
-            <file>file:/C:/Users/Andres/Documents/LibresSP3/Proyecto.ALibres.Gestor.Facturas/src/Pojos/Factura.java</file>
-            <file>file:/C:/Users/Andres/Documents/LibresSP3/Proyecto.ALibres.Gestor.Facturas/src/InterfazGrafica/PantallaGestor.java</file>
-            <file>file:/C:/Users/Andres/Documents/LibresSP3/Proyecto.ALibres.Gestor.Facturas/src/LectorXML/LectorXml.java</file>
+            <file>file:/C:/Users/molin/Documents/Proyecto%20Aplicaciones%20en%20Ambientes%20Libres/Proyecto.ALibres.Gestor.Facturas/src/InterfazGrafica/PresentarFacturaNegocio.java</file>
+            <file>file:/C:/Users/molin/Documents/Proyecto%20Aplicaciones%20en%20Ambientes%20Libres/Proyecto.ALibres.Gestor.Facturas/src/InterfazGrafica/PantallaGestor.java</file>
+            <file>file:/C:/Users/molin/Documents/Proyecto%20Aplicaciones%20en%20Ambientes%20Libres/Proyecto.ALibres.Gestor.Facturas/src/InterfazGrafica/PresentarFactura.java</file>
+            <file>file:/C:/Users/molin/Documents/Proyecto%20Aplicaciones%20en%20Ambientes%20Libres/Proyecto.ALibres.Gestor.Facturas/src/GeneradorExcel/Exporter.java</file>
+            <file>file:/C:/Users/molin/Documents/Proyecto%20Aplicaciones%20en%20Ambientes%20Libres/Proyecto.ALibres.Gestor.Facturas/src/InterfazGrafica/Reportes.java</file>
+            <file>file:/C:/Users/molin/Documents/Proyecto%20Aplicaciones%20en%20Ambientes%20Libres/Proyecto.ALibres.Gestor.Facturas/src/InterfazGrafica/IPrincipal.java</file>
+            <file>file:/C:/Users/molin/Documents/Proyecto%20Aplicaciones%20en%20Ambientes%20Libres/Proyecto.ALibres.Gestor.Facturas/src/InterfazGrafica/ReportesFacturaNegocio.java</file>
+            <file>file:/C:/Users/molin/Documents/Proyecto%20Aplicaciones%20en%20Ambientes%20Libres/Proyecto.ALibres.Gestor.Facturas/src/InterfazGrafica/PantallaPresentacion.java</file>
+            <file>file:/C:/Users/molin/Documents/Proyecto%20Aplicaciones%20en%20Ambientes%20Libres/Proyecto.ALibres.Gestor.Facturas/src/GeneradorPDF/ExporterPDF.java</file>
         </group>
     </open-files>
 </project-private>
