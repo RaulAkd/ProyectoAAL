@@ -173,7 +173,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Microsoft Tai Le", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Visor Facturas");
+        jLabel1.setText("Visor Facturas Negocio");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(109, 115, 130));
@@ -356,6 +356,9 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         btnExportarExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Microsoft Excel_32px_4.png"))); // NOI18N
         btnExportarExcel.setText("Exportar");
         btnExportarExcel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExportarExcelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnExportarExcelMouseEntered(evt);
             }
@@ -504,6 +507,11 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         this.dispose();
         //reportesN.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void btnExportarExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarExcelMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnExportarExcelMouseClicked
                           
 
 
