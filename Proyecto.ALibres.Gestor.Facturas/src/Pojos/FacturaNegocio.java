@@ -39,6 +39,16 @@ public class FacturaNegocio {
         this.iva = iva;
     }
     
+    public Boolean existeGasto(String nombreGasto){
+        Boolean opcion = true;
+        for(Gasto gasto : this.listaGastos){
+            if(gasto.getTipo().compareToIgnoreCase(nombreGasto) == 0){
+                opcion = false;
+            }
+        }
+        return opcion;
+    }
+    
     public FacturaNegocio() {
         this.listaProductos = new ArrayList<Producto>();
         this.listaGastos = new ArrayList<Gasto>();
@@ -235,7 +245,7 @@ public class FacturaNegocio {
         
         for(Gasto gasto : this.listaGastos){
             gasto.reiniciarGasto();
-            //JOptionPane.showMessageDialog(null,"gasto reiniciado : " + gasto.getTipo());
+            JOptionPane.showMessageDialog(null,"gasto reiniciado : " + gasto.getTipo());
         }
         for(Producto prod :  this.listaProductos){
             //JOptionPane.showMessageDialog(null,"producto " + prod.toString());

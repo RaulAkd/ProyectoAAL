@@ -181,10 +181,10 @@ public class Operaciones extends Conexion{
                     factura.getTotalSinIva() + "','" + 
                     factura.getTotalConIva() +"')");
         //JOptionPane.showMessageDialog(null, "factura guardada....");
-        guardarGastosFacturaNegocio(factura.getListaGastos(), factura.getCodigo(), factura.getFecha());
+        guardarGastosFacturaNegocio(factura.getListaGastos(), factura.getCodigo(), factura.getFecha(), idCliente);
     }
     
-    public void guardarGastosFacturaNegocio(ArrayList<Gasto> gastosFNegocio, String codigoFactura, String fecha){
+    public void guardarGastosFacturaNegocio(ArrayList<Gasto> gastosFNegocio, String codigoFactura, String fecha, String idCliente){
         ResultSet resultadoIdFactura = consultar("SELECT ID_FACTURA2 FROM FACTURA_NEGOCIO WHERE CODIGO_FACTURA = '"+codigoFactura+"'");
         String idFactura = "";
         try {
@@ -211,7 +211,7 @@ public class Operaciones extends Conexion{
                 }else{
                     fecha = fecha.substring(6);
                     insertar("INSERT INTO GASTOS_DE_NEGOCIO (ID_CLIENTE, NOMBRE_GASTO_EXTRA, TOTAL_GASTO_EXTRA, "
-                + "ANIO_GASTO_EXTRA) VALUES('null', '" + gasto.getTipo() + "','" + 
+                + "ANIO_GASTO_EXTRA) VALUES('"+idCliente+"', '" + gasto.getTipo() + "','" + 
                 gasto.getTotalSinIva() + "','" + fecha + "')");
                 }
             }
