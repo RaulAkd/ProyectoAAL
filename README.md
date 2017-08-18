@@ -19,7 +19,8 @@
 ## Enlaces:
 Repositorio del Proyecto: [Capturador de facturas XML](https://github.com/RaulAkd/ProyectoAAL)
 
-Instalador de la Aplicación: [Instalador](https://github.com/RaulAkd/ProyectoAAL/blob/master/InstaladorGrupo2.exe)
+Instalador de la Aplicación: [Instalador](https://github.com/RaulAkd/ProyectoAAL/blob/master/InstaladorGestorFacturas.exe)
+
 
 Documentación de la aplicación: 
 * [Manual de instalación](https://github.com/RaulAkd/ProyectoAAL/blob/master/Documentacion/Manual%20de%20Instalacion.pdf)
