@@ -42,7 +42,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/infopago.png"));
         setIconImage(retValue);
         setVisible(true);
-        jScrollPane2.setVisible(false);
+        
         this.direccionBdd = dir;
         modelo = new DefaultTableModel();
         modelo.addColumn("Lista");

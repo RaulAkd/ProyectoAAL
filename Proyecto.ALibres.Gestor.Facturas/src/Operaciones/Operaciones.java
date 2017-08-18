@@ -1024,15 +1024,15 @@ public class Operaciones extends Conexion{
     }
     
     public String consultarTotalGastoFacturaNegocio(String codigoFactura, String nombreGasto){
-        //JOptionPane.showMessageDialog(null, "codigo"+codigoFactura+"nombregasto"+nombreGasto);
+        JOptionPane.showMessageDialog(null, "codigo"+codigoFactura+"nombregasto"+nombreGasto);
         ResultSet resultado = null;
         String total = "";
-        String sql = "SELECT G.TOTAL_GASTO_EXTRA_FACTURA FROM GASTOS_DE_NEGOCIO_FACTURA G INNER JOIN FACTURA_NEGOCIO F\n"
-                + " ON G.ID_FACTURA2 = F.ID_FACTURA2\n"
+        String sql = "SELECT G.TOTAL_GASTO_EXTRA_FACTURA FROM GASTOS_DE_NEGOCIO_FACTURA G INNER JOIN FACTURA_NEGOCIO F "
+                + " ON G.ID_FACTURA2 = F.ID_FACTURA2"
                 + " WHERE F.ID_FACTURA2 = '"+codigoFactura+"' AND G.NOMBRE_GASTO_EXTRA_FACTURA = '"+nombreGasto+"'";
         try {
             resultado = consultar(sql);
-            //JOptionPane.showMessageDialog(null,sql); 
+            JOptionPane.showMessageDialog(null,sql); 
                 if(resultado != null){
                     JOptionPane.showMessageDialog(null, (String)resultado.getObject(1));
                     total = (String) resultado.getObject(1);
@@ -1054,6 +1054,7 @@ public class Operaciones extends Conexion{
                             "INNER JOIN CLIENTE CLI \n" +
                             "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
                             "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND C.FECHA LIKE '%" + anio + "'";
+        
         try {
             resultado = consultar(sql);
             resultadoNombreGastos = consultar(sqlNG);

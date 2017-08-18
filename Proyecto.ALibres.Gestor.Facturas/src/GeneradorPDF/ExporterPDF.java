@@ -71,9 +71,9 @@ public class ExporterPDF {
     public boolean exportarPDF(){
         float[] medidaCeldas11 = {5.50f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f, 3.25f};
         float[] medidaCeldas4 = {5.50f, 5.50f, 5.50f, 5.50f};
-        float[] medidaCeldas5 = {5.50f, 10.50f, 5.50f, 5.50f};
+        float[] medidaCeldas5 = {5.50f, 10.50f, 5.50f, 5.50f, 5.50f};
         
-        System.out.println("numColumnas"+jTable.getRowCount());
+        System.out.println("numColumnas"+jTable.getColumnCount());
         try {
             // We create the document and set the file name.        
             // Creamos el documento e indicamos el nombre del fichero.
