@@ -1080,8 +1080,8 @@ public class PantallaGestor extends javax.swing.JFrame {
                             this.listaGastosTemporal.add(this.leerXml.getFacturaNegocio().getListaGastos().get(0));
                         }else{
                             this.leerXml.getProveedor().setTipoGastoNegocio(operaciones.tipoGastoProveedorNegocio(leerXml.getProveedor().getRuc()));
-                            this.leerXml.getFacturaNegocio().getListaGastos().add(new Gasto(this.leerXml.getProveedor().getTipoGastoNegocio()));
-                            this.listaGastosTemporal.add(this.leerXml.getFacturaNegocio().getListaGastos().get(0));
+                            //this.leerXml.getFacturaNegocio().getListaGastos().add(new Gasto(this.leerXml.getProveedor().getTipoGastoNegocio()));
+                            //this.listaGastosTemporal.add(this.leerXml.getFacturaNegocio().getListaGastos().get(0));
                         }
                         
                         for(Producto prod :  leerXml.getFacturaNegocio().getListaProductos()){
@@ -1232,9 +1232,13 @@ public class PantallaGestor extends javax.swing.JFrame {
     }
     
     public void cambioTipoGastoProductoFacturaNegocio(int seleccionTablaProductos, String tipoGastoNegocio){
+        //if(this.leerXml.getFacturaNegocio().existeGasto(tipoGastoNegocio)){
         this.leerXml.getFacturaNegocio().getListaProductos().get(seleccionTablaProductos).setTipo(tipoGastoNegocio);
+        //}
         this.leerXml.getFacturaNegocio().actualizarValores();
+        
         while(modeloGastosNegocio.getRowCount()>0)modeloGastosNegocio.removeRow(0);
+        
         String[] entrada = new String[2];
         //int val = 0;
         for(Gasto gasto : this.leerXml.getFacturaNegocio().getListaGastos()){

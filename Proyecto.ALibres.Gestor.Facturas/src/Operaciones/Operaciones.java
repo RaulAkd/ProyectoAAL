@@ -133,7 +133,7 @@ public class Operaciones extends Conexion{
         } catch (SQLException ex) {
             //Logger.getLogger(Operaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(null, factura.getFecha());
+        //JOptionPane.showMessageDialog(null, factura.getFecha());
         //JOptionPane.showMessageDialog(null, "id cliente...." + idCliente + "   id proveedor...." + idProveedor);
         insertar("INSERT INTO FACTURA (ID_PROVEEDOR, ID_CLIENTE, CODIGO_FACTURA, FECHA, IVA, "
                 + "TOTAL_SIN_IVA, TOTAL_CON_IVA, TOTAL_ALIMENTACION_CLIENTE, TOTAL_VESTIMENTA_CLIENTE, "
@@ -181,10 +181,10 @@ public class Operaciones extends Conexion{
                     factura.getTotalSinIva() + "','" + 
                     factura.getTotalConIva() +"')");
         //JOptionPane.showMessageDialog(null, "factura guardada....");
-        guardarGastosFacturaNegocio(factura.getListaGastos(), factura.getCodigo(), factura.getFecha());
+        guardarGastosFacturaNegocio(factura.getListaGastos(), factura.getCodigo(), factura.getFecha(), idCliente);
     }
     
-    public void guardarGastosFacturaNegocio(ArrayList<Gasto> gastosFNegocio, String codigoFactura, String fecha){
+    public void guardarGastosFacturaNegocio(ArrayList<Gasto> gastosFNegocio, String codigoFactura, String fecha, String idCliente){
         ResultSet resultadoIdFactura = consultar("SELECT ID_FACTURA2 FROM FACTURA_NEGOCIO WHERE CODIGO_FACTURA = '"+codigoFactura+"'");
         String idFactura = "";
         try {
@@ -211,7 +211,7 @@ public class Operaciones extends Conexion{
                 }else{
                     fecha = fecha.substring(6);
                     insertar("INSERT INTO GASTOS_DE_NEGOCIO (ID_CLIENTE, NOMBRE_GASTO_EXTRA, TOTAL_GASTO_EXTRA, "
-                + "ANIO_GASTO_EXTRA) VALUES('null', '" + gasto.getTipo() + "','" + 
+                + "ANIO_GASTO_EXTRA) VALUES('"+idCliente+"', '" + gasto.getTipo() + "','" + 
                 gasto.getTotalSinIva() + "','" + fecha + "')");
                 }
             }
@@ -687,9 +687,94 @@ public class Operaciones extends Conexion{
      }
     }
     
+    public void totalFacturasPorClientePorAnioNegocio(DefaultTableModel tableModel, String nombreCliente){
+        ResultSet resultado = null;
+        ResultSet resultadoNF = null;
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        String sql2 = "SELECT count(F.ID_FACTURA2) FROM FACTURA_NEGOCIO F INNER JOIN CLIENTE C \n"+
+                        "ON F.ID_CLIENTE = C.ID_CLIENTE\n"+
+                        " WHERE C.NOMBRES_CLIENTE = '"+nombreCliente+"'";
+        String sql = "SELECT  C.RUC_CI_CLIENTE AS 'RUC/CI CLIENTE', C.NOMBRES_CLIENTE AS 'NOMBRES CLIENTE',\n" +
+                    " G.ANIO_GASTO_EXTRA AS 'ANIO GASTOS', G.ID_GASTO_EXTRA AS 'NUMERO DE FACTURAS' \n" +
+                    " FROM CLIENTE C INNER JOIN GASTOS_DE_NEGOCIO G\n" +
+                    " ON C.ID_CLIENTE = G.ID_CLIENTE\n" +
+                    " WHERE C.NOMBRES_CLIENTE = '" + nombreCliente + "'";
+        try {
+            resultado = consultar(sql);
+            resultadoNF = consultar(sql2);
+            if(resultado != null){
+                int numeroColumna = resultado.getMetaData().getColumnCount();
+                for(int j = 1;j <= numeroColumna;j++){
+                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+                }
+                while(resultado.next()){
+                    Object []objetos = new Object[numeroColumna];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                        if(i==4){
+                            objetos[i-1] = resultadoNF.getObject(1);
+                        }
+                    }
+                    resultadoNF.close();
+                    tableModel.addRow(objetos);
+                }
+            }
+        }catch(SQLException e){
+        }
+
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+                //resultadoNF.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
     public void totalClientes(Choice choiceClientes){
         ResultSet resultado = null;
         String sql = "SELECT NOMBRES_CLIENTE FROM CLIENTE";
+        try {
+            resultado = consultar(sql);
+            if(resultado != null){
+                while(resultado.next()){
+                        choiceClientes.addItem((String) resultado.getObject(1));
+                }
+            }
+        }catch(SQLException e){
+        }
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
+    public void totalClientesNegocio(Choice choiceClientes){
+        ResultSet resultado = null;
+        //String sql = "SELECT NOMBRES_CLIENTE FROM CLIENTE";
+        String sql = "SELECT C.NOMBRES_CLIENTE FROM CLIENTE C INNER JOIN FACTURA_NEGOCIO F \n" +
+                        "ON C.ID_CLIENTE = F.ID_CLIENTE \n";
         try {
             resultado = consultar(sql);
             if(resultado != null){
@@ -758,6 +843,41 @@ public class Operaciones extends Conexion{
         //tableModel.setRowCount(0);
         //tableModel.setColumnCount(0);
         String sql = "SELECT G.ANIO_GASTOS FROM GASTOS G INNER JOIN CLIENTE C\n" +
+                        " ON G.ID_CLIENTE = C.ID_CLIENTE\n" +
+                        " WHERE C.NOMBRES_CLIENTE = '" + nombreCliente + "'";
+        try {
+            resultado = consultar(sql);
+            
+            if(resultado != null){
+                while(resultado.next()){
+                        //JOptionPane.showMessageDialog(null, resultado.getObject(1).getClass());
+                        choiceProveedores.addItem((String) resultado.getObject(1).toString());
+                }
+            }
+        }catch(SQLException e){
+        }
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
+    public void totalAniosPorClienteNegocio(Choice choiceProveedores, String nombreCliente){
+        ResultSet resultado = null;
+        //tableModel.setRowCount(0);
+        //tableModel.setColumnCount(0);
+        String sql = "SELECT G.ANIO_GASTO_EXTRA FROM GASTOS_DE_NEGOCIO G INNER JOIN CLIENTE C\n" +
                         " ON G.ID_CLIENTE = C.ID_CLIENTE\n" +
                         " WHERE C.NOMBRES_CLIENTE = '" + nombreCliente + "'";
         try {
@@ -901,6 +1021,85 @@ public class Operaciones extends Conexion{
              e.printStackTrace();
          }
      }
+    }
+    
+    public String consultarTotalGastoFacturaNegocio(String codigoFactura, String nombreGasto){
+        JOptionPane.showMessageDialog(null, "codigo"+codigoFactura+"nombregasto"+nombreGasto);
+        ResultSet resultado = null;
+        String total = "";
+        String sql = "SELECT G.TOTAL_GASTO_EXTRA_FACTURA FROM GASTOS_DE_NEGOCIO_FACTURA G INNER JOIN FACTURA_NEGOCIO F "
+                + " ON G.ID_FACTURA2 = F.ID_FACTURA2"
+                + " WHERE F.ID_FACTURA2 = '"+codigoFactura+"' AND G.NOMBRE_GASTO_EXTRA_FACTURA = '"+nombreGasto+"'";
+        try {
+            resultado = consultar(sql);
+            JOptionPane.showMessageDialog(null,sql); 
+                if(resultado != null){
+                    JOptionPane.showMessageDialog(null, (String)resultado.getObject(1));
+                    total = (String) resultado.getObject(1);
+                }
+        }catch(Exception e){
+        }
+         return total;
+    }
+    
+    public void totalFacturasPorClienteYAnioNegocio(DefaultTableModel tableModel, String anio, String nombreCliente) throws SQLException{
+        ResultSet resultado = null;
+        ResultSet resultadoNombreGastos = null;
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        String sqlNG = "SELECT NOMBRE_GASTO_EXTRA FROM GASTOS_DE_NEGOCIO";
+        String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
+                            "C.TOTAL_CON_IVA AS 'TOTAL' FROM PROVEEDOR P INNER JOIN FACTURA_NEGOCIO C \n" +
+                            "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
+                            "INNER JOIN CLIENTE CLI \n" +
+                            "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
+                            "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND C.FECHA LIKE '%" + anio + "'";
+        
+        try {
+            resultado = consultar(sql);
+            resultadoNombreGastos = consultar(sqlNG);
+            if(resultado != null){
+                int numeroColumna = resultado.getMetaData().getColumnCount();
+                for(int j = 1;j <= numeroColumna;j++){
+                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+                }
+                int numeroColumnaGastos = 0;
+                while(resultadoNombreGastos.next()){
+                    numeroColumnaGastos++;
+                    tableModel.addColumn(resultadoNombreGastos.getObject(1));
+                }
+                resultadoNombreGastos.close();
+                while(resultado.next()){
+                    Object []objetos = new Object[numeroColumna+numeroColumnaGastos];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                    }
+                    for(int i = numeroColumna+1 ;i <= numeroColumnaGastos+numeroColumna;i++){
+                        //JOptionPane.showMessageDialog(null,"sdf");
+                        //JOptionPane.showMessageDialog(null, tableModel.getColumnName(i-1));
+                        objetos[i-1] = consultarTotalGastoFacturaNegocio((String) resultado.getObject(2), tableModel.getColumnName(i-1));
+                    }
+                    tableModel.addRow(objetos);
+                }
+            }
+        }catch(SQLException e){
+        }
+/*
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }*/
     }
     
     public void consultarProductos(DefaultTableModel tableModel, String codigoFactura) throws SQLException{

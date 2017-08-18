@@ -258,7 +258,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
         //operaciones.totalPersonas((DefaultTableModel)jTableReportes.getModel());
         //choiceProveedores.setEnabled(false);
         choiceClientes.setEnabled(true);
-        operaciones.totalClientes(choiceClientes);
+        operaciones.totalClientesNegocio(choiceClientes);
         //choiceProveedores.setEnabled(true);
         //operaciones.totalProveedoresPorCliente(choiceProveedores, choiceClientes.getSelectedItem());
     }//GEN-LAST:event_btnReporteMouseClicked
@@ -284,7 +284,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
         try {
             /*operaciones.totalFacturasPorClienteYProveedor((DefaultTableModel)jTableReportes.getModel(),
                     choiceProveedores.getSelectedItem(), choiceClientes.getSelectedItem());*/
-            operaciones.totalFacturasPorClienteYAnio((DefaultTableModel)jTableReportes.getModel(),
+            operaciones.totalFacturasPorClienteYAnioNegocio((DefaultTableModel)jTableReportes.getModel(),
                     choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem());
             //
             operaciones.totalProveedoresPorClientePorAnio(this.choiceProveedores, choiceClientes.getSelectedItem(), 
@@ -355,9 +355,9 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
         choiceAnio.removeAll();
         choiceAnio.setEnabled(true);
         //operaciones.totalProveedoresPorCliente(choiceProveedores, choiceClientes.getSelectedItem());
-        operaciones.totalAniosPorCliente(choiceAnio, choiceClientes.getSelectedItem());
+        operaciones.totalAniosPorClienteNegocio(choiceAnio, choiceClientes.getSelectedItem());
         //operaciones.totalFacturasPorCliente((DefaultTableModel)jTableReportes.getModel(), choiceClientes.getSelectedItem());
-        operaciones.totalFacturasPorClientePorAnio((DefaultTableModel)jTableReportes.getModel(), choiceClientes.getSelectedItem());
+        operaciones.totalFacturasPorClientePorAnioNegocio((DefaultTableModel)jTableReportes.getModel(), choiceClientes.getSelectedItem());
     }//GEN-LAST:event_choiceClientesItemStateChanged
 //=======
     private void btnExportarPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarPdfMouseClicked
@@ -412,7 +412,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
         try {
             /*operaciones.totalFacturasPorClienteYProveedor((DefaultTableModel)jTableReportes.getModel(),
                     choiceProveedores.getSelectedItem(), choiceClientes.getSelectedItem());*/
-            operaciones.totalFacturasPorClienteYAnio((DefaultTableModel)jTableReportes.getModel(),
+            operaciones.totalFacturasPorClienteYAnioNegocio((DefaultTableModel)jTableReportes.getModel(),
                     choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem());
             //
             operaciones.totalProveedoresPorClientePorAnio(this.choiceProveedores, choiceClientes.getSelectedItem(), 
@@ -483,10 +483,9 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
         choiceAnio.removeAll();
         choiceAnio.setEnabled(true);
         //operaciones.totalProveedoresPorCliente(choiceProveedores, choiceClientes.getSelectedItem());
-        operaciones.totalAniosPorCliente(choiceAnio, choiceClientes.getSelectedItem());
+        operaciones.totalAniosPorClienteNegocio(choiceAnio, choiceClientes.getSelectedItem());
         //operaciones.totalFacturasPorCliente((DefaultTableModel)jTableReportes.getModel(), choiceClientes.getSelectedItem());
-        operaciones.totalFacturasPorClientePorAnio((DefaultTableModel)jTableReportes.getModel(), choiceClientes.getSelectedItem());
-
+        operaciones.totalFacturasPorClientePorAnioNegocio((DefaultTableModel)jTableReportes.getModel(), choiceClientes.getSelectedItem());
     }//GEN-LAST:event_choiceClientesMouseClicked
 
     private void btnVerFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerFacturaMouseClicked
