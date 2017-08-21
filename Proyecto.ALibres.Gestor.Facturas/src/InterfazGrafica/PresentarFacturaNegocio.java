@@ -6,6 +6,7 @@
 package InterfazGrafica;
 
 import GeneradorExcel.Exporter;
+import GeneradorPDF.ExporterPDF;
 import Operaciones.Operaciones;
 import Pojos.Cliente;
 import Pojos.Proveedor;
@@ -389,6 +390,9 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         btnExportarPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PDF 2_32px.png"))); // NOI18N
         btnExportarPDF.setText("Exportar");
         btnExportarPDF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExportarPDFMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnExportarPDFMouseEntered(evt);
             }
@@ -751,6 +755,215 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnExportarExcelMouseClicked
+
+    private void btnExportarPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarPDFMouseClicked
+        // TODO add your handling code here:
+                DefaultTableModel modeloF = (DefaultTableModel) tablaFactura.getModel();//new DefaultTableModel(); 
+        DefaultTableModel origen = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel origenGastos = (DefaultTableModel) jTable2.getModel();
+        Object [] fila = new Object[5];
+        tablaFactura.setModel(modeloF);
+        //jTable1.setModel(origen);
+        
+        modeloF.addColumn("");
+        modeloF.addColumn("");
+        modeloF.addColumn("");
+        modeloF.addColumn("");
+        modeloF.addColumn("");
+        
+        fila[0]= "No";
+        fila[1]= txtNumeroFactura.getText();
+        fila[2]="";
+        fila[3]="Fecha";
+        fila[4]=txtFecha.getText(); 
+        modeloF.addRow(fila);
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+
+        fila[0]= "Proveedor:";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        fila[0]= "Nombre";
+        fila[1]= txtProveedor.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        
+        fila[0]= "Ruc";
+        fila[1]= txtRuc.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        fila[0]= "Direccion";
+        fila[1]= txtDireccion.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]= "Cliente";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]= "Nombre";
+        fila[1]= txtNombreCliente.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        fila[0]= "Ruc-CI";
+        fila[1]= txtCedula.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]="Productos";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        for(int i=0;i<origen.getRowCount();i++)
+        {
+            for(int j=0;j<5;j++)
+            {
+                fila[j]= jTable1.getValueAt(i, j);
+            }    
+            modeloF.addRow(fila);
+        }
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]="Gastos";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        for(int i=0;i<origenGastos.getRowCount();i++)
+        {
+            fila[0]="";
+            for(int j=1;j<3;j++)
+            {
+                fila[j]= jTable2.getValueAt(i, (j-1));
+            }
+            fila[3]="";
+            fila[4]="";
+            modeloF.addRow(fila);
+        }
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]="";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]="Total sin Iva";
+        fila[1]=txtTotalSinIva.getText();
+        fila[2]="IVA";
+        fila[3]=txtIva.getText();
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]="Total Factura";
+        fila[1]=txtTotalFactura.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+                //System.out.println("num column:");
+        if (this.tablaFactura.getRowCount()==0) {
+        JOptionPane.showMessageDialog (null, "No hay datos en la tabla para exportar.","BCO",
+        JOptionPane.INFORMATION_MESSAGE);
+        //this.cmbConsorcio.grabFocus();
+        return;
+        }
+        JFileChooser chooser=new JFileChooser();
+        FileNameExtensionFilter filter=new FileNameExtensionFilter("Archivos pdf","pdf");
+        chooser.setFileFilter(filter);
+        chooser.setDialogTitle("Guardar archivo");
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setAcceptAllFileFilterUsed(false);
+        //ExporterPDF exportar = new ExporterPDF(jTableReportes, new File(file), "Reporteeeeee");
+        if (chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
+            List<JTable> tb=new ArrayList<>();
+            List<String>nom=new ArrayList<>();
+            tb.add(tablaFactura);
+            nom.add("Detalle de Gastos");
+            String file=chooser.getSelectedFile().toString().concat(".pdf");
+            System.out.println("El valor de file es:"+file);
+            try 
+            {
+                //GeneradorPDF.ExporterPDF e = new ExporterPDF(new File(file),tb, nom);
+                GeneradorPDF.ExporterPDF e = new ExporterPDF(tablaFactura, new File(file), "Reporteeeeee", file);
+                //GeneradorExcel.Exporter e=new Exporter(new File(file),tb, nom);
+                if (e.exportarPDF()) 
+                {
+                    JOptionPane.showMessageDialog(null, "Los datos fueron exportados a pdf.","BCO",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Hubo un error"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_btnExportarPDFMouseClicked
                           
 
 

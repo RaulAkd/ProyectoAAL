@@ -1443,7 +1443,8 @@ public class PresentarFactura extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Hubo un error"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             }
         }
-
+        
+        
     }//GEN-LAST:event_btnExportarPDFMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
