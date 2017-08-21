@@ -88,6 +88,9 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
         btnVerFactura = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableTotalesReporte3 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -157,7 +160,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableReportes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 1020, 230));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 1020, 220));
 
         lblTitulo.setBackground(new java.awt.Color(12, 15, 22));
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -191,7 +194,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
                 choiceAnioItemStateChanged(evt);
             }
         });
-        jPanel1.add(choiceAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 170, 20));
+        jPanel1.add(choiceAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 170, 20));
 
         choiceClientes.setEnabled(false);
         choiceClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -204,7 +207,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
                 choiceClientesItemStateChanged(evt);
             }
         });
-        jPanel1.add(choiceClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 170, -1));
+        jPanel1.add(choiceClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 170, -1));
 
         choiceProveedores.setEnabled(false);
         choiceProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -217,7 +220,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
                 choiceProveedoresItemStateChanged(evt);
             }
         });
-        jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 170, 20));
+        jPanel1.add(choiceProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 170, 20));
 
         btnVerFactura.setBackground(new java.awt.Color(36, 46, 68));
         btnVerFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/View Details_32px_1.png"))); // NOI18N
@@ -244,6 +247,24 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 1020, 40));
         jScrollPane2.setVisible(false);
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Proveedor : ");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, -1, 20));
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Cliente : ");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, 20));
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Año : ");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, -1, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 480));
 
@@ -530,6 +551,9 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
     private java.awt.Choice choiceAnio;
     private java.awt.Choice choiceClientes;
     private java.awt.Choice choiceProveedores;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
