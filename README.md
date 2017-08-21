@@ -21,6 +21,8 @@ Repositorio del Proyecto: [Sistema de Gestión de Facturas](https://github.com/R
 
 Instalador de la Aplicación: [Instalador](https://github.com/RaulAkd/ProyectoAAL/blob/master/InstaladorGestorFacturas.exe)
 
+Enlace para descargar java: [Java 8 Update 144](https://www.java.com/es/download/)
+
 
 Documentación de la aplicación: 
 * [Manual de instalación](https://github.com/RaulAkd/ProyectoAAL/blob/master/Documentacion/Manual%20de%20Instalacion.pdf)
