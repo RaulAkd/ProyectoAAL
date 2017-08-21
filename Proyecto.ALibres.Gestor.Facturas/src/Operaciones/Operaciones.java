@@ -209,10 +209,12 @@ public class Operaciones extends Conexion{
                             + resultadoExisteGasto.getObject(1).toString() + "'");
                     resultadoExisteGasto.close();
                 }else{
-                    fecha = fecha.substring(6);
+                    //JOptionPane.showMessageDialog(null, fecha);
+                    String nuevaFecha = fecha.substring(6);
+                    //JOptionPane.showMessageDialog(null, fecha);
                     insertar("INSERT INTO GASTOS_DE_NEGOCIO (ID_CLIENTE, NOMBRE_GASTO_EXTRA, TOTAL_GASTO_EXTRA, "
                 + "ANIO_GASTO_EXTRA) VALUES('"+idCliente+"', '" + gasto.getTipo() + "','" + 
-                gasto.getTotalSinIva() + "','" + fecha + "')");
+                gasto.getTotalSinIva() + "','" + nuevaFecha + "')");
                 }
             }
         } catch (SQLException ex) {
@@ -839,6 +841,43 @@ public class Operaciones extends Conexion{
      }
     }
     
+    public void totalProveedoresPorClientePorAnioNegocio(Choice choiceProveedores, String nombreCliente, String anio){
+        ResultSet resultado = null;
+        //tableModel.setRowCount(0);
+        //tableModel.setColumnCount(0);
+        String sql = "SELECT P.NOMBRE_PROVEEDOR FROM PROVEEDOR P INNER JOIN FACTURA_NEGOCIO F \n" +
+                        "ON P.ID_PROVEEDOR = F.ID_PROVEEDOR \n" +
+                        "INNER JOIN CLIENTE C \n" +
+                        "ON C.ID_CLIENTE = F.ID_CLIENTE \n" +
+                        "WHERE C.NOMBRES_CLIENTE = '" + nombreCliente 
+                        +"' AND F.FECHA LIKE '%" + anio + "' GROUP BY P.NOMBRE_PROVEEDOR";
+        try {
+            resultado = consultar(sql);
+            
+            if(resultado != null){
+                while(resultado.next()){
+                        choiceProveedores.addItem((String) resultado.getObject(1));
+                }
+            }
+        }catch(SQLException e){
+        }
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
     public void totalAniosPorCliente(Choice choiceProveedores, String nombreCliente){
         ResultSet resultado = null;
         //tableModel.setRowCount(0);
@@ -974,6 +1013,140 @@ public class Operaciones extends Conexion{
          }
      }
     }
+//////////////////////////////////////////////////////////////////////////////////////////    
+    public void totalFacturasPorClienteProveedorAnioNegocio(DefaultTableModel tableModel, String anio, String nombreCliente,
+            String nombreProveedor, DefaultTableModel tableTotales) throws SQLException{
+        /*ResultSet resultado = null;
+        ResultSet resultadoNombreGastos = null;
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        String sqlNG = "SELECT NOMBRE_GASTO_EXTRA FROM GASTOS_DE_NEGOCIO";
+        String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
+                            "C.TOTAL_CON_IVA AS 'TOTAL' FROM PROVEEDOR P INNER JOIN FACTURA_NEGOCIO C \n" +
+                            "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
+                            "INNER JOIN CLIENTE CLI \n" +
+                            "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
+                            "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND C.FECHA LIKE '%" + anio + "'";
+        try {
+            resultado = consultar(sql);
+            resultadoNombreGastos = consultar(sqlNG);
+            if(resultado != null){
+                int numeroColumna = resultado.getMetaData().getColumnCount();
+                for(int j = 1;j <= numeroColumna;j++){
+                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+                }
+                int numeroColumnaGastos = 0;
+                while(resultadoNombreGastos.next()){
+                    numeroColumnaGastos++;
+                    tableModel.addColumn(resultadoNombreGastos.getObject(1));
+                }
+                resultadoNombreGastos.close();
+                while(resultado.next()){
+                    //JOptionPane.showMessageDialog(null,"NUMERO DE COLUMNAS TOTAL = " + (numeroColumna+numeroColumnaGastos));
+                    Object []objetos = new Object[numeroColumna+numeroColumnaGastos];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                    }
+                    for(int i = numeroColumna+1 ;i <= numeroColumnaGastos+numeroColumna;i++){
+                        //JOptionPane.showMessageDialog(null,"sdf");
+                        //JOptionPane.showMessageDialog(null, tableModel.getColumnName(i-1));
+                        objetos[i-1] = consultarTotalGastoFacturaNegocio((String) resultado.getObject(2), tableModel.getColumnName(i-1));
+                    }
+                    tableModel.addRow(objetos);
+                }
+            }
+        }catch(SQLException e){
+        }*/
+        int numeroFacturas = 0;
+        ResultSet resultado = null;
+        ResultSet resultadoNombreGastos = null;
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        String sqlNG = "SELECT NOMBRE_GASTO_EXTRA FROM GASTOS_DE_NEGOCIO";
+        String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
+                            "C.TOTAL_CON_IVA AS 'TOTAL' FROM PROVEEDOR P INNER JOIN FACTURA_NEGOCIO C \n" +
+                            "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
+                            "INNER JOIN CLIENTE CLI \n" +
+                            "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
+                            "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND P.NOMBRE_PROVEEDOR = '" + nombreProveedor + 
+                            "' AND C.FECHA LIKE '%" + anio + "'";
+        /*String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
+                            "C.TOTAL_CON_IVA AS 'TOTAL' FROM PROVEEDOR P INNER JOIN FACTURA_NEGOCIO C \n" +
+                            "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
+                            "INNER JOIN CLIENTE CLI \n" +
+                            "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
+                            "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND C.FECHA LIKE '%" + anio + "'";*/
+        try {
+            /*resultado = consultar(sql);
+            resultadoNombreGastos = consultar(sqlNG);
+            if(resultado != null){
+                int numeroColumna = resultado.getMetaData().getColumnCount();
+                for(int j = 1;j <= numeroColumna;j++){
+                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+                }
+                int numeroColumnaGastos = 0;
+                while(resultadoNombreGastos.next()){
+                    numeroColumnaGastos++;
+                    tableModel.addColumn(resultadoNombreGastos.getObject(1));
+                }
+                resultadoNombreGastos.close();*/
+            resultado = consultar(sql);
+            resultadoNombreGastos = consultar(sqlNG);
+            if(resultado != null){
+                int numeroColumna = resultado.getMetaData().getColumnCount();
+                for(int j = 1;j <= numeroColumna;j++){
+                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+                }
+                int numeroColumnaGastos = 0;
+                while(resultadoNombreGastos.next()){
+                    numeroColumnaGastos++;
+                    tableModel.addColumn(resultadoNombreGastos.getObject(1));
+                }
+                resultadoNombreGastos.close();
+                /*while(resultado.next()){
+                    //JOptionPane.showMessageDialog(null,"NUMERO DE COLUMNAS TOTAL = " + (numeroColumna+numeroColumnaGastos));
+                    Object []objetos = new Object[numeroColumna+numeroColumnaGastos];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                    }
+                    for(int i = numeroColumna+1 ;i <= numeroColumnaGastos+numeroColumna;i++){
+                        //JOptionPane.showMessageDialog(null,"sdf");
+                        //JOptionPane.showMessageDialog(null, tableModel.getColumnName(i-1));
+                        objetos[i-1] = consultarTotalGastoFacturaNegocio((String) resultado.getObject(2), tableModel.getColumnName(i-1));
+                    }
+                    tableModel.addRow(objetos);
+                }*/
+                while(resultado.next()){
+                    numeroFacturas++;
+                    Object []objetos = new Object[numeroColumna + numeroColumnaGastos];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                    }
+                    for(int i = numeroColumna+1 ;i <= numeroColumnaGastos+numeroColumna;i++){
+                        objetos[i-1] = consultarTotalGastoFacturaNegocio((String) resultado.getObject(2), tableModel.getColumnName(i-1));
+                    }
+                    tableModel.addRow(objetos);
+                }
+            }
+        }catch(SQLException e){
+        }
+
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
     
     public void totalFacturasPorClienteYAnio(DefaultTableModel tableModel, String anio, String nombreCliente) throws SQLException{
         ResultSet resultado = null;
@@ -1034,10 +1207,11 @@ public class Operaciones extends Conexion{
         try {
             System.out.println(sql);
             resultado = consultar(sql);
+            System.out.println(resultado.toString());
             //JOptionPane.showMessageDialog(null,sql); 
-                if(resultado != null){
-                    JOptionPane.showMessageDialog(null, (String)resultado.getObject(1));
-                    total = (String) resultado.getObject(1);
+                while(resultado.next()){
+                    //JOptionPane.showMessageDialog(null, resultado.getObject(1));
+                    total = resultado.getObject(1).toString();
                 }
         }catch(Exception e){
         }

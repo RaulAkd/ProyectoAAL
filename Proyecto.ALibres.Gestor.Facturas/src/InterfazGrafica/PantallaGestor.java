@@ -1445,7 +1445,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         String nombreNuevoGasto = JOptionPane.showInputDialog("Ingrese nuevo gasto");
         //this.listaGastosTemporal.add(e)
         Gasto gastoNuevo = new Gasto(nombreNuevoGasto);
+        this.leerXml.getFacturaNegocio().getListaGastos().add(gastoNuevo);
         this.listaGastosTemporal.add(gastoNuevo);
+        while(modeloGastosNegocio.getRowCount()>0)modeloGastosNegocio.removeRow(0);
         //this.comboGastosNegocio.addItem(gastoNuevo.getTipo());
         this.llenarComboBoxGastos();
     }//GEN-LAST:event_btnIngresarGastoMouseClicked

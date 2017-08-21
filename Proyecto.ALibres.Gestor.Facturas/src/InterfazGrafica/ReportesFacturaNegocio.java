@@ -287,7 +287,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
             operaciones.totalFacturasPorClienteYAnioNegocio((DefaultTableModel)jTableReportes.getModel(),
                     choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem());
             //
-            operaciones.totalProveedoresPorClientePorAnio(this.choiceProveedores, choiceClientes.getSelectedItem(), 
+            operaciones.totalProveedoresPorClientePorAnioNegocio(this.choiceProveedores, choiceClientes.getSelectedItem(), 
                     this.choiceAnio.getSelectedItem());
             //
         } catch (SQLException ex) {
@@ -415,7 +415,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
             operaciones.totalFacturasPorClienteYAnioNegocio((DefaultTableModel)jTableReportes.getModel(),
                     choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem());
             //
-            operaciones.totalProveedoresPorClientePorAnio(this.choiceProveedores, choiceClientes.getSelectedItem(), 
+            operaciones.totalProveedoresPorClientePorAnioNegocio(this.choiceProveedores, choiceClientes.getSelectedItem(), 
                     this.choiceAnio.getSelectedItem());
             //
         } catch (SQLException ex) {
@@ -426,20 +426,10 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
 
     private void choiceProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choiceProveedoresMouseClicked
         // TODO add your handling code here:
-        /*modeloReporte3.addColumn("Proveedor");
-            modeloReporte3.addColumn("numeroFacturas");
-            modeloReporte3.addColumn("ivaTotal");
-            modeloReporte3.addColumn("total");
-            modeloReporte3.addColumn("vestimenta");
-            modeloReporte3.addColumn("alimentacion");
-            modeloReporte3.addColumn("salud");
-            modeloReporte3.addColumn("educacion");
-            modeloReporte3.addColumn("vivienda");
-            modeloReporte3.addColumn("otros");*/
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         try {
-            operaciones.totalFacturasPorClienteProveedorAnio((DefaultTableModel)jTableReportes.getModel(),
+            operaciones.totalFacturasPorClienteProveedorAnioNegocio((DefaultTableModel)jTableReportes.getModel(),
                     choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem(), choiceProveedores.getSelectedItem(),
                     (DefaultTableModel)jTableTotalesReporte3.getModel());
             /*operaciones.totalFacturasPorClienteYAnio((DefaultTableModel)jTableReportes.getModel(),
@@ -452,21 +442,11 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
     private void choiceProveedoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceProveedoresItemStateChanged
         // TODO add your handling code here:
         while(modeloReporte3.getRowCount()>0)modeloReporte3.removeRow(0);
-        
-        /*modeloReporte3.addColumn("Proveedor");
-            modeloReporte3.addColumn("numeroFacturas");
-            modeloReporte3.addColumn("ivaTotal");
-            modeloReporte3.addColumn("total");
-            modeloReporte3.addColumn("vestimenta");
-            modeloReporte3.addColumn("alimentacion");
-            modeloReporte3.addColumn("salud");
-            modeloReporte3.addColumn("educacion");
-            modeloReporte3.addColumn("vivienda");
-            modeloReporte3.addColumn("otros");*/
+
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         try {
-            operaciones.totalFacturasPorClienteProveedorAnio((DefaultTableModel)jTableReportes.getModel(),
+            operaciones.totalFacturasPorClienteProveedorAnioNegocio((DefaultTableModel)jTableReportes.getModel(),
                     choiceAnio.getSelectedItem(), choiceClientes.getSelectedItem(), choiceProveedores.getSelectedItem(),
                     (DefaultTableModel)jTableTotalesReporte3.getModel());
             /*operaciones.totalFacturasPorClienteYAnio((DefaultTableModel)jTableReportes.getModel(),
