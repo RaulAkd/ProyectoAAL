@@ -54,6 +54,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     int tipoFacturaIngresar = 1;
     ArrayList<Gasto> listaGastosTemporal = new ArrayList<Gasto>();
     boolean facturaNegocio=false;
+    DecimalFormat formateador = new DecimalFormat("###.##");
     //tipoFacturaIngresar = 1       tipo personal
     //tipoFacturaIngresar = 2       tipo negocio
     //Operaciones operaciones = new Operaciones();
@@ -162,6 +163,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         panelOpciones = new javax.swing.JPanel();
         lblFacturaNegocio = new javax.swing.JLabel();
         lblFacturaPersonal = new javax.swing.JLabel();
+        lblSeleccionar = new javax.swing.JLabel();
         panelBuscar = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         lblBuscar = new javax.swing.JLabel();
@@ -474,7 +476,6 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnGuardar.setForeground(new java.awt.Color(204, 204, 204));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save_32px.png"))); // NOI18N
         btnGuardar.setText("Guardar");
-        btnGuardar.setEnabled(false);
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGuardarMouseClicked(evt);
@@ -492,6 +493,7 @@ public class PantallaGestor extends javax.swing.JFrame {
             }
         });
         PanelMostrar.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 120, -1));
+        btnGuardar.setEnabled(false);
 
         btnLimpiar.setBackground(new java.awt.Color(36, 46, 68));
         btnLimpiar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -510,6 +512,7 @@ public class PantallaGestor extends javax.swing.JFrame {
             }
         });
         PanelMostrar.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, -1, -1));
+        btnLimpiar.setEnabled(false);
 
         jLayeredPane2.setBackground(new java.awt.Color(255, 255, 255));
         jLayeredPane2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -524,11 +527,18 @@ public class PantallaGestor extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFacturaNegocioMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblFacturaNegocioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblFacturaNegocioMouseExited(evt);
+            }
         });
-        panelOpciones.add(lblFacturaNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 40));
+        panelOpciones.add(lblFacturaNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 40));
 
-        lblFacturaPersonal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblFacturaPersonal.setForeground(new java.awt.Color(109, 115, 130));
+        lblFacturaPersonal.setBackground(new java.awt.Color(255, 255, 255));
+        lblFacturaPersonal.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
+        lblFacturaPersonal.setForeground(new java.awt.Color(255, 255, 255));
         lblFacturaPersonal.setText("Factura Personal");
         lblFacturaPersonal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -541,7 +551,17 @@ public class PantallaGestor extends javax.swing.JFrame {
                 lblFacturaPersonalMouseExited(evt);
             }
         });
-        panelOpciones.add(lblFacturaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
+        panelOpciones.add(lblFacturaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
+
+        lblSeleccionar.setFont(new java.awt.Font("Microsoft Tai Le", 0, 16)); // NOI18N
+        lblSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
+        lblSeleccionar.setText("Seleccione tipo de Factura");
+        lblSeleccionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSeleccionarMouseClicked(evt);
+            }
+        });
+        panelOpciones.add(lblSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, -1, 30));
 
         jLayeredPane2.add(panelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 520, 60));
 
@@ -569,9 +589,9 @@ public class PantallaGestor extends javax.swing.JFrame {
         panelBuscar.add(lblBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 130, 50));
 
         lblReporte.setBackground(new java.awt.Color(36, 46, 68));
-        lblReporte.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
-        lblReporte.setForeground(new java.awt.Color(109, 115, 130));
-        lblReporte.setText("Reporte");
+        lblReporte.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
+        lblReporte.setForeground(new java.awt.Color(255, 255, 255));
+        lblReporte.setText("Reportes de Facturas");
         lblReporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblReporteMouseClicked(evt);
@@ -583,7 +603,7 @@ public class PantallaGestor extends javax.swing.JFrame {
                 lblReporteMouseExited(evt);
             }
         });
-        panelBuscar.add(lblReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 80, 30));
+        panelBuscar.add(lblReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 290, 30));
 
         jLayeredPane2.add(panelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 590, 70));
         panelBuscar.setVisible(false);
@@ -1180,7 +1200,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
     public void ingresarValoresGastos(){
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("###.##");
         txtTotalAlimentacion.setText(df.format(leerXml.getFactura().getListaGastos().get(1).getTotalSinIva()));
         txtTotalVestimenta.setText(df.format(leerXml.getFactura().getListaGastos().get(0).getTotalSinIva()));
         txtTotalSalud.setText(df.format(leerXml.getFactura().getListaGastos().get(2).getTotalSinIva()));
@@ -1197,7 +1217,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         int i = 0;
         for(Gasto gasto : this.listaGastosTemporal){
             entrada[0] = gasto.getTipo();
-            entrada[1] = String.valueOf(gasto.getTotalSinIva());
+            entrada[1] = formateador.format(String.valueOf(gasto.getTotalSinIva()));
             modeloGastosNegocio.addRow(entrada);
             DATA[i] = gasto.getTipo();
             i++;
@@ -1243,7 +1263,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         //int val = 0;
         for(Gasto gasto : this.leerXml.getFacturaNegocio().getListaGastos()){
             entrada[0] = gasto.getTipo();
-            entrada[1] = String.valueOf(gasto.getTotalSinIva());
+            entrada[1] = formateador.format(String.valueOf(gasto.getTotalSinIva()));
             modeloGastosNegocio.addRow(entrada);
         }
     }
@@ -1379,22 +1399,6 @@ public class PantallaGestor extends javax.swing.JFrame {
         this.borrarGUI();
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
-    private void lblFacturaPersonalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaPersonalMouseEntered
-        // TODO add your handling code here:
-        lblFacturaPersonal.setBackground(new Color(36, 46, 68));
-        lblFacturaPersonal.setForeground(Color.white);
-        lblFacturaNegocio.setBackground(new Color(36, 46, 68));
-        lblFacturaNegocio.setForeground(new Color(109, 115, 130));
-    }//GEN-LAST:event_lblFacturaPersonalMouseEntered
-
-    private void lblFacturaPersonalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaPersonalMouseExited
-        // TODO add your handling code here:
-        lblFacturaNegocio.setBackground(new Color(36, 46, 68));
-        lblFacturaNegocio.setForeground(Color.white);
-        lblFacturaPersonal.setBackground(new Color(36, 46, 68));
-        lblFacturaPersonal.setForeground(new Color(109, 115, 130));
-    }//GEN-LAST:event_lblFacturaPersonalMouseExited
-
     private void lblFacturaNegocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaNegocioMouseClicked
         // TODO add your handling code here:
         //tipoFacturaIngresar = 1       tipo personal
@@ -1408,6 +1412,8 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnRegresarPanel.setVisible(true);
         btnRegresarPanel.setEnabled(true);
         capaTabla2.setVisible(true);
+        lblSeleccionar.setVisible(false);
+        this.desbloquearBotonesGastos(false);
     }//GEN-LAST:event_lblFacturaNegocioMouseClicked
 
     private void lblFacturaPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaPersonalMouseClicked
@@ -1424,6 +1430,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnRegresarPanel.setEnabled(true);
         capaTabla1.setVisible(true);
         panelBotones.setVisible(true);
+        lblSeleccionar.setVisible(false);
     }//GEN-LAST:event_lblFacturaPersonalMouseClicked
 
     //
@@ -1436,6 +1443,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         panelBotones.setVisible(false);
         capaTabla1.setVisible(false);
         capaTabla2.setVisible(false);
+        lblSeleccionar.setVisible(true);
         //lblGastoNegocio.setVisible(false);
         //comboGastosNegocio.setVisible(false);
     }//GEN-LAST:event_btnRegresarPanelMouseClicked
@@ -1482,6 +1490,34 @@ public class PantallaGestor extends javax.swing.JFrame {
     private void btnAlimentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlimentacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAlimentacionActionPerformed
+
+    private void lblSeleccionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSeleccionarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblSeleccionarMouseClicked
+
+    private void lblFacturaNegocioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaNegocioMouseEntered
+        // TODO add your handling code here:
+        //lblFacturaNegocio.setBackground(new Color(89,199,198));
+        lblFacturaNegocio.setForeground(new Color(89,199,198));
+        lblFacturaPersonal.setForeground(Color.white);
+        
+    }//GEN-LAST:event_lblFacturaNegocioMouseEntered
+
+    private void lblFacturaPersonalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaPersonalMouseEntered
+        // TODO add your handling code here:
+        lblFacturaPersonal.setForeground(new Color(89,199,198));
+        lblFacturaNegocio.setForeground(Color.white);
+    }//GEN-LAST:event_lblFacturaPersonalMouseEntered
+
+    private void lblFacturaNegocioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaNegocioMouseExited
+        // TODO add your handling code here:
+        lblFacturaNegocio.setForeground(Color.white);
+    }//GEN-LAST:event_lblFacturaNegocioMouseExited
+
+    private void lblFacturaPersonalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFacturaPersonalMouseExited
+        // TODO add your handling code here:
+        lblFacturaPersonal.setForeground(Color.white);
+    }//GEN-LAST:event_lblFacturaPersonalMouseExited
 
     public String direccionAbsoluta(String dir)
     {
@@ -1537,6 +1573,7 @@ public class PantallaGestor extends javax.swing.JFrame {
         btnSalud.setEnabled(opcion);
         btnVivienda.setEnabled(opcion);
         btnOtros.setEnabled(opcion);
+        btnLimpiar.setEnabled(opcion);
     }
     /**
      * @param args the command line arguments
@@ -1633,6 +1670,7 @@ public class PantallaGestor extends javax.swing.JFrame {
     private javax.swing.JLabel lblRegresar;
     private javax.swing.JLabel lblReporte;
     private javax.swing.JLabel lblRuc;
+    private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelCliente;

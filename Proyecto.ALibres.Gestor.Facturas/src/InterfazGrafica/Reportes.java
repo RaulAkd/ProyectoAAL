@@ -12,6 +12,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,6 +36,7 @@ public class Reportes extends javax.swing.JFrame {
     DefaultTableModel modeloReporte3;
     int indexSeleccion;
     String direccionBdd;
+    DecimalFormat formateador = new DecimalFormat("###.##");
     
     public Reportes(String dir) {
         initComponents();
@@ -452,17 +454,7 @@ public class Reportes extends javax.swing.JFrame {
     private void choiceProveedoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choiceProveedoresItemStateChanged
         // TODO add your handling code here:
         while(modeloReporte3.getRowCount()>0)modeloReporte3.removeRow(0);
-        
-        /*modeloReporte3.addColumn("Proveedor");
-            modeloReporte3.addColumn("numeroFacturas");
-            modeloReporte3.addColumn("ivaTotal");
-            modeloReporte3.addColumn("total");
-            modeloReporte3.addColumn("vestimenta");
-            modeloReporte3.addColumn("alimentacion");
-            modeloReporte3.addColumn("salud");
-            modeloReporte3.addColumn("educacion");
-            modeloReporte3.addColumn("vivienda");
-            modeloReporte3.addColumn("otros");*/
+
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();
         try {

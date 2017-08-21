@@ -5,6 +5,7 @@
  */
 package InterfazGrafica;
 
+import GeneradorExcel.Exporter;
 import Operaciones.Operaciones;
 import Pojos.Cliente;
 import Pojos.Proveedor;
@@ -13,11 +14,17 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.File;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -76,11 +83,8 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
     }
 
     private PresentarFacturaNegocio() {
-        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -138,6 +142,9 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        panelFactura = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaFactura = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -434,6 +441,20 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 730, 130));
 
+        tablaFactura.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(tablaFactura);
+
+        panelFactura.add(jScrollPane3);
+
+        jPanel1.add(panelFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 10, 450));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 760));
 
         pack();
@@ -525,6 +546,216 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
 
     private void btnExportarExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarExcelMouseClicked
         // TODO add your handling code here:
+        DefaultTableModel modeloF = (DefaultTableModel) tablaFactura.getModel();//new DefaultTableModel(); 
+        DefaultTableModel origen = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel origenGastos = (DefaultTableModel) jTable2.getModel();
+        Object [] fila = new Object[5];
+        tablaFactura.setModel(modeloF);
+        //jTable1.setModel(origen);
+        
+        modeloF.addColumn("");
+        modeloF.addColumn("");
+        modeloF.addColumn("");
+        modeloF.addColumn("");
+        modeloF.addColumn("");
+        
+        fila[0]= "No";
+        fila[1]= txtNumeroFactura.getText();
+        fila[2]="";
+        fila[3]="Fecha";
+        fila[4]=txtFecha.getText(); 
+        modeloF.addRow(fila);
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+
+        fila[0]= "Proveedor:";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        fila[0]= "Nombre";
+        fila[1]= txtProveedor.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        
+        fila[0]= "Ruc";
+        fila[1]= txtRuc.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        fila[0]= "Direccion";
+        fila[1]= txtDireccion.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]= "Cliente";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]= "Nombre";
+        fila[1]= txtNombreCliente.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+        
+        fila[0]= "Ruc-CI";
+        fila[1]= txtCedula.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";        
+        modeloF.addRow(fila);
+
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]="Productos";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        for(int i=0;i<origen.getRowCount();i++)
+        {
+            for(int j=0;j<5;j++)
+            {
+                fila[j]= jTable1.getValueAt(i, j);
+            }    
+            modeloF.addRow(fila);
+        }
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]="Gastos";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        for(int i=0;i<origenGastos.getRowCount();i++)
+        {
+            fila[0]="";
+            fila[1]="";
+            fila[2]="";
+            for(int j=3;j<5;j++)
+            {
+                fila[j]= jTable1.getValueAt(i, (j-3));
+            }    
+            modeloF.addRow(fila);
+        }
+        
+        fila[0]= "";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]="";
+        fila[1]="";
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]="Total sin Iva";
+        fila[1]=txtTotalSinIva.getText();
+        fila[2]="IVA";
+        fila[3]=txtIva.getText();
+        fila[4]="";
+        modeloF.addRow(fila);
+        
+        fila[0]="Total Factura";
+        fila[1]=txtTotalFactura.getText();
+        fila[2]="";
+        fila[3]="";
+        fila[4]="";
+        modeloF.addRow(fila);
+
+
+        if (this.tablaFactura.getRowCount()==0) 
+        {
+            JOptionPane.showMessageDialog (null, "No hay datos en la tabla para exportar.","BCO",
+            JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        JFileChooser chooser=new JFileChooser();
+        FileNameExtensionFilter filter=new FileNameExtensionFilter("Archivos de excel","xls");
+        chooser.setFileFilter(filter);
+        chooser.setDialogTitle("Guardar archivo");
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setAcceptAllFileFilterUsed(false);
+        if (chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION)
+        {
+            List<JTable> tb=new ArrayList<>();
+            List<String>nom=new ArrayList<>();
+            tb.add(tablaFactura);
+            nom.add("Detalle de Gastos");
+            String file=chooser.getSelectedFile().toString().concat(".xls");
+            try 
+            {    
+                GeneradorExcel.Exporter e=new Exporter(new File(file),tb, nom);
+                if (e.export()) 
+                {
+                    JOptionPane.showMessageDialog(null, "Los datos fueron exportados a excel.","BCO",
+                    JOptionPane.INFORMATION_MESSAGE);
+                }
+            } 
+            catch (Exception ex) 
+            {
+                JOptionPane.showMessageDialog(null,"Hubo un error"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
         
     }//GEN-LAST:event_btnExportarExcelMouseClicked
                           
@@ -593,6 +824,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -603,6 +835,8 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JPanel panelFactura;
+    private javax.swing.JTable tablaFactura;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCiudad;
     private javax.swing.JTextField txtDireccion;

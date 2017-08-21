@@ -14,6 +14,7 @@ import Pojos.Proveedor;
 import java.awt.Choice;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -950,6 +951,7 @@ public class Operaciones extends Conexion{
     
     public void totalFacturasPorClienteProveedorAnio(DefaultTableModel tableModel, String anio, String nombreCliente,
             String nombreProveedor, DefaultTableModel tableTotales) throws SQLException{
+        DecimalFormat formateador = new DecimalFormat("###.##");
         Double ivaTotal = 0.0, total = 0.0, vestimenta = 0.0, alimentacion = 0.0, salud = 0.0;
         Double educacion = 0.0, vivienda = 0.0, otros = 0.0;
         int numeroFacturas = 0;
@@ -978,8 +980,13 @@ public class Operaciones extends Conexion{
                     numeroFacturas++;
                     Object []objetos = new Object[numeroColumna];
                     for(int i = 1;i <= numeroColumna;i++){
-                        objetos[i-1] = resultado.getObject(i);
-                        if(i==4)    ivaTotal = ivaTotal + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
+                        //objetos[i-1] = resultado.getObject(i);
+                        if (i < 4){
+                            objetos[i-1] = resultado.getObject(i);
+                        }else{
+                            objetos[i-1] = formateador.format(resultado.getObject(i));
+                        }
+                        if(i==4)    ivaTotal = ivaTotal + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));    
                         if(i==5)    total = total + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
                         if(i==6)    vestimenta = vestimenta + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
                         if(i==7)    alimentacion = alimentacion + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
@@ -987,11 +994,12 @@ public class Operaciones extends Conexion{
                         if(i==9)    educacion = educacion + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
                         if(i==10)   vivienda = vivienda + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
                         if(i==11)   otros = otros + Double.parseDouble(resultado.getObject(i).toString().replace(",", "."));
+                        
                     }
                     tableModel.addRow(objetos);
                 }
             }
-            Object []objetosTotales = {nombreProveedor,numeroFacturas,ivaTotal,total,vestimenta,alimentacion,salud,educacion,vivienda,otros};
+            Object []objetosTotales = {nombreProveedor,numeroFacturas,formateador.format(ivaTotal),formateador.format(total),vestimenta,alimentacion,salud,educacion,vivienda,otros};
             //String[] DATA = {nombreProveedor,(String)numeroFacturas, "Dato 3", "Dato 4"};
             tableTotales.addRow(objetosTotales);
         }catch(SQLException e){
@@ -1077,6 +1085,7 @@ public class Operaciones extends Conexion{
     }
     
     public void totalFacturasPorClienteYAnio(DefaultTableModel tableModel, String anio, String nombreCliente) throws SQLException{
+        DecimalFormat formateador = new DecimalFormat("###.##");
         ResultSet resultado = null;
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
@@ -1100,7 +1109,11 @@ public class Operaciones extends Conexion{
                 while(resultado.next()){
                     Object []objetos = new Object[numeroColumna];
                     for(int i = 1;i <= numeroColumna;i++){
-                        objetos[i-1] = resultado.getObject(i);
+                        if(i >= 4){
+                        objetos[i-1] = formateador.format(resultado.getObject(i));
+                        }else{
+                            objetos[i-1] = resultado.getObject(i);
+                        }
                     }
                     tableModel.addRow(objetos);
                 }
