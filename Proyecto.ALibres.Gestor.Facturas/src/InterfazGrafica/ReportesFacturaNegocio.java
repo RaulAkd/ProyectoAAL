@@ -405,7 +405,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
     private void choiceAnioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choiceAnioMouseClicked
         // TODO add your handling code here:
         btnVerFactura.setEnabled(true);
-        System.out.println("Ver reporte");
+        //System.out.println("Ver reporte");
         this.choiceProveedores.removeAll();
         Operaciones operaciones = new Operaciones(this.direccionBdd);
         operaciones.conectar();

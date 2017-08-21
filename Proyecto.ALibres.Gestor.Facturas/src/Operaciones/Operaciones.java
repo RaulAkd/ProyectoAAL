@@ -722,7 +722,6 @@ public class Operaciones extends Conexion{
             }
         }catch(SQLException e){
         }
-
         finally
      {
          try
@@ -743,7 +742,9 @@ public class Operaciones extends Conexion{
     
     public void totalClientes(Choice choiceClientes){
         ResultSet resultado = null;
-        String sql = "SELECT NOMBRES_CLIENTE FROM CLIENTE";
+        //String sql = "SELECT NOMBRES_CLIENTE FROM CLIENTE";
+        String sql = "SELECT DISTINCT C.NOMBRES_CLIENTE FROM CLIENTE C INNER JOIN FACTURA F \n" +
+                        "ON C.ID_CLIENTE = F.ID_CLIENTE \n";
         try {
             resultado = consultar(sql);
             if(resultado != null){
@@ -773,7 +774,7 @@ public class Operaciones extends Conexion{
     public void totalClientesNegocio(Choice choiceClientes){
         ResultSet resultado = null;
         //String sql = "SELECT NOMBRES_CLIENTE FROM CLIENTE";
-        String sql = "SELECT C.NOMBRES_CLIENTE FROM CLIENTE C INNER JOIN FACTURA_NEGOCIO F \n" +
+        String sql = "SELECT DISTINCT C.NOMBRES_CLIENTE FROM CLIENTE C INNER JOIN FACTURA_NEGOCIO F \n" +
                         "ON C.ID_CLIENTE = F.ID_CLIENTE \n";
         try {
             resultado = consultar(sql);
@@ -877,7 +878,7 @@ public class Operaciones extends Conexion{
         ResultSet resultado = null;
         //tableModel.setRowCount(0);
         //tableModel.setColumnCount(0);
-        String sql = "SELECT G.ANIO_GASTO_EXTRA FROM GASTOS_DE_NEGOCIO G INNER JOIN CLIENTE C\n" +
+        String sql = "SELECT DISTINCT G.ANIO_GASTO_EXTRA FROM GASTOS_DE_NEGOCIO G INNER JOIN CLIENTE C\n" +
                         " ON G.ID_CLIENTE = C.ID_CLIENTE\n" +
                         " WHERE C.NOMBRES_CLIENTE = '" + nombreCliente + "'";
         try {
@@ -1024,15 +1025,16 @@ public class Operaciones extends Conexion{
     }
     
     public String consultarTotalGastoFacturaNegocio(String codigoFactura, String nombreGasto){
-        JOptionPane.showMessageDialog(null, "codigo"+codigoFactura+"nombregasto"+nombreGasto);
+        //JOptionPane.showMessageDialog(null, "codigo "+codigoFactura+" nombregasto "+nombreGasto);
         ResultSet resultado = null;
         String total = "";
         String sql = "SELECT G.TOTAL_GASTO_EXTRA_FACTURA FROM GASTOS_DE_NEGOCIO_FACTURA G INNER JOIN FACTURA_NEGOCIO F "
                 + " ON G.ID_FACTURA2 = F.ID_FACTURA2"
-                + " WHERE F.ID_FACTURA2 = '"+codigoFactura+"' AND G.NOMBRE_GASTO_EXTRA_FACTURA = '"+nombreGasto+"'";
+                + " WHERE F.CODIGO_FACTURA = '"+codigoFactura+"' AND G.NOMBRE_GASTO_EXTRA_FACTURA = '"+nombreGasto+"'";
         try {
+            System.out.println(sql);
             resultado = consultar(sql);
-            JOptionPane.showMessageDialog(null,sql); 
+            //JOptionPane.showMessageDialog(null,sql); 
                 if(resultado != null){
                     JOptionPane.showMessageDialog(null, (String)resultado.getObject(1));
                     total = (String) resultado.getObject(1);
@@ -1070,6 +1072,7 @@ public class Operaciones extends Conexion{
                 }
                 resultadoNombreGastos.close();
                 while(resultado.next()){
+                    //JOptionPane.showMessageDialog(null,"NUMERO DE COLUMNAS TOTAL = " + (numeroColumna+numeroColumnaGastos));
                     Object []objetos = new Object[numeroColumna+numeroColumnaGastos];
                     for(int i = 1;i <= numeroColumna;i++){
                         objetos[i-1] = resultado.getObject(i);
