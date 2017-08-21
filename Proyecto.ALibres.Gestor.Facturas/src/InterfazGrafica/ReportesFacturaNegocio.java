@@ -243,6 +243,7 @@ public class ReportesFacturaNegocio extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTableTotalesReporte3);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 1020, 40));
+        jScrollPane2.setVisible(false);
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 480));
 

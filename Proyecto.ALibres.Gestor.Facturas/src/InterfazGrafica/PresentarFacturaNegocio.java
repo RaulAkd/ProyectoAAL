@@ -667,13 +667,6 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         fila[4]="";
         modeloF.addRow(fila);
         
-        fila[0]= "";
-        fila[1]="";
-        fila[2]="";
-        fila[3]="";
-        fila[4]="";
-        modeloF.addRow(fila);
-        
         fila[0]="Gastos";
         fila[1]="";
         fila[2]="";
@@ -684,12 +677,12 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         for(int i=0;i<origenGastos.getRowCount();i++)
         {
             fila[0]="";
-            fila[1]="";
-            fila[2]="";
-            for(int j=3;j<5;j++)
+            for(int j=1;j<3;j++)
             {
-                fila[j]= jTable1.getValueAt(i, (j-3));
-            }    
+                fila[j]= jTable2.getValueAt(i, (j-1));
+            }
+            fila[3]="";
+            fila[4]="";
             modeloF.addRow(fila);
         }
         
