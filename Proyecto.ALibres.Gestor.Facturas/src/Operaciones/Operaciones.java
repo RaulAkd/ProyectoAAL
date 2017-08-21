@@ -1016,47 +1016,7 @@ public class Operaciones extends Conexion{
 //////////////////////////////////////////////////////////////////////////////////////////    
     public void totalFacturasPorClienteProveedorAnioNegocio(DefaultTableModel tableModel, String anio, String nombreCliente,
             String nombreProveedor, DefaultTableModel tableTotales) throws SQLException{
-        /*ResultSet resultado = null;
-        ResultSet resultadoNombreGastos = null;
-        tableModel.setRowCount(0);
-        tableModel.setColumnCount(0);
-        String sqlNG = "SELECT NOMBRE_GASTO_EXTRA FROM GASTOS_DE_NEGOCIO";
-        String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
-                            "C.TOTAL_CON_IVA AS 'TOTAL' FROM PROVEEDOR P INNER JOIN FACTURA_NEGOCIO C \n" +
-                            "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
-                            "INNER JOIN CLIENTE CLI \n" +
-                            "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
-                            "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND C.FECHA LIKE '%" + anio + "'";
-        try {
-            resultado = consultar(sql);
-            resultadoNombreGastos = consultar(sqlNG);
-            if(resultado != null){
-                int numeroColumna = resultado.getMetaData().getColumnCount();
-                for(int j = 1;j <= numeroColumna;j++){
-                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
-                }
-                int numeroColumnaGastos = 0;
-                while(resultadoNombreGastos.next()){
-                    numeroColumnaGastos++;
-                    tableModel.addColumn(resultadoNombreGastos.getObject(1));
-                }
-                resultadoNombreGastos.close();
-                while(resultado.next()){
-                    //JOptionPane.showMessageDialog(null,"NUMERO DE COLUMNAS TOTAL = " + (numeroColumna+numeroColumnaGastos));
-                    Object []objetos = new Object[numeroColumna+numeroColumnaGastos];
-                    for(int i = 1;i <= numeroColumna;i++){
-                        objetos[i-1] = resultado.getObject(i);
-                    }
-                    for(int i = numeroColumna+1 ;i <= numeroColumnaGastos+numeroColumna;i++){
-                        //JOptionPane.showMessageDialog(null,"sdf");
-                        //JOptionPane.showMessageDialog(null, tableModel.getColumnName(i-1));
-                        objetos[i-1] = consultarTotalGastoFacturaNegocio((String) resultado.getObject(2), tableModel.getColumnName(i-1));
-                    }
-                    tableModel.addRow(objetos);
-                }
-            }
-        }catch(SQLException e){
-        }*/
+        
         int numeroFacturas = 0;
         ResultSet resultado = null;
         ResultSet resultadoNombreGastos = null;
@@ -1070,26 +1030,7 @@ public class Operaciones extends Conexion{
                             "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
                             "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND P.NOMBRE_PROVEEDOR = '" + nombreProveedor + 
                             "' AND C.FECHA LIKE '%" + anio + "'";
-        /*String sql = "SELECT P.NOMBRE_PROVEEDOR AS 'NOMBRE DE PROVEEDOR', C.CODIGO_FACTURA AS 'CODIGO', C.FECHA AS 'FECHA', C.IVA AS 'IVA', \n" +
-                            "C.TOTAL_CON_IVA AS 'TOTAL' FROM PROVEEDOR P INNER JOIN FACTURA_NEGOCIO C \n" +
-                            "ON C.ID_PROVEEDOR = P.ID_PROVEEDOR \n" +
-                            "INNER JOIN CLIENTE CLI \n" +
-                            "ON CLI.ID_CLIENTE = C.ID_CLIENTE \n" +
-                            "WHERE CLI.NOMBRES_CLIENTE = '" + nombreCliente + "' AND C.FECHA LIKE '%" + anio + "'";*/
         try {
-            /*resultado = consultar(sql);
-            resultadoNombreGastos = consultar(sqlNG);
-            if(resultado != null){
-                int numeroColumna = resultado.getMetaData().getColumnCount();
-                for(int j = 1;j <= numeroColumna;j++){
-                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
-                }
-                int numeroColumnaGastos = 0;
-                while(resultadoNombreGastos.next()){
-                    numeroColumnaGastos++;
-                    tableModel.addColumn(resultadoNombreGastos.getObject(1));
-                }
-                resultadoNombreGastos.close();*/
             resultado = consultar(sql);
             resultadoNombreGastos = consultar(sqlNG);
             if(resultado != null){
@@ -1103,19 +1044,6 @@ public class Operaciones extends Conexion{
                     tableModel.addColumn(resultadoNombreGastos.getObject(1));
                 }
                 resultadoNombreGastos.close();
-                /*while(resultado.next()){
-                    //JOptionPane.showMessageDialog(null,"NUMERO DE COLUMNAS TOTAL = " + (numeroColumna+numeroColumnaGastos));
-                    Object []objetos = new Object[numeroColumna+numeroColumnaGastos];
-                    for(int i = 1;i <= numeroColumna;i++){
-                        objetos[i-1] = resultado.getObject(i);
-                    }
-                    for(int i = numeroColumna+1 ;i <= numeroColumnaGastos+numeroColumna;i++){
-                        //JOptionPane.showMessageDialog(null,"sdf");
-                        //JOptionPane.showMessageDialog(null, tableModel.getColumnName(i-1));
-                        objetos[i-1] = consultarTotalGastoFacturaNegocio((String) resultado.getObject(2), tableModel.getColumnName(i-1));
-                    }
-                    tableModel.addRow(objetos);
-                }*/
                 while(resultado.next()){
                     numeroFacturas++;
                     Object []objetos = new Object[numeroColumna + numeroColumnaGastos];
@@ -1289,6 +1217,96 @@ public class Operaciones extends Conexion{
                             "ON P.ID_PRODUCTO = C.ID_PRODUCTO \n" +
                             "INNER JOIN FACTURA F \n" +
                             "ON C.ID_FACTURA = F.ID_FACTURA \n" +
+                            "WHERE F.CODIGO_FACTURA = '" + codigoFactura + "'";
+        try {
+            resultado = consultar(sql);
+            if(resultado != null){
+                int numeroColumna = resultado.getMetaData().getColumnCount();
+                for(int j = 1;j <= numeroColumna;j++){
+                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+                }
+                while(resultado.next()){
+                    Object []objetos = new Object[numeroColumna];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                    }
+                    tableModel.addRow(objetos);
+                }
+            }
+        }catch(SQLException e){
+        }
+
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
+    public void consultarProductosFNegocio(DefaultTableModel tableModel, String codigoFactura) throws SQLException{
+        ResultSet resultado = null;
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        String sql = "SELECT P.CODIGO_PRODUCTO AS 'CODIGO', P.NOMBRE_PRODUCTO AS 'NOMBRE',"
+                            + "C.CANTIDAD AS 'CANTIDAD', P.PRECIO_UNITARIO AS 'P UNIT', P.TIPO_GASTO AS 'GASTO' \n" +
+                            "FROM PRODUCTO P INNER JOIN CONTIENE_PROD C \n" +
+                            "ON P.ID_PRODUCTO = C.ID_PRODUCTO \n" +
+                            "INNER JOIN FACTURA_NEGOCIO F \n" +
+                            "ON C.ID_FACTURA2 = F.ID_FACTURA2 \n" +
+                            "WHERE F.CODIGO_FACTURA = '" + codigoFactura + "'";
+        try {
+            resultado = consultar(sql);
+            if(resultado != null){
+                int numeroColumna = resultado.getMetaData().getColumnCount();
+                for(int j = 1;j <= numeroColumna;j++){
+                    tableModel.addColumn(resultado.getMetaData().getColumnName(j));
+                }
+                while(resultado.next()){
+                    Object []objetos = new Object[numeroColumna];
+                    for(int i = 1;i <= numeroColumna;i++){
+                        objetos[i-1] = resultado.getObject(i);
+                    }
+                    tableModel.addRow(objetos);
+                }
+            }
+        }catch(SQLException e){
+        }
+
+        finally
+     {
+         try
+         {
+             consulta.close();
+             conexion.close();
+             if(resultado != null){
+                resultado.close();
+             }
+         }
+         catch (Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+    }
+    
+    public void consultarGastosFNegocio(DefaultTableModel tableModel, String codigoFactura) throws SQLException{
+        ResultSet resultado = null;
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        String sql = "SELECT G.NOMBRE_GASTO_EXTRA_FACTURA AS 'TIPO',"
+                            + " G.TOTAL_GASTO_EXTRA_FACTURA AS 'TOTAL' \n" +
+                            "FROM GASTOS_DE_NEGOCIO_FACTURA G INNER JOIN FACTURA_NEGOCIO F \n" +
+                            "ON G.ID_FACTURA2 = F.ID_FACTURA2 \n" +
                             "WHERE F.CODIGO_FACTURA = '" + codigoFactura + "'";
         try {
             resultado = consultar(sql);

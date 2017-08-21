@@ -46,6 +46,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         setVisible(true);
         direccionBase="src\\ArchivosLecturaAuxiliar";
         direccionBase+="\\\\Bdd.s3db";
+        double totalSinIva, total, iva;
         
         Operaciones operaciones = new Operaciones(this.direccionBase);
         operaciones.conectar();
@@ -59,9 +60,16 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         txtProveedor.setText((String) fila[0]);
         txtTotalFactura.setText(formateador.format(fila[4]));
         txtIva.setText(formateador.format(fila[3]));
+        total=Double.parseDouble(fila[4].toString());
+        
+        iva=Double.parseDouble(fila[3].toString());
+        totalSinIva=total-iva;       
+        txtTotalSinIva.setText(Double.toString(totalSinIva));
         txtNombreCliente.setText(strCliente);
+        
         try {
-            operaciones.consultarProductos((DefaultTableModel)jTable1.getModel(), (String) fila[1]);
+            operaciones.consultarProductosFNegocio((DefaultTableModel)jTable1.getModel(), (String) fila[1]);
+            operaciones.consultarGastosFNegocio((DefaultTableModel)jTable2.getModel(), (String) fila[1]);
         } catch (SQLException ex) {
             //Logger.getLogger(PresentarFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -128,8 +136,8 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         btnExportarExcel = new javax.swing.JButton();
         btnExportarPDF = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -203,7 +211,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 220, -1));
         jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 220, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 310, 80));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 310, 70));
 
         jPanel4.setBackground(new java.awt.Color(109, 115, 130));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -265,7 +273,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         txtDireccion.setBorder(null);
         jPanel4.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 470, 20));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 730, 110));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 730, 110));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -280,7 +288,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 730, 130));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 730, 130));
 
         jPanel5.setBackground(new java.awt.Color(109, 115, 130));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -312,7 +320,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         txtCedula.setBorder(null);
         jPanel5.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 470, 20));
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 730, 80));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 730, 80));
 
         jPanel6.setBackground(new java.awt.Color(26, 29, 40));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -348,7 +356,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
         txtTotalFactura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel6.add(txtTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 80, -1));
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 800, 40));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 630, 800, 40));
 
         btnExportarExcel.setBackground(new java.awt.Color(36, 46, 68));
         btnExportarExcel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -366,7 +374,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
                 btnExportarExcelMouseExited(evt);
             }
         });
-        jPanel1.add(btnExportarExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 640, 130, 40));
+        jPanel1.add(btnExportarExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 690, 130, 40));
 
         btnExportarPDF.setBackground(new java.awt.Color(36, 46, 68));
         btnExportarPDF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -386,7 +394,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
                 btnExportarPDFActionPerformed(evt);
             }
         });
-        jPanel1.add(btnExportarPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 640, -1, -1));
+        jPanel1.add(btnExportarPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 690, -1, -1));
 
         btnSalir.setBackground(new java.awt.Color(36, 46, 68));
         btnSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -409,17 +417,24 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 640, 120, -1));
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 690, 120, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 510, 140, -1));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Gastos de Negocio");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 510, -1, -1));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 730, 130));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 710));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 760));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -556,7 +571,6 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
     private javax.swing.JButton btnExportarPDF;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -571,7 +585,6 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -579,6 +592,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -588,6 +602,7 @@ public class PresentarFacturaNegocio extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCiudad;
     private javax.swing.JTextField txtDireccion;
